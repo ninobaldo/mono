@@ -1,0 +1,50 @@
+\documentclass[dvips,ruledheader]{abnt}
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[pdftex]{graphicx}
+% \usepackage[pdftex]{hyperref}
+\usepackage{abnt-alf}
+\usepackage{latexsym}
+\usepackage{psfrag}
+\usepackage[center]{caption2}
+\usepackage{epigraph}
+
+% Glossário não utilizado
+% \usepackage{makeglo}
+% \renewcommand{\glossaryname}{Glossário}
+% \makeglossary
+
+\begin{document}
+
+\DeclareGraphicsRule{.eps.gz}{eps}{.eps.bb}{`gunzip -c #1}
+
+% \include{encardenacao}
+\include{capa}
+\include{folharosto}
+
+\tableofcontents
+
+% \include{pre_introducao}
+% \include{introducao}
+\include{objetivos}
+% \include{cibercrime}
+% \include{arquitetura}
+% \include{metodologia}
+% \include{prevencao}
+% \include{legislacao}
+% \include{forense} Até aqui revisado
+% \include{combate}
+% \include{produtos}
+% \include{roadmap}
+% \include{cases}
+% \include{vantagens_desvantagens}
+% \include{concorrentes}
+% \include{recuperacao_perdas}
+% \include{conclusao}
+% \include{referencias}
+% \include{glossario}
+
+\bibliography{bb}
+\bibliographystyle{abnt-alf}
+
+\end{document}
