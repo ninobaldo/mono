@@ -1,17 +1,9 @@
-\titulo{Workshop Cibercrime}
-
-\autor{Álvaro Vilobaldo Rios da Silva (711605-1)}
-
-\orientador[Professor]{Antônio Carlos Gesteira}
-
-\comentario{Workshop de Cibercrime com foco em fraudes desenvolvido para a disciplina do 
-2º Semestre de Fraudes Corporativas do Curso de Pós-Graduação em Computação Forense }
-
-\instituicao{Pós-Graduação Lato Sensu em Computação Forense \par
-Universidade Presbiteriana Mackenzie de São Paulo}
-
+\autor{Álvaro Vilobaldo Rios da Silva}
+\titulo{Anti-forense}
+\orientador{Ivete Irene dos Santos}
+\comentario{Monografia da conclusão do curso de Computação forense}
+\instituicao{Universidade Presbiteriana Mackenzie de São Paulo}
 \local{São Paulo -- SP}
-
 \data{\today}
-
+% \instituicao{Pós-Graduação Lato Sensu em Computação Forense \par
 \capa
