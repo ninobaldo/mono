@@ -2,57 +2,49 @@
 \usepackage[brazil]{babel}
 \usepackage[latin1]{inputenc}
 \usepackage[pdftex]{graphicx}
-% \usepackage[pdftex]{hyperref}
 \usepackage{abnt-alf}
 \usepackage{latexsym}
 \usepackage{psfrag}
 \usepackage[center]{caption2}
-% \usepackage{epigraph}
-% \usepackage{makeglo}
-% \renewcommand{\glossaryname}{Glossário}
-% \makeglossary
+
+\include{newcomands}
 
 \begin{document}
+  \DeclareGraphicsRule{.eps.gz}{eps}{.eps.bb}{`gunzip -c #1}
 
-% dados da monografia
-\autor{Álvaro Vilobaldo Rios da Silva}
-\titulo{Anti-forense}
-\orientador{Ivete Irene dos Santos}
-\comentario{Monografia da conclusão do curso de Computação forense}
-\instituicao{Universidade Presbiteriana Mackenzie de São Paulo}
-\local{São Paulo -- SP}
-\data{\today}
+  % dados da monografia
+  \autor{Álvaro Vilobaldo Rios da Silva}
+  \titulo{Anti-forense}
+  \orientador{Ivete Irene dos Santos}
+  \comentario{Monografia da conclusão do curso de Computação forense}
+  \instituicao{Universidade Presbiteriana Mackenzie de São Paulo}
+  \local{São Paulo -- SP}
+  \data{\today}
 
 
-\DeclareGraphicsRule{.eps.gz}{eps}{.eps.bb}{`gunzip -c #1}
+  % elementos pré-textuais
+  \include{capa}
+  \include{lombada}
+  \include{folharosto}
+  \include{errata}
+  \include{folhaaprovacao}
+  \include{dedicatoria}
+  \include{epigrafe}
+  \include{resumolinguavernacula}
+  \include{resumolinguaestrangeira}
+  \include{ilustracoes}
+  \include{tabelas}
+  \include{abreviaturas}
+  \include{sumario} 
 
-% \include{encardenacao}
-\include{capa}
-\include{folharosto}
+  % elementos textuais
+  \include{introducao}
+  \include{desenvolvimento}
+  \include{conclusao}
 
-\tableofcontents
-
-% \include{pre_introducao}
-% \include{introducao}
-\include{objetivos}
-% \include{cibercrime}
-% \include{arquitetura}
-% \include{metodologia}
-% \include{prevencao}
-% \include{legislacao}
-% \include{forense} Até aqui revisado
-% \include{combate}
-% \include{produtos}
-% \include{roadmap}
-% \include{cases}
-% \include{vantagens_desvantagens}
-% \include{concorrentes}
-% \include{recuperacao_perdas}
-% \include{conclusao}
-% \include{referencias}
-% \include{glossario}
-
-\bibliography{bb}
-\bibliographystyle{abnt-alf}
+  % elementos pós-textuais
+  \include{referencia}
+  \include{glossario}
+  \include{apendiceanexos}
 
 \end{document}
