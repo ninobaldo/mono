@@ -1,1 +1,105 @@
+% Folha de rosto
+% Elemento obrigatório, contém dados essenciais à identificação do trabalho (ANEXOS AC
+% - AF), os quais devem aparecer na seguinte ordem:
+% Anverso da folha de rosto
+% · nome do autor: responsável intelectual ou artístico do trabalho;
+% · título principal do trabalho – claro, preciso, com palavras que identifiquem o seu conteú-
+% do e possibilitem a indexação e recuperação da informação;
+% · subtítulo (se houver) – deve ser evidenciada a sua subordinação ao título principal,
+% precedido de dois-pontos;
+% · número de volumes – se houver mais de um, deve constar em cada folha de rosto, a sua
+% respectiva especificação;
+% · finalidade do trabalho – devem constar: natureza do trabalho, curso, instituição e área de
+% concentração;
+% · nome do orientador e do co-orientador (se houver);
+% · local (cidade) da instituição onde deve ser apresentado;
+% · ano de depósito (da entrega).
+
 \folhaderosto
+
+
+% Verso da folha de rosto
+% O verso da folha de rosto é o elemento obrigatório onde se encontra a ficha catalográfica
+% do trabalho, segundo o Código de Catalogação Anglo-Americano vigente (ANEXOS AG -
+% AH). Para elaboração dessa ficha, recomenda-se a solicitação dos serviços de um biblio-
+% tecário.
+
+% <LaTeX>
+% \def\edicao#1{\gdef\@edicao{#1}} % edi��o
+% \def\fichacat#1{\gdef\@fichacat{#1}} % texto da ficha
+% catalogr�fica
+% \edicao{}
+% \fichacat{}
+% 
+% %% dados da ficha catalogr�fica
+% % nome do curso
+% \def\curso#1{\gdef\@curso{#1}}
+% % primeiro autor
+% \def\fcautor#1{\gdef\@fcautor{#1}}
+% % autores
+% \def\fcautores#1{\gdef\@fcautores{#1}}
+% % primeiro autor
+% \def\fccatalogacao#1{\gdef\@fccatalogacao{#1}}
+% % classicacao 1
+% \def\fcclasi#1{\gdef\@fcclasi{#1}}
+% % classicacao 2
+% \def\fcclasii#1{\gdef\@fcclasii{#1}}
+% \fcclasii{}
+% % classicacao 3
+% \def\fcclasiii#1{\gdef\@fcclasiii{#1}}
+% \fcclasiii{}
+% 
+% \newcommand{\tab}{\hspace*{0.7cm}}
+% 
+% \fichacat{% texto da ficha catalogr�fica
+%   \@fcautor \\
+%   \tab \@title / \@fcautores. 
+%   -\,- \@edicao.ed. Lavras: UFLA/FAEPE, 2004.\\
+%   \tab \pageref{LastPage} p. : il. - \@curso.\\ 
+%   \\
+%   \tab Bibliografia.\\
+%   \\
+%   \tab \@fccatalogacao\\
+%   \\
+%   \tab \hfill 
+%   \begin{tabular}{r@{-}l} 
+%   CDD & \@fcclasi 
+%   \ifthenelse{\equal{\@fcclasii}{\@empty}}{}{
+%   \\ & \@fcclasii 
+%   }
+%   \ifthenelse{\equal{\@fcclasiii}{\@empty}}{}{
+%   \\ & \@fcclasiii 
+%   }
+%   \end{tabular}
+%   \tab
+% }
+% 
+% %%% trecho de codigo cortado,  a ficha era 
+% %%% impressa junto com t�tulo, etc. etc. 
+% 
+%     \begin{center}
+%       \bfseries
+%       Ficha Catalogr�fica preparada pela Divis�o de
+% Processos T�cnicos \\
+%       da Biblioteca Central da UFLA
+%     \end{center}
+% 
+%    \vspace{-0.3cm}
+% 
+%     \newlength{\mylen}
+%     \addtolength{\mylen}{\textwidth}
+%     \addtolength{\mylen}{-1cm}
+%     \newlength{\mylenn}
+%     \addtolength{\mylenn}{\textwidth}
+%     \addtolength{\mylenn}{-2cm}
+% 
+%     \noindent \hfill  \fbox{\parbox[c]{\mylen}{
+%         \vspace{0.5cm}
+%         \hfill \parbox[c]{\mylenn}{
+%           \@fichacat
+%           } \hfill
+%         \vspace{0.3cm}
+%         }
+%       } \hfill
+% 
+% </LaTeX>

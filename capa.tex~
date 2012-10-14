@@ -1,9 +1,12 @@
-\autor{�lvaro Vilobaldo Rios da Silva}
-\titulo{Anti-forense}
-\orientador{Ivete Irene dos Santos}
-\comentario{Monografia da conclus�o do curso de Computa��o forense}
-\instituicao{Universidade Presbiteriana Mackenzie de S�o Paulo}
-\local{S�o Paulo -- SP}
-\data{\today}
-% \instituicao{P�s-Gradua��o Lato Sensu em Computa��o Forense \par
+%	Elemento obrigatório, é a cobertura que reveste o trabalho e 
+% deve conter informações de identificação da obra, na seguinte ordem (ANEXO AA):
+% · nome da instituição (opcional);
+% · nome do autor;
+% · título;
+% · subtítulo (se houver);
+% · número de volumes (se houver mais de um, deve constar, em cada capa, 
+%  a especificação do respectivo volume);
+% · local (cidade) da instituição onde deve ser apresentado;
+% · ano de depósito (da entrega).
 \capa
+% \mackenzieCapa

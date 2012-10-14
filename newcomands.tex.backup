@@ -40,19 +40,13 @@
 \espaco{1.1}
 
 \begin{center}
-	\ABNTchapterfont\textbf{\large\MakeUppercase{\ABNTinstituicaodata}}
+	\large\ABNTchapterfont\ABNTautordata
 \end{center}
 
-\vspace{5cm}
+\vspace{7.5cm}
 
 \begin{center}
-	\large\ABNTchapterfont\MakeUppercase{\ABNTautordata}
-\end{center}
-
-\vspace{3.5cm}
-
-\begin{center}
-	\large\ABNTchapterfont\MakeUppercase{\ABNTtitulodata}\par
+	\large\ABNTchapterfont\ABNTtitulodata\par
 \end{center}
 
 \vfill

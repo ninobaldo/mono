@@ -36,12 +36,10 @@
 
   \include{capa}
 %   \include{lombada} % retirado por ser opcional
-  \include{folharosto} % pendente - falta ficha catalografica
-%   \include{errata}  % não foi necessário nenhuma errata
-  \include{folhaaprovacao} % pendente - nome, assinatura e instituição dos membros componentes da banca examinadora
-
-
-%   \include{dedicatoria} % retirado por ser opcional
+  \include{folharosto}
+  \include{errata}
+  \include{folhaaprovacao}
+  \include{dedicatoria}
   \include{epigrafe}
   \include{resumolinguavernacula}
   \include{resumolinguaestrangeira}
