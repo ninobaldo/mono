@@ -1,0 +1,22 @@
+\chapter*{Resumo}
+
+Este trabalho trata-se de um estudo elaborado sobre antiforense com o uso de rootkit. Para tal finalidade esse documento apresenta definições de antiforense e rootkits junto com respectivas práticas mais comuns e histórico de utilização.
+
+Com todo esse conhecimento, o autor entende que o leitor será capaz de entender e precave-se de supor que situações mais corriqueiras não sejam subestimadas. Além do conhecimento técnico e de foro que se espera de um perito, compreender que existem técnicas sofisticadas para destruir e/ou dificultar acesso a provas no ambito computacional agravadas com a combinação dessas técnicas avançadas feitas por com maestria por um usuário avançado. 
+
+O objetivo desse texto não de forma alguma desencorajar peritos em sua nobre luta diária superestimando todas as suas próximas empreitadas tão utéis para a sociedade. Definitivamente esse não é o caso, mas entender que o artefato investigado pode ter sido usado por alguém com o mesmo ou um maior conhecimento que o próprio perito no corpo investigado.
+
+
+
+
+% Este trabalho identifica sob o contexto da tecnologia, negócio, engenharia social e
+% investigação a ocorrência de fraudes sobre o ambiente Internet Banking. A pesquisa relata a
+% evolução dos métodos utilizados pelos fraudadores para efetivação da fraude desde seu o
+% início, no ano de 2002 à evolução na sofisticação dos meios utilizados para os ataques até
+% meados de 2005.
+% Como a análise se baseou em um estudo de caso, coletou-se um número quantitativo de
+% incidentes no período de um ano permitindo entender neste escopo a tendência de ataques aos
+% clientes de serviços Internet Banking.
+% E com pleno domínio do assunto, o trabalho traz recomendações para a contenção destes
+% incidentes, através de três linhas de ação; sobre usuários finais, provedores e sobre o
+% fraudador.
