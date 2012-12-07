@@ -48,36 +48,61 @@
   edition	= "1ª"
 }
 
-@ARTICLE{DCF2011,
+@ARTICLE{BH2009,
   title 	= "Anti-Forensics: The Rootkit Connection",
   author 	= "Bill Blunden",
   publisher 	= "Black Hat USA 2009",
   year 		= "2009",
-  url		= "http://www.blackhat.com/presentations/bh-usa-09/BLUNDEN/BHUSA09-Blunden-AntiForensics-PAPER.pdf"
+  group		= "Below Gotham Labs \url{http://www.belowgotham.com/} ",
+  organization	= "Black Hat",
+  url		= "http://www.blackhat.com/presentations/bh-usa-09/BLUNDEN/BHUSA09-Blunden-AntiForensics-PAPER.pdf",
+  urldate	= "29 de Novembro de 2012"
 }
 
-{FRAUELE,
-  author = {Paulo Sérgio Siqueira Bastos and Roberto Miguel Pereira},
-  title = {FRAUDES ELETRÔNICAS: O QUE HÁ DE NOVO?},
-  year = {2007},
-  url = {http://www.sergiomariz.com/mcc.uerj/index2.php?option=com\_docman\&task=doc\_view\&gid=20\&Itemid=51},
-  urldate = {14 de Junho de 2012}
+@ARTICLE{RH2006,
+  title 	= "Arriving at an anti-forensics consensus: Examining how to
+define and control the anti-forensics problem",
+  author 	= "Ryan Harris",
+  journal	= "Digital investigation 3S (2006) s4-s49",
+  year 		= "2006",
+  url		= "http://www.dfrws.org/2006/proceedings/6-Harris.pdf",
+  urldate	= "29 de Novembro de 2012"
 }
 
-
-
-@article{CIMA-INGRID07
-, Author = "D.F. McMullen and Randall Bramley and Kenneth Chiu and Hunter Davis and 
-Tharaka Devadithya and John C. Huffman and Kianosh Huffman and Thomas Reichherzeri"
-, title = "The Common Instrument Middleware Architecture: Experiences and FutureDirections"
-, journal = "INGRID 2007 - Instrumenting the Grid. 2nd International Workshop on Distributed Cooperative Laboratories Santa Margherita Ligure Portofino"
-, year = "ITALY, April 16-18, 2007"
+@WWW{BERI2007,
+  title 	= "The Rise of Anti-Forensics",
+  author 	= "Scott Berinato",
+  year 		= "2007",
+  url 		= "http://www.csoonline.com/article/221208/the-rise-of-anti-forensics",
+  urldate 	= "29 de Novembro de 2012"
 }
 
+@ARTICLE{ROG2005,
+  title 	= "Anti-Forensic Presentation given to Lockheed Martin",
+  author 	= "D. M. Rogers",
+  year 		= "2005",
+  address	= "San Diego"
+}
 
+@BOOK{BILL2009,
+  title 	= "The rootkit arsenal",
+  author 	= "Bill Blunden",
+  publisher 	= "Wordware Publishing",
+  year 		= "2009",
+  isbn		= "978-1-59822-061-2",
+  address	= "Plano, Texas",
+  edition	= "1ª"
+}
 
-
-
+@BOOK{MARK2012,
+  title 	= "Windows Internals 6ª Edition Part 1",
+  author 	= "Mark Russinovich and David A. Solomon and Alex Ionescu",
+  publisher 	= "Microsoft Press",
+  year 		= "2012",
+  isbn		= "978-0-7356-4873-9",
+  address	= "Redmond, Washington",
+  edition	= "6ª"
+}
 
 
 
