@@ -3,9 +3,73 @@
 % Expor o que é um rootkit;
 % Como o rootkit pode impedir a formação de provas;
 % Mostrar o que ele pode fazer usando se possível com exemplos reais;
+%resumo: rootkits com suas práticas comuns e respectivos históricos junto com algumas técnicas de subversão
+%introdução: as práticas mais comuns e como o rootkit pode ser usado na antiforense
+%bombas lógicas
 
+
+% definição: O que é rootkit?
 \begin{citacao}
 ``Rootkit é uma coleção de ferramentas (por exemplo, binários, scripts, arquivos de configuração) que permitem que os invasores para ocultar sua atividade em um computador, de modo que eles podem secretamente monitorar e controlar o sistema por um período prolongado.''\cite{BILL2009}.
-\end{citacao}.
+\end{citacao}
 
 No universo \emph{UNIX\footnote{Um sistema operacional multiusuário amplamente utilizado.}} ou \emph{UNIX-like\footnote{Sistemas Operacionais baseados no Unix, como o GNU/Linux}} a conta de usuário com menor restrição de segurança é referênciada como conta \emph{root} sendo que em alguns sistemas o nome de usuário é literalmente root, mas isso é apenas uma convenção histórica do que uma imposição \cite{BILL2009}. Enquanto \emph{kit} significa conjunto de peças \cite{DIING}. 
+
+\cite{GREG2005} definem rootkit como um ``kit'' composto de pequenos programas úteis que permitem a um atacante manter o acesso ``root'' (o usuário mais poderoso em um computador). Em outras palavras, um rootkit é um conjunto de programas e de código, que permite a presença permanente ou consistente, não detectável em um computador. \cite[p. 11]{BILL2009} complementa indicando três serviços que o são inerentes dos rootkits, Ocultação, Comando e Controle (C2) e Vigilância.
+
+%explicar cada um desses conceitos \cite[p. 23]{BILL2009}
+rootkit are to provide three services: remote access, monitoring, and concealment
+
+%outros agentes infeciosos: O que não é um rootkit?
+%definição de malware, virus, botnet etc. \cite[p. 15]{BILL2009}. diferenças entre warm 
+Nem todo rootkit é um  malware 
+
+virus e worms - feitos para se espalhar
+virus em geral infectam programas e tem que ser executados pelo usuario
+o worm se propaga sozinho
+
+1980 - virus - floppy disk - display in to startup "Your computer is now stoned"
+1988 - worm - Morris Worm
+
+
+%quem usa \cite[p. 13]{BILL2009}, usos para rootkit \cite{GREG2005} -> Why Do Rootkits Exist?
+
+%Historico
+
+
+%Análise, detecção e forense - montanaro.pdf
+
+
+
+
+Jamie Butler, the creator of the FU rootkit
+
+
+
+
+
+O uso de rootkits é limitado a usuários avançados sendo que seu desenvolvimento exige conhecimentos profundos tanto de arquitetura de computadores quanto do funcionamento do Sistema Operacional que o mesmo vai corromper.
+
+
+
+
+
+
+
+Rootkits proporcionam uma grande variedades de opções e pode ser utilizado para quase tudo, 
+
+vem sendo utilizado historicamente para subverter sistemas dando permissão 
+
+O fato de alguns eventos e rootkits terem ficados famosos, como é o caso do stuxnet\cite{}, torna esse assunto muito interessante de ser abordado, porque 
+
+
+
+
+A grosso modo rootkits sempre tentarão esconder sua presença e seus rastros, logo a antiforense desde o inicio já é parte ...
+
+não são novidades e sua aplicação já não é 
+
+
+
+
+e durante o avanço do trabalho, poderão ser notadas diversas formas de detecção de rootkits além de indícios de seu uso em análises.
