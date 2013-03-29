@@ -1,0 +1,87 @@
+\chapter{Antiforense com Rootkits}
+
+Quando o períto vai realizar a coleta do material para a análise, ele pode encontrar dois cenários o corpo de delito que na ciência forense computacional quase sempre consiste em computadores,  pode estar ligado ou desligado. Quando o mesmo está ligado é possível realizar a análise viva, entretando a análise \emph{live} de um ambiente com rootkit pode gerar dados falsos ou imprecisos.
+
+Análise \emph{live} ou análise viva, consiste em uma análise focada em extrair e examinar dados volatéis \cite{MCDOUGAL2006}, esses dados volatéis são perdidos ao desligar o computador, como por exemplo, o contéudo de registradores do processador, dados na \emph{cache}, dados na memória etc. Essa abordagem possui diversas vantagens entre elas estão extração de dados voláteis como já citado, triagem de equipamentos, triagem de dados, preservação de dados criptografado e a possiblidade de estabelecer flagrante \cite{FBC2011}.
+
+É importante ressaltar que toda ferramenta ou \emph{hardware} utilizado para a coleta de dados em equipamentos que ainda estão em execução, vai depender de dados fornecidos pelo equipamento periciado, ou seja, em algum momento essas ferramentas forenses vão requisitar dados de um sistema comprometido e passível de alguma interceptação mesmo quando a solução utilizada para coleta é um hardware \cite{JORUT2007}. Logo em um ambiente dominado por um rootkit não é um ambiente confiável, pois ele pode interceptar e alterar chamadas das ferramentas de análise, impossibilitando uma coleta real e fiel.
+
+
+
+
+
+
+
+A metodologia empregada na análise de um ambiente supostamente com um rootkit varia muito, mas a análise \emph{Post mortem} é mesmo arriscada e indicada para casos de rootkits.
+
+Pode ser visto como um filtro, onde cada passo retira cada vez mais ruído. Passos \cite{BH2009}:
+
+\begin{itemize}
+\item Clone do HD;
+\item Recuperar arquivos: deletados, busca por assinaturas de binarios (pode mudar os headers, como por exemplo segundo o Windows PE Specification os primeiros 16-bits tem o magic number 0x4D54 (ASCII MZ de MArk zibibowski http://msdn.microsoft.com/en-us/magazine/cc301805.aspx) http://msdn.microsoft.com/en-us/windows/hardware/gg463119.aspx transmorgrify by mafia), data carve, fragmentos de arquivos, data streams alternativos (feature stream do NTFS), slack space e arquivos ocultos;
+\item Coletar metadados dos arquivos: hash, MAC, path, name, size; criando uma timeline
+\item Retirar arquivos conhecidos: base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
+\item Análise estática dos executáveis suspeitos desconhecidos; e
+\item Análise dinâmica dos executáveis suspeitos.
+\end{itemize}
+
+Criar uma timeline de eventos com base nos MAC dos arquivos ajuda a entender o ciclo de contaminação, além de levantar suspeitas sobre varios dados inconsistentes, como por exemplo, porque o papel de parede do Windows tem um MAC tem a data de modificação ou criação mais recente?
+
+
+
+
+
+Não existe técnica 100\% antiforense,
+
+buscar como o rootkit pode ter se mantido no ambiente analisado, 
+
+objetivo do atacante é tornar a análise cansativa para induzir ao erro podendo adicionar inclusive falsos rootkits para despistar. conclusoes precipitadas.
+
+as medidas antiforense dependem o ambiente de execução, não só tecnicamente falando, mas também relacionado a equipe que cuida do ambiente, pois um ambiente administrado por pessoas com qualquer umas dessas caracteristica pode comprometer: leigas, não capacitadas, sobrecarregadas ou quando o ambiente tem que ser executado a todo custo (sem atualizacao SCADA). É mais facil esconder algo nesse ambiente, exige menos do atacante. 
+
+No pior dos cenários o administradores são altamente qualificados, realizam rotinas frequentes, o ambiente esta sempre atualizado e é auditorado, nesses casos o rootkit tem que ser muito avançado para ter se instalado e persistido nesse ambiente o que pode caracterizar um APT
+
+
+% http://www.utica.edu/academic/institutes/ecii/publications/articles/EFE36584-D13F-2962-67BEB146864A2671.pdf
+Preucações, o rootkit pode estar somente em memória, pode estar em algum firmware, salvo em algum espaco reservado como o HPA ou DCO a análise do disco pode ser em vão
+
+full disk encryption, esconder arquivos em lugares nao tradicionais http://www.blackhat.com/presentations/bh-federal-06/BH-Fed-06-Thompson/BH-Fed-06-Thompson-up.pdf
+
+
+Análise estática
+
+cryptors e packers. colocar o binário numa forma encriptado e comprimido que as tools nao interpretam, o stub (esbolço) decodifica o payload e munda o controle do executável para o entry point do binario original. usado pelo skype (http://www.blackhat.com/presentations/bh-europe-06/bh-eu-06-biondi/bh-eu-06-biondi-up.pdf) 
+
+UPX _ merge secxtions (.text, .data, .idata, etc) em um unico sectior upx1, onde tem uma stub que unpack o original.
+
+
+funcionamento do upx
+
+com a toool dumpbin da para ver as sections do upx
+
+upx0 é espaço vazio
+upx1 onde esta o stub e o executavel compactado, ao descompactar o executavel ele move para os endereços do upox (na low memory), assim o mesmo é decompoilado e executado e com o tempo ele sobreescreve tbm os endereços onde atnes estavam o upx1 (http://upx.sourceforge.net/)
+
+embebed virtual machine, o rootkit esta em bytecode que sao interpretados pela vm em runtime, a tool nem mesmo o processador tem como saber como interpretar o bytecode sem a vm
+
+compinação de ambos o stub decodifica a vm que interpreta o bytecode
+
+
+basicamente o stub tem a chave para decodificar o binario, mas isso pode ser mais dificil quando crypter e packer privado, pode dividir o codigo em diversos setores e cada setor ter uma chave criptogradada diferente SALT + HWID + TIME + PCI_ROM para criar a chave
+
+
+antidebugger fs flag determina o debug na arquitetura IA32 e processador faz uma intrução por vez
+
+
+Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshDebuggerNotPresent() Kernel-mode (being debugged PEB http://www.symantec.com/connect/articles/windows-anti-debug-reference
+
+
+
+
+
+
+
+
+
+
+

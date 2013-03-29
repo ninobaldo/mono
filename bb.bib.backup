@@ -94,6 +94,24 @@ define and control the anti-forensics problem",
   edition	= "1ª"
 }
 
+@BOOK{MARK1995,
+  title 	= "The rootkit arsenal",
+  author 	= "Mark A. Ludwig",
+  publisher 	= "American Eagle Publications, Inc.",
+  year 		= "1995",
+  address	= "Show Low, Arizona",
+  edition	= "1ª"
+}
+
+@BOOK{GREG2005,
+  title 	= "Rootkits: Subverting the Windows Kernel",
+  author 	= "Greg Hoglund and James Butler",
+  publisher 	= "Addison Wesley Professional",
+  year 		= "2005",
+  isbn		= "0-321-29431-9",
+  edition	= "1ª"
+}
+
 @BOOK{MARK2012,
   title 	= "Windows Internals 6ª Edition Part 1",
   author 	= "Mark Russinovich and David A. Solomon and Alex Ionescu",
@@ -104,6 +122,14 @@ define and control the anti-forensics problem",
   edition	= "6ª"
 }
 
+@BOOK{DIING,
+  title 	= "Dicionário Inglês-Português",
+  author 	= "C. M. Santos",
+  publisher 	= "Rideel",
+  year 		= "2000",
+  address	= "Santa Terezinha, São Paulo",
+  edition	= "2ª"
+}
 
 
 
@@ -133,6 +159,15 @@ define and control the anti-forensics problem",
   year = {2012},
   urldate = {28 de maio de 2012}
 }
+
+@WWW{MCAFEE2013,
+  author = {mcafee},
+  title = {Glossary},
+  url = {http://home.mcafee.com/virusinfo/glossary},
+  year = {2013},
+  urldate = {19 de Março de 2013}
+}
+
 
 @WWW{FLCC,
   author = {Juliana Carpanez},
