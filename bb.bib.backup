@@ -59,9 +59,39 @@
   urldate	= "29 de Novembro de 2012"
 }
 
+@ARTICLE{MCDOUGAL2006,
+  title 	= "Live Forensics on a Windows System: Using Windows Forensic Toolchest(WFT)",
+  author 	= "Monty McDougal",
+  publisher 	= "Fool Moon - Sofware Security",
+  year 		= "2006",
+  group		= "Fool Moon - Sofware Security \url{http://www.foolmoon.net/security/} ",
+  url		= "http://www.foolmoon.net/downloads/Live\_Forensics\_Using\_WFT.pdf",
+  urldate	= "29 de Novembro de 2012"
+}
+
+@ARTICLE{JORUT2007,
+  title 	= "Beyond The CPU: Defeating Hardware Based RAM Acquisition (part I: AMD Case)",
+  author 	= "Joanna Rutkowska",
+  publisher 	= "Black Hat DC 2007",
+  year 		= "2007",
+  organization	= "CONSEINC Advanced Malware Labs",
+  url		= "http://www.blackhat.com/presentations/bh-dc-07/Rutkowska/Presentation/bh-dc-07-Rutkowska-up.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+@ARTICLE{FBC2011,
+  title 	= "Raciocínio Baseado em Casos Aplicado em Análise Live",
+  author 	= "Frederico Imbroisi Mesquita and Bruno Werneck Pinto Hoels and Celia Ghedini Ralha",
+  publisher 	= "Associação Brasileira De Especialistas Em Alta Tecnologia (ABEAT)",
+  year 		= "2011",
+  organization	= "ICoFCS 2011",
+  isbn		= "978-85-65069-05-2",
+  url		= "http://www.icofcs.org/2011/papers-published-007.html",
+  urldate	= "29 de Novembro de 2012"
+}
+
 @ARTICLE{RH2006,
-  title 	= "Arriving at an anti-forensics consensus: Examining how to
-define and control the anti-forensics problem",
+  title 	= "Arriving at an anti-forensics consensus: Examining how to define and control the anti-forensics problem",
   author 	= "Ryan Harris",
   journal	= "Digital investigation 3S (2006) s4-s49",
   year 		= "2006",
@@ -69,12 +99,99 @@ define and control the anti-forensics problem",
   urldate	= "29 de Novembro de 2012"
 }
 
+@WWW{MULVEY2007,
+  title 	= "Hash Functions",
+  author 	= "Bret Mulvey",
+  year 		= "2007",
+  url 		= "http://home.comcast.net/~bretm/hash/",
+  urldate 	= "29 de Março de 2013"
+}
+
+@WWW{RUBENS2012,
+  title 	= "Buyer's Guide to Full Disk Encryption",
+  author 	= "Paul Rubens",
+  year 		= "2012",
+  url 		= "http://www.esecurityplanet.com/mobile-security/buyers-guide-to-full-disk-encryption.html",
+  urldate 	= "29 de Março de 2013"
+}
+
+@ARTICLE{PAROS2009,
+  title 	= "Detecting Rootkits in Memory Dumps",
+  author 	= "Pär Österberg Medina",
+  journal	= "PTS",
+  year 		= "2009",
+  publisher 	= "Associação Brasileira De Especialistas Em Alta Tecnologia (ABEAT)",
+  url		= "http://www.terena.org/activities/tf-csirt/meeting27/oesterberg-rootkits.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+@ARTICLE{NICDI2012,
+  title 	= "Vga Persistent Rootkit",
+  author 	= "Nicolas A. Economou and Diego Juarez",
+  organization	= "Eko Party 2012",
+  year 		= "2012",
+  publisher 	= "Eko Party 2012",
+  group		= "Core Security",
+  url		= "http://www.ekoparty.org/archive/2012/VGA_Persistent_Rootkit.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+@ARTICLE{ABME2012,
+  title 	= "One firmware to monitor \'em all",
+  author 	= "Andrés Blanco and Matías Eissler",
+  organization	= "Eko Party 2012",
+  year 		= "2012",
+  publisher 	= "Eko Party 2012",
+  group		= "Core Security",
+  url		= "http://www.ekoparty.org//archive/2012/BlancoEissler_2012-paper.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+@BOOK{TORRES2001,
+  title		= "Hardware Curso Completo",
+  author	= "Gabriel Torres",
+  publisher	= "Axcel Books do Brasil Editora",
+  year		= "2001",
+  address	= "Rio de Janeiro - RJ",
+  isbn		= "85-7323-165-3",
+  edition	= "4ª"
+}
+
+@ARTICLE{ABME2012,
+  title 	= "Hidden Disk Areas: HPA and DCO",
+  author 	= "Mayank R. Gupta and Michael D. Hoeschele and Marcus K. Rogers and Purdue University",
+  journal	= "International Journal of Digital Evidence",
+  year 		= "2006",
+  url		= "http://www.utica.edu/academic/institutes/ecii/publications/articles/EFE36584-D13F-2962-67BEB146864A2671.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+
+
+
+
+
+
+
+
+
+
+
 @WWW{BERI2007,
   title 	= "The Rise of Anti-Forensics",
   author 	= "Scott Berinato",
   year 		= "2007",
   url 		= "http://www.csoonline.com/article/221208/the-rise-of-anti-forensics",
   urldate 	= "29 de Novembro de 2012"
+}
+
+@ARTICLE{PR2011,
+  title 	= "Rootkits",
+  author 	= "Pedro Rosanes",
+  journal	= "GRIS - Grupo de Resposta a Incidentes de Segurança. Universidade Federal do Rio de Janeiro",
+  year 		= "2011",
+  url 		= "http://www.gris.dcc.ufrj.br/documentos/artigos/rootkits-survey",
+  urldate 	= "20 de Março de 2013"
 }
 
 @ARTICLE{ROG2005,
@@ -131,8 +248,43 @@ define and control the anti-forensics problem",
   edition	= "2ª"
 }
 
+@ARTICLE{INT64IA322011,
+  title 	= "Intel 64 and IA-32 Architectures Software Developer\'s Manual, Volume 3A: System Programming Guide, Part 1",
+  author 	= "Intel",
+  publisher 	= "Intel",
+  year 		= "2011",
+  url		= "http://download.intel.com/design/processor/manuals/253668.pdf",
+  urldate	= "20 de Março de 2013"
+}
+
+@ARTICLE{INT803861986,
+  title 	= "INTEL 80386 PROGRAMMER'S REFERENCE MANUAL
+1986",
+  author 	= "Intel",
+  publisher 	= "Intel",
+  year 		= "1986",
+  url		= "http://css.csail.mit.edu/6.858/2011/readings/i386.pdf",
+  urldate	= "20 de Março de 2013"
+}
 
 
+
+
+
+
+
+
+
+
+
+
+@WWW{KAS2013,
+  author = {kaspersky},
+  title = {Computer Security FAQ},
+  url = {http://www.kaspersky.com/threats\_faq},
+  year = {2013},
+  urldate = {20 de Março de 2013}
+}
 
 @BOOK{SCH2003,
   title = {Incident Response: Computer Forensics Toolkit},
