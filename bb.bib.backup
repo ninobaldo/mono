@@ -132,7 +132,7 @@
   year 		= "2012",
   publisher 	= "Eko Party 2012",
   group		= "Core Security",
-  url		= "http://www.ekoparty.org/archive/2012/VGA_Persistent_Rootkit.pdf",
+  url		= "http://www.ekoparty.org/archive/2012/VGA\_Persistent\_Rootkit.pdf",
   urldate	= "29 de Março de 2013"
 }
 
@@ -143,7 +143,7 @@
   year 		= "2012",
   publisher 	= "Eko Party 2012",
   group		= "Core Security",
-  url		= "http://www.ekoparty.org//archive/2012/BlancoEissler_2012-paper.pdf",
+  url		= "http://www.ekoparty.org//archive/2012/BlancoEissler\_2012-paper.pdf",
   urldate	= "29 de Março de 2013"
 }
 
@@ -157,7 +157,7 @@
   edition	= "4ª"
 }
 
-@ARTICLE{ABME2012,
+@ARTICLE{MMMP2006,
   title 	= "Hidden Disk Areas: HPA and DCO",
   author 	= "Mayank R. Gupta and Michael D. Hoeschele and Marcus K. Rogers and Purdue University",
   journal	= "International Journal of Digital Evidence",
@@ -166,6 +166,31 @@
   urldate	= "29 de Março de 2013"
 }
 
+@ARTICLE{NIJENC2006,
+  title 	= "Test Results for Digital Data Acquisition Tool: EnCase LinEn 6.01",
+  author 	= "NIST",
+  publisher	= "National Institute of Justice",
+  year 		= "2008",
+  url		= "https://www.ncjrs.gov/pdffiles1/nij/224147.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+@ARTICLE{NIJFTK2006,
+  title 	= "Test Results for Digital Data Acquisition Tool: FTK Imager 2.5.3.14",
+  author 	= "NIST",
+  publisher	= "National Institute of Justice",
+  year 		= "2008",
+  url		= "https://www.ncjrs.gov/pdffiles1/nij/222982.pdf",
+  urldate	= "29 de Março de 2013"
+}
+
+@WWW{BERI2007,
+  title 	= "Microsoft PE and COFF Specification",
+  author 	= "Micrisoft",
+  year 		= "2013",
+  url 		= "http://msdn.microsoft.com/en-us/windows/hardware/gg463119.aspx",
+  urldate 	= "29 de Novembro de 2012"
+}
 
 
 
