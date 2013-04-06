@@ -33,7 +33,7 @@ A primeira fase e mais importante é a coleta, que nesse caso é clone do HDD. O c
 Basicamente todos essas ferramentas fazem cópias de setor por setor de todo o disco, para que o perito possa trabalhar nessa cópia preservando o HDD original. Essas cópias já foram exaustivamente usadas em tribunais e são muito úteis e indispensáveis para a análise do perito. 
 Hoje sua eficácia não é questionada, pois essa cópia ou clone tem os dados idênticos ao do HDD objeto de análise e essa igualdade pode ser atestada com \emph{checksums} como os algoritmo de \emph{hash} \emph{MD5} ou \emph{SHA1} \cite{MULVEY2007}. Essa abordagem pode ter alguns empecilhos e o rootkit pode não vir a ser clonado junto com os dados do HDD.
 
-Primeiro e mais óbvio é que o rootkit pode nem estar no disco clonado, como estar somente na memória ou ser alocado em um outro dispositivo. O rootikit poder ser projetado para ficar somente na memória, entretando isso pode impedir que o mesmo persista já que é apagado sempre que o computador desliga \cite{PAROS2009}.
+Primeiro e mais óbvio é que o rootkit pode nem estar no disco clonado, como estar somente na memória ou ser alocado em um outro dispositivo. O rootkit poder ser projetado para ficar somente na memória, entretando isso pode impedir que o mesmo persista já que é apagado sempre que o computador desliga \cite{PAROS2009}.
 Contudo o mesmo esteja num parque de máquinas que permita infectar o computador toda vez que este for iniciada, como em grandes \emph{data centers} em geral nunca tem todas as máquinas desligadas o rootkit pode ficar vivo na rede e persistir infectando novamente as máquinas assim que elas iniciarem. 
 
 Num \emph{Personal Computer (PC)} durante o \emph{boot} ele inicia o \emph{Basic Input/Output System (BIOS)} fornece suporte básico para os principais periféricos como teclado e vídeo em modo texto e inicia o \emph{Power-On Self-Test (POST)} que além de realizar alguns testes inicia, com base das configurações do SETUP salvas na memória CMOS, todos os circuitos perífericos, vídeo, Sistema Operacional e passa o controle para o sistema operacional \cite{TORRES2001}. 
@@ -50,23 +50,52 @@ Então quando disco está encriptado, ele provavelmente foi feito pela vítima e co
 
 \section{Recuperar arquivos}
 
-O próximo passo a ser tomado deve ser recuperar todos os arquivos do disco, isso incluí todos os arquivos \emph{Master Table File (MFT)}, deletados ou não, \emph{data carving} por arquivos com assinaturas de binário... data carve, fragmentos de arquivos, data streams alternativos (feature stream do NTFS), slack space e arquivos ocultos;
+O próximo passo a ser tomado deve ser recuperar todos os arquivos do disco, isso incluí todos os arquivos \emph{Master Table File (MFT)} deletados ou não, seguido por \emph{data carving} com especial preocupação com: 
+
+\begin{itemize}
+  \item Assinaturas de executáveis;
+  \item Fragmentos de arquivos;
+  \item Data streams alternativos; e
+  \item Slack space;
+\end{itemize}
+
+% Assinaturas de binários
+Todos os arquivos tem um especificação que define o formato que o arquivo deve ter para ser corretamente interpretado, essas especifição define um padrão de como o \emph{bits} são organizados internamente e é chamado de \emph{file format} \cite{ROUSE2005}. 
+Esse formato também é usado por ferramentas de \emph{data carving} para encontrar arquivos. Por exemplo a especificação do \emph{Portable Executable (PE) File Format} \cite{MS2013} determina que todos os programas comecem com um pequeno executável \emph{MS-DOS}. Esse pequeno executável inicia com o \emph{Magic Number} 0x5A4D ou \emph{MZ} em \emph{ASCII},as iniciais de Mark Zbikowski um dos arquitetos originais do MS-DOS \cite{PIETREK2002}, e uma mensagem como pode ser vista na figura \ref{fig:cal-hex}. A função desse pequeno programa é apresentar a mensagem ``This program cannot be run in DOS mode''. 
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/cal-hex.png}
+  \caption{Hexadecimal da Microsoft Calculator v. 5.1 visto no WinHex 16.3 SR-2}
+  \label{fig:cal-hex}
+\end{figure}
+
+Programas que fazem \emph{data carving} buscam essas estruturas definidas, para encontrar executáveis. Contudo o rootkit pode usar programas como o \emph{Transmogrify} do \emph{Metasploit Anti-Forensics Project (MAFIA)} que é capaz de mascarar um arquivo em qualquer assinatura \cite{MAYNOR2007}, de forma a deixar um executável no formato de um arquivo texto por exemplo.
+
+Outra forma do rootkit esconde-se de um \emph{data carving} é utilizando-se de uma organização de arquivo não convencional, como usar fragmentos de diversos arquivos que só fazem sentido quando organizados de determinada forma, salvar seus arquivos em slack space buscando e indexando-os em um \emph{file system} próprio \cite{CHUCK2007}, ou ainda usando \emph{features} de um sistema de arquivos como as \emph{streams} do NTFS \cite{IRBY2006}. 
+Entretando por mais eficinte que seja o método utilizado, o rootkit em algum momento tem que executar, logo em algum ponto o rootkit tem que trabalhar com estruturas convencionais para que o sistema operacional o interprete, mesmo que seja apenas um \emph{stub} (ver análise estática).
 
 
 
-Todos os arquivos tem um especificação que define o formato que o arquivo deve ter para ser corretamente usado, esse formato é usado por ferramentas para, por exemplo a especificação do \emph{Portable Executable (PE) File Format} \cite{MS2013} determina que todos os executáveis comecem com um pequeno executável MS-DOS que inicia com o \emph{Magic Number} 0x5A4D ou MZ em ASCII que são as iniciais de Mark Zbikowski um dos arquitetos originais do MS-DOS \cite{PIETREK2002}, a função desse pequeno programa é apresentar a mensagem ``This program cannot be run in DOS mode". O rootkit pode usar programas como o \emph{Transmogrify} que é capaz de mascarar um arquivo em qualquer assinatura \cite{MAYNOR2007}.
 
-http://www.blackhat.com/presentations/bh-federal-06/BH-Fed-06-Thompson/BH-Fed-06-Thompson-up.pdf
+
+
+
+
 
 \section{Coletar metadados dos arquivos}
 
 hash, MAC, path, name, size; criando uma timeline
 Criar uma timeline de eventos com base nos MAC dos arquivos ajuda a entender o ciclo de contaminação, além de levantar suspeitas sobre varios dados inconsistentes, como por exemplo, porque o papel de parede do Windows tem um MAC tem a data de modificação ou criação mais recente? buscar como o rootkit pode ter se mantido no ambiente analisado,
 
+% http://www.docstoc.com/docs/28703705/toorcon_vinnie_2005 timestomp
+% http://www.ethicalhacker.net/forum/index.php?topic=5450.0;wap2
+% http://www.explorehacking.com/2011/03/metasploit-tutorial-with-example.html
+
 \section{Retirar arquivos conhecidos}
 
 base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
-
+% alterar partes nao significantes de todos os arquivos do computador, como a mensagem ja mostrada do PE alterar uma letra dessa mensagem muda o hash do mesmo cansando o perito :P
 
 \section{Análise estática dos executáveis suspeitos desconhecidos}
 
@@ -89,6 +118,9 @@ compinação de ambos o stub decodifica a vm que interpreta o bytecode
 
 basicamente o stub tem a chave para decodificar o binario, mas isso pode ser mais dificil quando crypter e packer privado, pode dividir o codigo em diversos setores e cada setor ter uma chave criptogradada diferente SALT + HWID + TIME + PCI\_ROM para criar a chave
 
+% Criptografados : http://www.markus-gattol.name/ws/dm-crypt_luks.html
+
+
 \section{Análise dinâmica dos executáveis suspeitos}
 
 
@@ -99,8 +131,10 @@ Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshD
 
 antivirtualização, para testar qualquer código malicioso deve-se
 
+http://www.chmag.in/article/sep2011/rootkits-are-back-boot-infection
 
 
+\section{outro}
 
 
 

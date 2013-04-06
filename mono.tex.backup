@@ -15,9 +15,8 @@
 
   % dados da monografia
   \autor{Álvaro Vilobaldo Rios da Silva}
-  \titulo{Antiforense}
+  \titulo{Antiforense com uso de rootkits}
   \orientador{Ivete Irene dos Santos}
-
   \comentario{Monografia de Conclusão de Curso apresentada à Universidade Presbiteriana Mackenzie de São Paulo como requisito parcial à obtenção do título de Especialista em Computação Forense do Curso Lato Sensu em Computação Forense} 
 % Trabalho de Conclusão de Curso apresentado
 % ao Departamento de Pós-Graduação da Fa-
@@ -36,10 +35,12 @@
 
   \include{capa}
 %   \include{lombada} % retirado por ser opcional
-  \include{folharosto}
-  \include{errata}
-  \include{folhaaprovacao}
-  \include{dedicatoria}
+  \include{folharosto} % pendente - falta ficha catalografica
+%   \include{errata}  % não foi necessário nenhuma errata até agora
+  \include{folhaaprovacao} % pendente - nome, assinatura e instituição dos membros componentes da banca examinadora
+
+
+%   \include{dedicatoria} % retirado por ser opcional
   \include{epigrafe}
   \include{resumolinguavernacula}
   \include{resumolinguaestrangeira}
@@ -50,7 +51,13 @@
 
   % elementos textuais
   \include{introducao}
-  \include{desenvolvimento}
+  % desenvolvimento
+    \include{cap_forense}
+    \include{cap_antiforense}
+    \include{cap_rootkits}
+    \include{cap_rootkits_antiforense}
+%     \include{cap_analise}
+  %fim do desenvolvimento
   \include{conclusao}
 
   % elementos pós-textuais
