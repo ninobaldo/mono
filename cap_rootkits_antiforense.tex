@@ -125,7 +125,29 @@ Para \cite{HALL2011} um dos principais desafios na análise de \emph{timeline} en
 
 \section{Retirar arquivos conhecidos}
 
-No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. Comparando os hashes dos arquivos com essas bases é possível retirar todos os arquivos conhecidos maliciosos ou não diminindo o escopo que o perito deve trabalhar
+No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes ou \emph{hashset} conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. 
+Comparando os hashes dos arquivos com \emph{hashset} de arquivos conhecidos é possível retirar todos os arquivos conhecidos maliciosos também conhecidos como \emph{known bad} ou arquivos inequivocamente bons (\emph{known good}) como os do sistema operacional, diminindo o escopo que o perito deve trabalhar. 
+O processo para se fazer esse processo é bem simples, uma vez com o \emph{hashset} dos arquivos do disco investigado, o perito precisa apenas compara-los com os \emph{hashsets} de arquivos conhecidos.
+
+
+
+
+
+
+
+
+
+
+Para evitar ou atrapalhar esse processo o rootikit teria que ter o mesmo hash de um arquivo bom, o que é muito difícil....
+
+a probabilidade de uma colisao de hash é de ... segundo FULANO usando a formula ........
+% probabilidade (fazer tabela) http://preshing.com/20110504/hash-collision-probabilities 
+% http://www.backupcentral.com/mr-backup-blog-mainmenu-47/13-mr-backup-blog/145-de-dupe-hash-collisions.html
+% 
+
+mas nao impossivel ja que o MD5 foi quebrado ....
+% http://www.mscs.dal.ca/~selinger/md5collision/ MD5 collision
+
 
 
 base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
