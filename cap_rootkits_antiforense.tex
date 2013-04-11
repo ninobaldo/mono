@@ -1,5 +1,3 @@
-% PLURAL DE HASH EH HASHS OU HASHES
-
 \chapter{Antiforense com Rootkits}
 
 Quando o perito vai realizar a coleta do material para a análise, ele pode encontrar dois cenários o corpo de delito que na ciência forense computacional quase sempre consiste em computadores,  pode estar ligado ou desligado. 
@@ -114,44 +112,62 @@ Para \cite{HALL2011} um dos principais desafios na análise de \emph{timeline} en
 % http://www.ethicalhacker.net/forum/index.php?topic=5450.0;wap2
 % http://www.explorehacking.com/2011/03/metasploit-tutorial-with-example.html
 
-
-
-
-
-
-
-
-
-
 \section{Retirar arquivos conhecidos}
 
 No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes ou \emph{hashset} conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. 
 Comparando os hashes dos arquivos com \emph{hashset} de arquivos conhecidos é possível retirar todos os arquivos conhecidos maliciosos também conhecidos como \emph{known bad} ou arquivos inequivocamente bons (\emph{known good}) como os do sistema operacional, diminindo o escopo que o perito deve trabalhar. 
 O processo para se fazer esse processo é bem simples, uma vez com o \emph{hashset} dos arquivos do disco investigado, o perito precisa apenas compara-los com os \emph{hashsets} de arquivos conhecidos.
 
+Para evitar ou atrapalhar esse processo o rootikit teria que ter o mesmo hash de um arquivo dito como bom. 
+
+Seguindo os preceitos do Paradoxo do aniversário que mostra a probabilidade de duas pessoas numa sala terem o mesmo aniversário, \cite{JEFF2011} apresenta a formula abaixo, onde N é a quantidade de valores distintos que o hash pode apresentar e k é o tamanho do valor sequencial comparado, exemplo na sequencia: $0001_2$, $0010_2$, $0011_2$ e $0100_2$, o tamanho seria $0100_2$. A tabela \ref{tab:hash-coll} mostra probabilidade de uma colisão de hash numa repetição uniforme e sequencial.
+
+$$1 - e^{\frac{-k(k-1)}{2N}}$$
 
 
+ 
+\begin{tabular}{|l|c|p{10cm}|}
+  A & B & C
+\end{tabular}
 
+% \begin{table}[htb]
+%   \centering  
+%   \begin{tabular}{|l|c|p{10cm}|}
+%     \hline
+%     \textbf{32-bit} & \textbf{64-bit} & \textbf{160-bit} & \textbf{Probabilidades}\\ \hline
+%     77163 & 5,06 bilhões & $1,42x10^24$ & 50\% \\ \hline
+%     30084 & 1,97 bilhão & $5,55x10^23$ & 1 em 10 \\ \hline
+%     9292 & 609 milhões & $1,71x10^23$ & 1 em 100 ou um full house no poker \\ \hline
+%     30 & 1,92 milhão & $5,41x10^20$ & 1 em 10 milhões ou acertar os 6 números da mega-sena \\ \hline
+%   \end{tabular}
+%   \caption{Probabilidade de uma colisão de hash em números sequenciais \cite{JEFF2011}.}
+%   \label{tab:hash-coll}
+% \end{table}
 
+Perceba, que o número é sequencial, ou seja, com valores aleatórios, como os encontrados em discos isso é improvável. as chances de um valor arbitrário (como o rootkit) coincidir com o hash de um arquivo bom são improváveis, contudo não impossíveis, como pode ser visto no trabalho dos chineses Xiaoyun Wang e Hongbo Yu da Universidade de Shandong em 2005 \cite{XIAOYUN2005}, no trabalho eles desenvolvem um algoritmo que pode ser usado para criar arquivos arbitrários com o mesmo hash MD5, mesmo assim essa técnica é muito complexa, pois mesmo em MD5 tornar um rootkit igual a algum arquivo do bom é bem dificil e além disso não se tem noticias de nenhum algoritmo que faça com que o hash de um arquivo seja o mesmo que de outro em dois algoritmos diferentes, exemplo SHA1 e MD5. 
 
+Outra forma que o rootkit pode se valer para anular essa técnica, de forma menos sofisticada é alterar partes não significantes de arquivos do computador, como na mensagem mostrada do cabeçalho da \emph{PE}, pois mudar qualquer uma das letras da mensagem altera também o hash do mesmo, contudo isso fugiria de uma regra básica dos rootkits que é ficar indetectável. No fim das contas esse método é recomendado por sua grande utilidade e dificilmente um rootkit tentará ou consiguirá perverte-lo, entretanto vale as ressalvas apresentadas.
 
+% explica o attack http://www.codeproject.com/Articles/11643/Exploiting-MD5-collisions-in-C e http://www.mscs.dal.ca/~selinger/md5collision/
 
-
-
-Para evitar ou atrapalhar esse processo o rootikit teria que ter o mesmo hash de um arquivo bom, o que é muito difícil....
-
-a probabilidade de uma colisao de hash é de ... segundo FULANO usando a formula ........
-% probabilidade (fazer tabela) http://preshing.com/20110504/hash-collision-probabilities 
+% http://www.wolframalpha.com/input/?i=birthday+attack&lk=1&a=ClashPrefs_*MathWorld.BirthdayAttack-
+% http://www.wolframalpha.com/input/?i=birthday+problem&a=*C.birthday+problem-_*MathWorld-&a=FSelect_**BirthdayProblemWithLeapYear-.BirthdayProblem-&f3=23&f=BirthdayProblemWithLeapYear.n_23
+% probabilidade (fazer tabela)  
 % http://www.backupcentral.com/mr-backup-blog-mainmenu-47/13-mr-backup-blog/145-de-dupe-hash-collisions.html
 % 
-
-mas nao impossivel ja que o MD5 foi quebrado ....
+% mas nao impossivel ja que o MD5 foi quebrado ....
 % http://www.mscs.dal.ca/~selinger/md5collision/ MD5 collision
+%base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
+%
 
 
 
-base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
-% alterar partes nao significantes de todos os arquivos do computador, como a mensagem ja mostrada do PE alterar uma letra dessa mensagem muda o hash do mesmo cansando o perito :P, mas isso fugirira de uma regra basica dos rootkits FICAR INDECTETAVEL
+
+
+
+
+
+
 
 \section{Análise estática dos executáveis suspeitos desconhecidos}
 

@@ -248,7 +248,7 @@
   title 	= "Timestomp mace",
   author 	= "Devon Ackerman",
   year 		= "2007",
-  url 		= "http://www.forensicswiki.org/wiki/File:Timestomp_mace.jpg",
+  url 		= "http://www.forensicswiki.org/wiki/File:Timestomp\_mace.jpg",
   urldate 	= "06 de Abril de 2013"
 }
 
@@ -256,11 +256,11 @@
   title 	= "Timestomp mace change",
   author 	= "Devon Ackerman",
   year 		= "2007",
-  url 		= "http://www.forensicswiki.org/wiki/File:Timestomp_mace_change.jpg",
+  url 		= "http://www.forensicswiki.org/wiki/File:Timestomp\_mace\_change.jpg",
   urldate 	= "06 de Abril de 2013"
 }
 
-@WWW{IMGTIMEMC2,
+@WWW{HALL2011,
   title 	= "Timeline Creation and Analysis",
   author 	= "Mark Hallman",
   year 		= "2011",
@@ -268,7 +268,21 @@
   urldate 	= "06 de Abril de 2013"
 }
 
+@WWW{JEFF2011,
+  title 	= "Hash Collision Probabilities",
+  author 	= "Jeff Preshing",
+  year 		= "2011",
+  url 		= "http://preshing.com/20110504/hash-collision-probabilities",
+  urldate 	= "06 de Abril de 2013"
+}
 
+@WWW{JEFF2011,
+  title 	= "How to Break MD5 and Other Hash Functions",
+  author 	= "Xiaoyun Wang and Hongbo Yu",
+  year 		= "2005",
+  url 		= "http://www.infosec.sdu.edu.cn/uploadfile/papers/How%20to%20Break%20MD5%20and%20Other%20Hash%20Functions.pdf",
+  urldate 	= "06 de Abril de 2013"
+}
 
 
 
