@@ -1,5 +1,3 @@
-% PLURAL DE HASH EH HASHS OU HASHES
-
 \chapter{Antiforense com Rootkits}
 
 Quando o perito vai realizar a coleta do material para a análise, ele pode encontrar dois cenários o corpo de delito que na ciência forense computacional quase sempre consiste em computadores,  pode estar ligado ou desligado. 
@@ -43,7 +41,7 @@ Durante todo esse processo o computador é executado em \emph{Real Mode}, e como 
 O rootkit pode persistir no \emph{firmware}\footnote{Todo programa salvo numa \emph{Read-only memory (ROM)} é chamado de firmware} de algum periférico, como a placa de vídeo \cite{NICDI2012} ou placa de rede \cite{ABME2012}, dessa forma que tornariam o clone do HDD inútil além de ter acesso em \emph{Real Mode} na inicialização do computador.
 
 O perito deve ter em mente ainda que o rootkit pode estar em áreas reservadas do disco como \emph{host protected area (HPA)} ou \emph{Device configuration overlay (DCO)}, essas areas são desenvolvidas para não serem modificadas ou mesmo acessadas por usuários, BIOS ou Sistema Operacional \cite{MMMP2006}. 
-Dessa forma dependendo da ferramenta utilizada para clone do HDD pode ser que essas áreas não sejam clonadas (\cite{NIJENC2006} ou \cite{NIJFTK2006}), inutilizando o clone do HDD.
+Dessa forma dependendo da ferramenta utilizada para clone do HDD pode ser que essas áreas não sejam clonadas (\cite{NIJENC2006} e \cite{NIJFTK2006}), inutilizando o clone do HDD.
 
 Com o disco clonado o perito deve se ater a outros fatores, como criptografia, arquivos salvos em estruturas não convencionais etc. 
 O disco clonado pode ter \emph{full disk encryption} o que significa que todos os dados no disco estão criptografados \cite{RUBENS2012} e que ao clonar o clone, como é uma cópia fidedigna do original, também tem todos os dados criptografados. 
@@ -95,7 +93,7 @@ A análise da \emph{timeline} é um importante passo para todo processo tradiciona
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/Timestomp_mace.jpg}
+  \includegraphics[scale=1]{figuras/Timestomp-mace.jpg}
   \caption{Arquivo com MAC time original \cite{IMGTIMEMC1}}
   \label{fig:timestomp_mace}
 \end{figure}
@@ -104,7 +102,7 @@ Para \cite{HALL2011} um dos principais desafios na análise de \emph{timeline} en
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/Timestomp_mace_change.jpg}
+  \includegraphics[scale=1]{figuras/Timestomp-mace-change.jpg}
   \caption{Utilização do timestomp \cite{IMGTIMEMC2}}
   \label{fig:Timestomp_mace_change}
 \end{figure}
@@ -118,24 +116,101 @@ Para \cite{HALL2011} um dos principais desafios na análise de \emph{timeline} en
 
 No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. Comparando os hashes dos arquivos com essas bases é possível retirar todos os arquivos conhecidos que são seguros, como arquivos do sistema operacional e também arquivos conhecidamente maliciosos diminindo o escopo que o perito deve trabalhar.
 
-Para evitar ou atrapalhar esse processo o rootikit teria que ter o mesmo hash de um arquivo bom, o que é muito difícil....
+No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes ou \emph{hashset} conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. 
+Comparando os hashes dos arquivos com \emph{hashset} de arquivos conhecidos é possível retirar todos os arquivos conhecidos maliciosos também conhecidos como \emph{known bad} ou arquivos inequivocamente bons (\emph{known good}) como os do sistema operacional, diminindo o escopo que o perito deve trabalhar. 
+O processo para se fazer esse processo é bem simples, uma vez com o \emph{hashset} dos arquivos do disco investigado, o perito precisa apenas compara-los com os \emph{hashsets} de arquivos conhecidos.
 
-a probabilidade de uma colisao de hash é de ... segundo FULANO usando a formula ........
-% probabilidade (fazer tabela) http://preshing.com/20110504/hash-collision-probabilities 
+Para evitar ou atrapalhar esse processo o rootikit teria que ter o mesmo hash de um arquivo dito como bom. 
+Seguindo os preceitos do Paradoxo do aniversário que mostra a probabilidade de duas pessoas numa sala terem o mesmo aniversário, \cite{JEFF2011} apresenta a formula: $1 - e^{\frac{-k(k-1)}{2N}}$, onde N é a quantidade de valores distintos que o hash pode apresentar e k é o tamanho do valor sequencial comparado, exemplo na sequencia: $0001_2$, $0010_2$, $0011_2$ e $0100_2$, o tamanho seria $0100_2$. A tabela \ref{tab:hash-coll} mostra probabilidade de uma colisão de hash numa repetição uniforme e sequencial.
 
-mas nao impossivel ja que o MD5 foi quebrado ....
+\begin{table}[htb]
+  \centering  
+  \begin{tabular}{|r|c|c|l|}
+  \hline
+      \textbf{32-bit} & \textbf{64-bit} & \textbf{160-bit} & \textbf{Probabilidades}\\ \hline
+      77163 & 5,06 bilhões & $1,42x10^{24}$ & 50\% \\ \hline
+    30084 & 1,97 bilhão & $5,55x10^{23}$ & 1 em 10 \\ \hline
+    9292 & 609 milhões & $1,71x10^{23}$ & 1 em 100 ou um full house no poker \\ \hline
+    10 & 607401 & $1,71x10^{20}$ & 1 em 100 milhões ou ser mordido por um tubarão \\ \hline
+  \end{tabular}
+  \caption{Probabilidade de uma colisão de hash em números sequenciais \cite{JEFF2011}.}
+  \label{tab:hash-coll}
+\end{table}
+
+Perceba, que o número é sequencial, ou seja, com valores aleatórios, como os encontrados em discos isso é improvável. as chances de um valor arbitrário (como o rootkit) coincidir com o hash de um arquivo bom são improváveis, contudo não impossíveis, como pode ser visto no trabalho dos chineses Xiaoyun Wang e Hongbo Yu da Universidade de Shandong em 2005 \cite{XIAOYUN2005}, no trabalho eles desenvolvem um algoritmo que pode ser usado para criar arquivos arbitrários com o mesmo hash MD5, mesmo assim essa técnica é muito complexa, pois mesmo em MD5 tornar um rootkit igual a algum arquivo do bom é bem dificil e além disso não se tem noticias de nenhum algoritmo que faça com que o hash de um arquivo seja o mesmo que de outro em dois algoritmos diferentes, exemplo SHA1 e MD5. 
+
+Outra forma que o rootkit pode se valer para anular essa técnica, de forma menos sofisticada é alterar partes não significantes de arquivos do computador, como na mensagem mostrada do cabeçalho da \emph{PE}, pois mudar qualquer uma das letras da mensagem altera também o hash do mesmo, contudo isso fugiria de uma regra básica dos rootkits que é ficar indetectável. No fim das contas esse método é recomendado por sua grande utilidade e dificilmente um rootkit tentará ou consiguirá perverte-lo, entretanto vale as ressalvas apresentadas.
+
+% explica o attack http://www.codeproject.com/Articles/11643/Exploiting-MD5-collisions-in-C e http://www.mscs.dal.ca/~selinger/md5collision/
+
+% http://www.wolframalpha.com/input/?i=birthday+attack&lk=1&a=ClashPrefs_*MathWorld.BirthdayAttack-
+% http://www.wolframalpha.com/input/?i=birthday+problem&a=*C.birthday+problem-_*MathWorld-&a=FSelect_**BirthdayProblemWithLeapYear-.BirthdayProblem-&f3=23&f=BirthdayProblemWithLeapYear.n_23
+% probabilidade (fazer tabela)  
+% http://www.backupcentral.com/mr-backup-blog-mainmenu-47/13-mr-backup-blog/145-de-dupe-hash-collisions.html
+% 
+% mas nao impossivel ja que o MD5 foi quebrado ....
 % http://www.mscs.dal.ca/~selinger/md5collision/ MD5 collision
-
-
-
-base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
-% alterar partes nao significantes de todos os arquivos do computador, como a mensagem ja mostrada do PE alterar uma letra dessa mensagem muda o hash do mesmo cansando o perito :P, mas isso fugirira de uma regra basica dos rootkits FICAR INDECTETAVEL
+%base de hash de arquivos conhecidos bons e ruins (assinatura de malwares conhecidos);
+%
 
 \section{Análise estática dos executáveis suspeitos desconhecidos}
 
-suspeitad do tamanho do arquivo jpg com 2GB, estegnografia
+% o que é? Como se faz?
 
-cryptors e packers. colocar o binário numa forma encriptado e comprimido que as tools nao interpretam, o stub (esbolço) decodifica o payload e munda o controle do executável para o entry point do binario original. usado pelo skype (http://www.blackhat.com/presentations/bh-europe-06/bh-eu-06-biondi/bh-eu-06-biondi-up.pdf) 
+Análise estática é a analise do código de determinado malware para se ter uma melhor compreensão sobre suas funções, características e objetivos \cite{DISTLER2007}. Depois de filtrar os arquivos conhecidos o perito deverá iniciar a análise estática de alguns arquivos suspeitos, certamente analisar todos os arquivos desconhecidos levaria muito tempo, inviabilizando na maioria dos casos a pericia. O ideal nesse momento é filtrar dentre os arquivos desconhecidos os que são potenciamente maliciosos, para isso o especialista deverá ficar atendo principalmente a binários. Arquivos suspeitos são encontrados em todas as fases apresentadas, principalmente na recuperação de arquivos e na coleta de metadados, essas fases podem ajudar e muito a levantas suspeitas de arquivos, por exemplo, porque um arquivo de imagem com assinatura de jpg tem 2GB?
+
+A fase onde são retirados os arquivos conhecidos, pode revelar programas conhecidamente maliciosos, esses arquivos podem ser investigados nessa fase também, para responder a pergunta primordial que é: esse código malicioso poderia subverter o(s) sistema(s) analisado? A resposta vai depender muito do tipo de ambiente analisado, pois se o ambiente for muito seguro, dificilmente uma ameaça qualquer conseguiria persistir, além do fato de que as chances de um rootkit desenvolvido por um \emph{APT} estar em qualquer base de arquivos conhecidos é mínima. 
+
+De qualquer forma apesar da resposta óbvia ser em sua grande maioria verdadeira, o perito não pode aceita-la resoluto se apegando a qualquer evidência solta ou mal compreendida, porque existe a chance, mesmo que mínima de que o artefato malicioso encontrado tenha sido plantado. Esse texto percore sobre rootkit e sempre tenderá ao pior dos cenários, contudo cautela e bom senso é vital.
+
+A antiforense de processos de análise estática, consiste em impedir que o(s) código(s) do rootkit sejam analisados, para isso é comum que se use compreensão e criptografia nos arquivos do rootkit. Essa compreensão e/ou criptografia utilizada em qualquer código, sendo ele malicioso ou não, mexe com a estrutura do arquivo e o torna irreconhecível, de modo que não pode ser executado normalmente. Técnicas como essa são muito utilizadas por \cite{malwares} para não serem detectados por antivirus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado. Para resolver esse problema existe o \emph{stub}. 
+
+Um \emph{packer} é um programa que comprime um executável dentro de uma estrutura anormal e menor, de forma análoga a um programa de compactação de arquivos para o vulgamente chamado \emph{zip} só que com executáveis. \emph{Ultimate Packer for eXecutables (UPX)} \footnote{http://upx.sourceforge.net/} é um \emph{packer} que suporta diversos tipos de executáveis de diversos ambientes como mostra a tabela \ref{tab:upx-comp}. 
+
+\begin{table}[htb]
+  \centering  
+  \begin{tabular}{|c|c|}
+  \hline
+      \textbf{Nome completo} & \textbf{Descrição} \\ \hline
+      amd64-linux.elf & Linux ELF \\ \hline
+      amd64-linux.kernel.vmlinux & Linux kernel \\ \hline
+      arm-wince.pe & Windows CE executable or DLL \\ \hline
+      fat-darwin.macho & Mac OS X executable \\ \hline
+      i086-dos16.com & DOS 16-bit .com file  \\ \hline
+      i086-dos16.exe & DOS 16-bit executable  \\ \hline
+      i086-dos16.sys & DOS 16-bit .sys file \\ \hline
+      i386-dos32.djgpp2.coff & DOS 32-bit COFF  \\ \hline
+      i386-dos32.tmt.adam & DOS 32-bit executable \\ \hline
+      i386-dos32.watcom.le & DOS 32-bit linear executable  \\ \hline
+      i386-win32.pe & Windows 32-bit executable or DLL \\ \hline
+  \end{tabular}
+  \caption{Amostra de executáveis suportados pelo UPX \cite{UPX2013}.}
+  \label{tab:upx-comp}
+\end{table}
+
+Ao lidar com executáveis Windows principalmente \emph{PE}, será encontrado uma estrutura com seções como .text, .data, .idata e .fill, como mostra a figura \ref{fig:pe-sections}:
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/pe-sections.png}
+  \caption{Hello World - PIMAGE_SECTION_HEADER \cite{PETRI2012}}
+  \label{fig:pe-sections}
+\end{figure}
+
+
+O que o \emph{UPX} faz é colocar o binário numa forma encriptado e comprimido que as tools não interpretam e consequentimente o sistema operacional também não, contudo o 
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/upx-sections.png}
+  \caption{Packed Hello World - PIMAGE_SECTION_HEADER \cite{PETRI2012}}
+  \label{fig:pe-sections}
+\end{figure}
+
+
+
+
+o stub (esbolço) decodifica o payload e munda o controle do executável para o entry point do binario original. usado pelo skype (http://www.blackhat.com/presentations/bh-europe-06/bh-eu-06-biondi/bh-eu-06-biondi-up.pdf)  \cite{PETRI2012}
 
 UPX \_ merge secxtions (.text, .data, .idata, etc) em um unico sectior upx1, onde tem uma stub que unpack o original.
 
@@ -155,6 +230,15 @@ compinação de ambos o stub decodifica a vm que interpreta o bytecode
 basicamente o stub tem a chave para decodificar o binario, mas isso pode ser mais dificil quando crypter e packer privado, pode dividir o codigo em diversos setores e cada setor ter uma chave criptogradada diferente SALT + HWID + TIME + PCI\_ROM para criar a chave
 
 % Criptografados : http://www.markus-gattol.name/ws/dm-crypt_luks.html
+
+
+Quanto mais baixo o nível de execução menos o rootkit pode fazer para se esconder, menos ele precisa efetivamente para se esconder e mais controle ele consegue do sobre o sistema infectado, por exemplo, se um rootkit roda desde a inicialização da \emph{BIOS}, quando o sistema operacional for executado o rootkit já está sendo executado. 
+
+
+
+
+
+
 
 
 \section{Análise dinâmica dos executáveis suspeitos}
