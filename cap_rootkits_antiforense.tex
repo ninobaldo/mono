@@ -155,17 +155,17 @@ Outra forma que o rootkit pode se valer para anular essa técnica, de forma menos
 
 \section{Análise estática dos executáveis suspeitos desconhecidos}
 
-% o que é? Como se faz?
-
-Análise estática é a analise do código de determinado malware para se ter uma melhor compreensão sobre suas funções, características e objetivos \cite{DISTLER2007}. Depois de filtrar os arquivos conhecidos o perito deverá iniciar a análise estática de alguns arquivos suspeitos, certamente analisar todos os arquivos desconhecidos levaria muito tempo, inviabilizando na maioria dos casos a pericia. O ideal nesse momento é filtrar dentre os arquivos desconhecidos os que são potenciamente maliciosos, para isso o especialista deverá ficar atendo principalmente a binários. Arquivos suspeitos são encontrados em todas as fases apresentadas, principalmente na recuperação de arquivos e na coleta de metadados, essas fases podem ajudar e muito a levantas suspeitas de arquivos, por exemplo, porque um arquivo de imagem com assinatura de jpg tem 2GB?
+Análise estática é a analise do código de determinado malware para se ter uma melhor compreensão sobre suas funções, características e objetivos \cite{DISTLER2007}. Depois de filtrar os arquivos conhecidos o perito deverá iniciar a análise estática de alguns arquivos suspeitos, certamente analisar todos os arquivos desconhecidos levaria muito tempo, inviabilizando na maioria dos casos a pericia. 
+O ideal nesse momento é filtrar dentre os arquivos desconhecidos os que são potenciamente maliciosos, para isso o especialista deverá ficar atendo principalmente a binários. Arquivos suspeitos são encontrados em todas as fases apresentadas, principalmente na recuperação de arquivos e na coleta de metadados, essas fases podem ajudar e muito a levantas suspeitas de arquivos, por exemplo, porque um arquivo de imagem com assinatura de jpg tem 2GB?
 
 A fase onde são retirados os arquivos conhecidos, pode revelar programas conhecidamente maliciosos, esses arquivos podem ser investigados nessa fase também, para responder a pergunta primordial que é: esse código malicioso poderia subverter o(s) sistema(s) analisado? A resposta vai depender muito do tipo de ambiente analisado, pois se o ambiente for muito seguro, dificilmente uma ameaça qualquer conseguiria persistir, além do fato de que as chances de um rootkit desenvolvido por um \emph{APT} estar em qualquer base de arquivos conhecidos é mínima. 
 
 De qualquer forma apesar da resposta óbvia ser em sua grande maioria verdadeira, o perito não pode aceita-la resoluto se apegando a qualquer evidência solta ou mal compreendida, porque existe a chance, mesmo que mínima de que o artefato malicioso encontrado tenha sido plantado. Esse texto percore sobre rootkit e sempre tenderá ao pior dos cenários, contudo cautela e bom senso é vital.
 
-A antiforense de processos de análise estática, consiste em impedir que o(s) código(s) do rootkit sejam analisados, para isso é comum que se use compreensão e criptografia nos arquivos do rootkit. Essa compreensão e/ou criptografia utilizada em qualquer código, sendo ele malicioso ou não, mexe com a estrutura do arquivo e o torna irreconhecível, de modo que não pode ser executado normalmente. Técnicas como essa são muito utilizadas por \cite{malwares} para não serem detectados por antivirus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado. Para resolver esse problema existe o \emph{stub}. 
+A antiforense de processos de análise estática, consiste em impedir que o(s) código(s) do rootkit sejam analisados, para isso é comum que se use compreensão e criptografia nos arquivos do rootkit. Essa compreensão e/ou criptografia utilizada em qualquer código, sendo ele malicioso ou não, mexe com a estrutura do arquivo e o torna irreconhecível, de modo que não pode ser executado normalmente. 
+Técnicas como essa são muito utilizadas por \cite{malwares} para não serem detectados por antivirus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado. Para resolver esse problema existe o \emph{stub}.  
 
-Um \emph{packer} é um programa que comprime um executável dentro de uma estrutura anormal e menor, de forma análoga a um programa de compactação de arquivos para o vulgamente chamado \emph{zip} só que com executáveis. \emph{Ultimate Packer for eXecutables (UPX)} \footnote{http://upx.sourceforge.net/} é um \emph{packer} que suporta diversos tipos de executáveis de diversos ambientes como mostra a tabela \ref{tab:upx-comp}. 
+Um \emph{packer} é um programa que comprime um executável dentro de uma estrutura anormal e menor, de forma análoga a um programa de compactação de arquivos para o vulgamente chamado \emph{zip} só que com executáveis. Com \cite{PETRI2012} e \cite{BH2009} é possível entender como funciona um packer, mas especificamente o \emph{Ultimate Packer for eXecutables (UPX)} \footnote{http://upx.sourceforge.net/} é um \emph{packer} que suporta diversos tipos de executáveis de diversos ambientes como mostra a tabela \ref{tab:upx-comp}. 
 
 \begin{table}[htb]
   \centering  
@@ -188,51 +188,33 @@ Um \emph{packer} é um programa que comprime um executável dentro de uma estrutur
   \label{tab:upx-comp}
 \end{table}
 
-Ao lidar com executáveis Windows principalmente \emph{PE}, será encontrado uma estrutura com seções como .text, .data, .idata e .fill, como mostra a figura \ref{fig:pe-sections}:
+Ao lidar com executáveis Windows principalmente \emph{PE}, será encontrado uma estrutura com seções como .text, .data, .idata e .fill, como mostra a figura \ref{fig:pe-sections}.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=1]{figuras/pe-sections.png}
-  \caption{Hello World - PIMAGE_SECTION_HEADER \cite{PETRI2012}}
+  \caption{Hello World - PIMAGE SECTION HEADER \cite{PETRI2012}}
   \label{fig:pe-sections}
 \end{figure}
 
+Depois de compactado o \emph{UPX}, deixa as seções do executável como o da figura \ref{fig:upx-sections}. O \emph{UPX} combina todas as seções .text, .data, .idata etc em uma única seções chamada upx1, onde tem uma \emph{stub} que descompacta o binário original.
 
-O que o \emph{UPX} faz é colocar o binário numa forma encriptado e comprimido que as tools não interpretam e consequentimente o sistema operacional também não, contudo o 
+O que o \emph{UPX} faz é colocar o binário numa forma comprimida que o deixa com uma estrutura incomum ao ambiente de execução, logo as ferramentas de engenharia reversa como \emph{disassemblers} não conseguem interpretar e consequentimente o sistema operacional também não, contudo o \emph{UPX} também adiciona um executável capaz de descomprimir e executar o executável original em tempo de execução chamado de \emph{stub}.
+O \emph{stub} descompacta o \emph{payload} que nesse caso é o executável original e muda o controle do executável para o \emph{entry point} do binário original. 
 
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=1]{figuras/upx-sections.png}
-  \caption{Packed Hello World - PIMAGE_SECTION_HEADER \cite{PETRI2012}}
-  \label{fig:pe-sections}
+  \caption{Packed Hello World - PIMAGE SECTION HEADER \cite{PETRI2012}}
+  \label{fig:upx-sections}
 \end{figure}
 
+A seção upx0 é basicamente espaço vazio que ocuparão na memória, o upx1 é onde fica o \emph{stub} e o executável original compactado. O \emph{stub} irá descompactar o executável original o inserindo no espaço vazio utilizado pela seção upx0 que ficam na \emph{low memory} e executado-o, dessa forma o \emph{stub} que fica logo acima na parte da memória também é sobrescrito durante o processo. Como pode ser percebido pela pecularidade o executável original não pode ser análisado enquanto estiver compactado.
 
+Outra forma de impossibilitar a análise estática, é compilar o rootkit em algum \emph{bytecode}, que são interpretados por alguma \emph{virtual machine} de forma análoga com código feito em Java e/ou .Net, ou seja, o código escrito em geral em uma linguagem de alto nível é compilado para algum tipo de \emph{bytecode}, conhecidos como o \emph{Java bytecode} ou o \emph{.Net bytecode}, ou até mesmo algum \emph{bytecode} privado. Em qualquer uma dessas possibilidades, o ambiente que o mesmo ira ser executado deverá ter a \emph{virtual machine}, porque será ela que irá interpretar o \emph{bytecode} e traduzir para instruções que o processador compreende.
+As complicações para o uso dessa abordagem envolve que necessariamente o criador do rootkit terá que utilizar uma \emph{virtual machine} para interpretar o \emph{bytecode} em tempo de execução, caso seja feito em algum \emph{bytecode} conhecido, o rootkit vai ser facilmente decompilado, mas se usar um \emph{bytecode} privado o mesmo irá ter que criar a \emph{virtual machine} privada também o que demanda muito tempo, mas em compensação dificulta muito o trabalho do perito, que antes de analisar o código terá que entender e decompilar a \emph{virtual machine}. Da mesma forma que o código compactado, o código em \emph{bytecode} não possui instruções conhecidas, logo ferramentas ou até mesmo o processador não o interpreta. 
 
-
-o stub (esbolço) decodifica o payload e munda o controle do executável para o entry point do binario original. usado pelo skype (http://www.blackhat.com/presentations/bh-europe-06/bh-eu-06-biondi/bh-eu-06-biondi-up.pdf)  \cite{PETRI2012}
-
-UPX \_ merge secxtions (.text, .data, .idata, etc) em um unico sectior upx1, onde tem uma stub que unpack o original.
-
-
-funcionamento do upx
-
-com a toool dumpbin da para ver as sections do upx
-
-upx0 é espaço vazio
-upx1 onde esta o stub e o executavel compactado, ao descompactar o executavel ele move para os endereços do upox (na low memory), assim o mesmo é decompoilado e executado e com o tempo ele sobreescreve tbm os endereços onde atnes estavam o upx1 (http://upx.sourceforge.net/)
-
-embebed virtual machine, o rootkit esta em bytecode que sao interpretados pela vm em runtime, a tool nem mesmo o processador tem como saber como interpretar o bytecode sem a vm
-
-compinação de ambos o stub decodifica a vm que interpreta o bytecode
-
-
-basicamente o stub tem a chave para decodificar o binario, mas isso pode ser mais dificil quando crypter e packer privado, pode dividir o codigo em diversos setores e cada setor ter uma chave criptogradada diferente SALT + HWID + TIME + PCI\_ROM para criar a chave
-
-% Criptografados : http://www.markus-gattol.name/ws/dm-crypt_luks.html
-
-
-Quanto mais baixo o nível de execução menos o rootkit pode fazer para se esconder, menos ele precisa efetivamente para se esconder e mais controle ele consegue do sobre o sistema infectado, por exemplo, se um rootkit roda desde a inicialização da \emph{BIOS}, quando o sistema operacional for executado o rootkit já está sendo executado. 
+Esses foram dois metódos que podem ser utilizados para evitar ou complicar o processo de análise estática. Técnicas como essa podem ser usadas por programas legitimos também como é o caso do skype \cite{NEEDLE2006}. O importante é entender que não importa o que o rootkit pode usar, mas ele sempre vai ter que ter uma estrutura padrão para sua execução e que quanto mais baixo o nível de execução menos o rootkit pode fazer para se esconder, menos ele precisa efetivamente para se esconder e mais controle ele consegue do sobre o sistema infectado, por exemplo, se um rootkit roda desde a inicialização da \emph{BIOS}, quando o sistema operacional for executado o rootkit já está sendo executado.
 
 
 
@@ -243,23 +225,26 @@ Quanto mais baixo o nível de execução menos o rootkit pode fazer para se esconde
 
 \section{Análise dinâmica dos executáveis suspeitos}
 
+As técnicas de antiforense mostradas na análise estática podem ser combinadas dificultando ainda mais a análise e tornar o trabalho tão demorado que é proíbitivo continuar, contudo o \emph{stub} tem a chave para decodificar o binário, nesses casos a análise dinâmica pode acelerar o processo. O objetivo da análise dinâmica é o mesmo da análise estática apesar dos metódos diferentes \cite{DISTLER2007}.
 
-antidebugger FS flag determina o debug na arquitetura IA32, explicar que assim e processador faz uma instrução por vez
+Existe muitas formas e técnicas aplicavéis a análises dinâmicas, como análise do tráfego, análise da memória, análise dos processos, análise do registro do Windows etc, essa análise é bem diferente da que pode ser feita no ambiente infectado, mesmo que sejam usados técnicas e ferramentas bem parecida, porque a primeira, como já foi dito, pode ter total controle sobre o ambiente ao contrário do segundo tipo que o perito prepara o ambiente e monitora. 
+Nesse caso, quem chega primeiro tem todas as vantagens, seja o perito investigando um ambiente comprometido ou seja o rootkit executado em um ambiente preparado pelo perito. No primeiro caso talvez fosse mais indicado a uma resposta a incidentes, onde se precise em muito pouco tempo descobrir o que esta acontecendo.
 
-
-Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshDebuggerNotPresent() Kernel-mode (being debugged PEB http://www.symantec.com/connect/articles/windows-anti-debug-reference
-
-antivirtualização, para testar qualquer código malicioso deve-se
-
-http://www.chmag.in/article/sep2011/rootkits-are-back-boot-infection
-
-
-\section{outro}
+Os \emph{packers} também são um empecilho nessa fase e tudo fica mais complicado quando é usado um \emph{packer} privado, pois nem todos se comportam como o \emph{UPX}, de forma que o \emph{packer} pode dividir o código em diversos seções e cada uma delas pode haver uma chave criptogradada diferente. O rootkit pode ser programado para só executar no ambiente que ele infecta, por exemplo, ele pode usar verificações do hardware, ou ainda pode usar o \emph{hardware} como parte da senha para descompactar e/ou decriptar o binário original.
 
 
 
 
 
-nao existe tecnica antiforense 100\% nem metodologia para analise infalivel, nem 100\% segura e confiavel
 
+O processador tem um registrador especial para \emph{flags}, onde cada \emph{bit} desse registrador representa um \emph{flags} diferente, quando esse \emph{bit} possui  nele são registrados todas as \emph{flags} 
+Falando na arquitetura Intel de microprocessadores \emph{IA32}, a diferença principal entre um processo comum e um que está sendo depurado é que o processo possuí a \emph{Flag FS} setada, de forma que o processador irá executar um instrução por vez, ignorando o paralelismo e/ou \emph{pipeline}, de forma que a instrução tem que fazer o ciclo completo antes de executar a próxima, desse jeito o processador permite que os registradores, memória e instruções possam ser verificadas a cada passo do mesmo, isso é garantido pelo processador. Isso por si só já torna o trabalho do perito mais facil, pois ao depurar o código o mesmo é capaz de entender o que se passa em cada passo. 
+No Windows tem métodos de verificar se o programa está sendo executado, com API ou mesmo com call internas, ou seja, o programa tem varias formas de identificar se está sendo depurado. Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshDebuggerNotPresent() Kernel-mode (being debugged PEB http://www.symantec.com/connect/articles/windows-anti-debug-reference
+
+
+outra forma utilizada para análise dinâmica é o uso de \emph{virtual machines} que facilitam muito o trabalho. Contudo existe também antivirtualizadores, ou seja, no código o rootkit pode verifica se está num ambiente virtualizado e não executar.
+
+antivirtualização, para testar qualquer código malicioso deve-se http://www.chmag.in/article/sep2011/rootkits-are-back-boot-infection
+
+Se o rootkit pode ter todas essas técnicas para evitar ser análisado dinâmicamente, contudo o mesmo principio persiste, o mesmo tem que executar de forma padrão, ou seja, o programa não pode evitar ser executado porque está num ambiente virtualizado ou mesmo porque está sendo depurado, contudo o mesmo pode e provavelmente irá verificar isso, fazendo com que o perito precise mudar o fluxo do programa (possivelmente o rootkit) para força-lo a executar em tais circunstancias.
 
