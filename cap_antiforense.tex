@@ -4,20 +4,22 @@
 
 Dentre as modalidades de antiforense computacional, \citeonline{BH2009} as categoriza em cinco grandes grupos, sendo eles: 
 
-\begin{table}[htb]
+ \begin{table}[htb]
   \centering  
-    \begin{tabular}{|l|l|}
-    \hline
-      \textbf{Tipo}		& \textbf{Descrição}  \\ \hline
-      Destruição de dados	& limpeza de arquivo, limpeza de metadados e ataque ao sistema de arquivos \\ \hline
-      Ocultação de dados	& \emph{In-Band}, \emph{Out-of-Band} e ocultação na camada da aplicação \\ \hline
-      Corrupção de dados	& Compactação, criptografia, \emph{Code Morphing} e direto Edita \\ \hline
-      Fabricação de dados	& Introduzir \emph{known files}, String decoration e pistas de auditoria falsas \\ \hline
-      Não uso de disco		& Contracepção de dados e injeção de DLL na memória \\ \hline
-    \end{tabular}
+  \begin{tabular}{|l|l|}
+  \hline
+	\textbf{Tipo}		& \textbf{Descrição}  \\ \hline
+	Destruição de dados	& Destruir arquivos ou metadados \\ \hline
+	Ocultação de dados	& Salvar arquivos em lugares incomuns ou não convencionais \\ \hline
+	Corrupção de dados	& Compactação, criptografia ou mudar o seu \emph{file format} \\ \hline
+	Fabricação de dados	& Introduzir \emph{known files} ou pistas falsas \\ \hline
+	Não uso de disco	& Contracepção de dados ou injeção em memória \\ \hline
+  \end{tabular}
   \caption{Tipos de antiforense \cite{BH2009}.}
   \label{tab:upx-comp}
 \end{table}
+
+Esses tipos serão apresentados no último capítulo durante as fases da análise \emph{post mortem}.
 
 
 
