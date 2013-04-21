@@ -1,4 +1,4 @@
-\chapter{Antiforense com Rootkits}
+\chapter{Análise de Rootkits}
 
 Quando o perito vai realizar a coleta do material para a análise, ele pode encontrar dois cenários o corpo de delito que na ciência forense computacional quase sempre consiste em computadores,  pode estar ligado ou desligado. 
 Quando o mesmo está ligado é possível realizar a análise viva, entretando a análise \emph{live} de um ambiente com rootkit pode gerar dados falsos ou imprecisos.
@@ -169,7 +169,7 @@ Um \emph{packer} é um programa que comprime um executável dentro de uma estrutur
 
 \begin{table}[htb]
   \centering  
-  \begin{tabular}{|c|c|}
+  \begin{tabular}{|l|l|}
   \hline
       \textbf{Nome completo} & \textbf{Descrição} \\ \hline
       amd64-linux.elf & Linux ELF \\ \hline
@@ -216,13 +216,6 @@ As complicações para o uso dessa abordagem envolve que necessariamente o criador
 
 Esses foram dois metódos que podem ser utilizados para evitar ou complicar o processo de análise estática. Técnicas como essa podem ser usadas por programas legitimos também como é o caso do skype \cite{NEEDLE2006}. O importante é entender que não importa o que o rootkit pode usar, mas ele sempre vai ter que ter uma estrutura padrão para sua execução e que quanto mais baixo o nível de execução menos o rootkit pode fazer para se esconder, menos ele precisa efetivamente para se esconder e mais controle ele consegue do sobre o sistema infectado, por exemplo, se um rootkit roda desde a inicialização da \emph{BIOS}, quando o sistema operacional for executado o rootkit já está sendo executado.
 
-
-
-
-
-
-
-
 \section{Análise dinâmica dos executáveis suspeitos}
 
 As técnicas de antiforense mostradas na análise estática podem ser combinadas dificultando ainda mais a análise e tornar o trabalho tão demorado que é proíbitivo continuar, contudo o \emph{stub} tem a chave para decodificar o binário, nesses casos a análise dinâmica pode acelerar o processo. O objetivo da análise dinâmica é o mesmo da análise estática apesar dos metódos diferentes \cite{DISTLER2007}.
@@ -232,19 +225,23 @@ Nesse caso, quem chega primeiro tem todas as vantagens, seja o perito investigan
 
 Os \emph{packers} também são um empecilho nessa fase e tudo fica mais complicado quando é usado um \emph{packer} privado, pois nem todos se comportam como o \emph{UPX}, de forma que o \emph{packer} pode dividir o código em diversos seções e cada uma delas pode haver uma chave criptogradada diferente. O rootkit pode ser programado para só executar no ambiente que ele infecta, por exemplo, ele pode usar verificações do hardware, ou ainda pode usar o \emph{hardware} como parte da senha para descompactar e/ou decriptar o binário original.
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/regiters.jpg}
+  \caption{Registradores básicos IA32 \cite{WISMAN2012}}
+  \label{fig:regiters}
+\end{figure}
+
+O processador tem um registrador especial para \emph{flags} na arquitetura Intel de microprocessadores \emph{IA32} (figura \ref{fig:registers}), onde cada \emph{bit} desse registrador representa um \emph{flag} diferente, a diferença principal entre um processo comum e um que está sendo depurado é que o processo possuí o \emph{bit 8} ou \emph{Trap Flag (TF)} setada no registrador de \emph{flags} chamado de \emph{EFLAGS} (veja a figura \ref{fig:eflag}), de forma que o processador irá executar um instrução por vez, ignorando o paralelismo e \emph{pipeline} e a instrução tem que fazer o ciclo completo antes de executar a próxima instrução, desse jeito o processador permite que os registradores, memória e instruções possam ser verificadas a cada passo do mesmo, isso é garantido pelo processador e por si só já torna o trabalho do perito mais fácil, pois ao depurar o código o mesmo é capaz de entender o que se passa em cada passo \cite{WIKIDOT2010}. 
+No Windows tem métodos de verificar se o programa está sendo executado, como as do Windows SDK possui duas rotinas, \emph{WINAPI isDEBUggerPresent(void)} em  \emph{user-mode} e \emph{KdRefreshDebuggerNotPresent()} em  \emph{Kernel-mode} \cite{NICOLAS2007}, ou seja, o rootkit tem como identificar se está sendo depurado.
 
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/eflags.png}
+  \caption{Registrador EFLAGS IA32 \cite{WIKIDOT2010}}
+  \label{fig:eflag}
+\end{figure}
 
-
-
-O processador tem um registrador especial para \emph{flags}, onde cada \emph{bit} desse registrador representa um \emph{flags} diferente, quando esse \emph{bit} possui  nele são registrados todas as \emph{flags} 
-Falando na arquitetura Intel de microprocessadores \emph{IA32}, a diferença principal entre um processo comum e um que está sendo depurado é que o processo possuí a \emph{Flag FS} setada, de forma que o processador irá executar um instrução por vez, ignorando o paralelismo e/ou \emph{pipeline}, de forma que a instrução tem que fazer o ciclo completo antes de executar a próxima, desse jeito o processador permite que os registradores, memória e instruções possam ser verificadas a cada passo do mesmo, isso é garantido pelo processador. Isso por si só já torna o trabalho do perito mais facil, pois ao depurar o código o mesmo é capaz de entender o que se passa em cada passo. 
-No Windows tem métodos de verificar se o programa está sendo executado, com API ou mesmo com call internas, ou seja, o programa tem varias formas de identificar se está sendo depurado. Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshDebuggerNotPresent() Kernel-mode (being debugged PEB http://www.symantec.com/connect/articles/windows-anti-debug-reference
-
-
-outra forma utilizada para análise dinâmica é o uso de \emph{virtual machines} que facilitam muito o trabalho. Contudo existe também antivirtualizadores, ou seja, no código o rootkit pode verifica se está num ambiente virtualizado e não executar.
-
-antivirtualização, para testar qualquer código malicioso deve-se http://www.chmag.in/article/sep2011/rootkits-are-back-boot-infection
-
-Se o rootkit pode ter todas essas técnicas para evitar ser análisado dinâmicamente, contudo o mesmo principio persiste, o mesmo tem que executar de forma padrão, ou seja, o programa não pode evitar ser executado porque está num ambiente virtualizado ou mesmo porque está sendo depurado, contudo o mesmo pode e provavelmente irá verificar isso, fazendo com que o perito precise mudar o fluxo do programa (possivelmente o rootkit) para força-lo a executar em tais circunstancias.
-
+Outra forma utilizada para análise dinâmica é o uso de \emph{virtual machines} que facilitam muito o trabalho. Contudo existe também antivirtualizadores, ou seja, no código o rootkit pode verifica se está num ambiente virtualizado e não executar.
+Se o rootkit pode ter todas essas técnicas para evitar ser análisado dinâmicamente, contudo o mesmo principio persiste, o mesmo tem que executar de forma padrão, ou seja, o programa não pode evitar ser executado porque está num ambiente virtualizado ou mesmo porque está sendo depurado, contudo o mesmo pode e provavelmente irá verificar isso, fazendo com que o perito precise mudar o fluxo de execução para força-lo a executar em tais circunstancias.
