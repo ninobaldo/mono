@@ -5,7 +5,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Outros agentes infeciosos: O que não é um rootkit?
 
-Malware é a junção das palavras em inglês \emph{malicious} e \emph{software}, termos em inglês que pode ser traduzido livremente como aplicativo malicioso. Dessa forma podemos considerar como malware os vírus, worms, trojans, botnets kit dentro outros, contudo o inverso não é valido, ou seja, todo vírus é um malware, mas nem todo malware é um vírus.
+Malware é a junção das palavras em inglês \emph{malicious} com \emph{software}, esses termos em inglês pode ser traduzido livremente como aplicativo malicioso. Dessa forma podemos considerar como malware os vírus, worms, trojans, botnets kit dentro outros, contudo o inverso não é valido, ou seja, todo vírus é um malware, mas nem todo malware é um vírus.
 
 % definição de malware, virus, botnet etc. \cite[p. 15]{BILL2009}. diferenças entre worm e vírus
 % virus e worms, born to be spred
@@ -14,7 +14,7 @@ Malware é a junção das palavras em inglês \emph{malicious} e \emph{software}, te
 Os vírus e worms são feitos para se espalha a diferença está em como eles se espalham. O vírus precisa ser ativado ou executado pelo usuário e em geral fica atrelado a algum executavel que pode ser ou não um programa legitimo subvertido \cite{MARK1995}, ao contrário do worm que não precisam da ação direta do usuário para se espalhar e permanece apenas na memória \cite{MCAFEE2013}.
 
 % botnet zombies
-Uma \emph{botnet} é uma rede de computadores controlados por cybercriminosos\cite{KAS2013}. Basicamente quando um computador é infectado pelo agente da \emph{botnet} o mesmo se torna parte da rede e é controlado pelo dono da botnet. 
+Uma \emph{botnet} é uma rede de computadores controlados por cybercriminosos \cite{KAS2013}. Basicamente quando um computador é infectado pelo agente da \emph{botnet} o mesmo se torna parte da rede e é controlado pelo dono da \emph{botnet}. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %				ROOTKIT					%
@@ -29,7 +29,43 @@ Essa coleção de ferramentas que permitem aos invasores ocultarem suas atividades
 Como pode ser visto cada um desses agentes subversivos tem definições e características próprias diferentes e uma em comum todos eles subvertem o sistema de alguma forma, contudo é bom resaltar que nem todo rootkit é um malware, pois existem aplicações legítimas para o mesmo, como de computadores coorporativos e inclusive aplicações investigativas.
 
 %Historico
-Os primeiros rootkits apareceram em de 20 anos atrás no fim dos anos 80 e início dos 90, quando alguns foram percebidos comportamentos anormais em computadores como espaço em disco utilizado sem identificação, conexões de rede não-listadas e uso anormal do CPU \cite{PR2011}.
+Os primeiros rootkits apareceram em de 20 anos atrás no fim dos anos 80 e início dos 90, quando alguns foram percebidos comportamentos anormais em computadores como espaço em disco utilizado sem identificação, conexões de rede não-listadas e uso anormal do CPU \cite{PR2011}. 
+
+% Tipos
+Para \citeonline{PAROS2009} os rootkits podem ter quatro tipos:
+
+\begin{itemize}
+  \item Ring 3 (User-mode): são rootkit que operam acima do sistema operacional como um aplicativo, mudando um aplicativo padrão ou injetando código na memória na área reservada a aplicações \emph{user-mode};
+  \item Ring 0 (Kernel-mode): operam injetando código na área da memória reservada ao \emph{kernel}, adicionando código ao \emph{kernel}, modificando \emph{drivers} etc, ou seja, esse tipo de rootkit roda no mesmo nível do \emph{kernel};
+  \item Hardware/Firmware based: os rootkit se instalam em \emph{firmwares} como placas de rede ou placas de vídeo, de forma que rodam indepententes do sistema operacional; e
+  \item Virtualization based: feito para executar em ambientes virtualizados, estes rootkits executam junto ao sistema de virtualização para interceptar ou controlar as \emph{virtual machines}.
+\end{itemize}
+
+Como pode ser notado, o tipo de ambiente onde o rootkit executa define o seu tipo, por exemplo, um rootkit que só executa em memória, será um \emph{user-mode} ou \emph{kernel-mode} rootkit dependendo do lugar na memória que o mesmo irá utilizar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % o que o rootkit execucar sem ser percebido? Isso é fundamental para entender onde e o que o rootkit pode estar fazendo
 % hunk interrupções
@@ -39,8 +75,6 @@ Basicamente o processador pode receber dois tipos de exceções, uma gerada por ha
 
 
 % hook memory
-
-tipos de rootkit http://www.terena.org/activities/tf-csirt/meeting27/oesterberg-rootkits.pdf
 
 % Ir em cada referencia e verificar se foi usada
 
@@ -112,3 +146,9 @@ não são novidades e sua aplicação já não é
 
 
 e durante o avanço do trabalho, poderão ser notadas diversas formas de detecção de rootkits além de indícios de seu uso em análises.
+
+
+ 
+ 
+
+
