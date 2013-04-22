@@ -225,26 +225,26 @@ Esses foram dois metódos que podem ser utilizados para evitar ou complicar o pro
 
 \section{Análise dinâmica dos executáveis suspeitos}
 
-Essas técnicas podem ser combinadas dificultando ainda mais a análise, contudo o stub tem a chave para decodificar o binário, mas isso pode ser mais dificil quando \emph{crypters} e \emph{packer} privado, pode dividir o código em diversos setores e cada setor ter uma chave criptogradada diferente SALT + HWID + TIME + PCI\_ROM para criar a chave
+As técnicas de antiforense mostradas na análise estática podem ser combinadas dificultando ainda mais a análise e tornar o trabalho tão demorado que é proíbitivo continuar, contudo o \emph{stub} tem a chave para decodificar o binário, nesses casos a análise dinâmica pode acelerar o processo. O objetivo da análise dinâmica é o mesmo da análise estática apesar dos metódos diferentes \cite{DISTLER2007}.
 
+Existe muitas formas e técnicas aplicavéis a análises dinâmicas, como análise do tráfego, análise da memória, análise dos processos, análise do registro do Windows etc, essa análise é bem diferente da que pode ser feita no ambiente infectado, mesmo que sejam usados técnicas e ferramentas bem parecida, porque a primeira, como já foi dito, pode ter total controle sobre o ambiente ao contrário do segundo tipo que o perito prepara o ambiente e monitora. 
+Nesse caso, quem chega primeiro tem todas as vantagens, seja o perito investigando um ambiente comprometido ou seja o rootkit executado em um ambiente preparado pelo perito. No primeiro caso talvez fosse mais indicado a uma resposta a incidentes, onde se precise em muito pouco tempo descobrir o que esta acontecendo.
 
-
-antidebugger FS flag determina o debug na arquitetura IA32, explicar que assim e processador faz uma instrução por vez
-
-
-Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshDebuggerNotPresent() Kernel-mode (being debugged PEB http://www.symantec.com/connect/articles/windows-anti-debug-reference
-
-antivirtualização, para testar qualquer código malicioso deve-se
-
-http://www.chmag.in/article/sep2011/rootkits-are-back-boot-infection
-
-
-\section{outro}
+Os \emph{packers} também são um empecilho nessa fase e tudo fica mais complicado quando é usado um \emph{packer} privado, pois nem todos se comportam como o \emph{UPX}, de forma que o \emph{packer} pode dividir o código em diversos seções e cada uma delas pode haver uma chave criptogradada diferente. O rootkit pode ser programado para só executar no ambiente que ele infecta, por exemplo, ele pode usar verificações do hardware, ou ainda pode usar o \emph{hardware} como parte da senha para descompactar e/ou decriptar o binário original.
 
 
 
 
 
-nao existe tecnica antiforense 100\% nem metodologia para analise infalivel, nem 100\% segura e confiavel
 
+O processador tem um registrador especial para \emph{flags}, onde cada \emph{bit} desse registrador representa um \emph{flags} diferente, quando esse \emph{bit} possui  nele são registrados todas as \emph{flags} 
+Falando na arquitetura Intel de microprocessadores \emph{IA32}, a diferença principal entre um processo comum e um que está sendo depurado é que o processo possuí a \emph{Flag FS} setada, de forma que o processador irá executar um instrução por vez, ignorando o paralelismo e/ou \emph{pipeline}, de forma que a instrução tem que fazer o ciclo completo antes de executar a próxima, desse jeito o processador permite que os registradores, memória e instruções possam ser verificadas a cada passo do mesmo, isso é garantido pelo processador. Isso por si só já torna o trabalho do perito mais facil, pois ao depurar o código o mesmo é capaz de entender o que se passa em cada passo. 
+No Windows tem métodos de verificar se o programa está sendo executado, com API ou mesmo com call internas, ou seja, o programa tem varias formas de identificar se está sendo depurado. Windows SDK duas rotinas, WINAPI isDEBUggerPresent(void) user-mode ou KdRefreshDebuggerNotPresent() Kernel-mode (being debugged PEB http://www.symantec.com/connect/articles/windows-anti-debug-reference
+
+
+outra forma utilizada para análise dinâmica é o uso de \emph{virtual machines} que facilitam muito o trabalho. Contudo existe também antivirtualizadores, ou seja, no código o rootkit pode verifica se está num ambiente virtualizado e não executar.
+
+antivirtualização, para testar qualquer código malicioso deve-se http://www.chmag.in/article/sep2011/rootkits-are-back-boot-infection
+
+Se o rootkit pode ter todas essas técnicas para evitar ser análisado dinâmicamente, contudo o mesmo principio persiste, o mesmo tem que executar de forma padrão, ou seja, o programa não pode evitar ser executado porque está num ambiente virtualizado ou mesmo porque está sendo depurado, contudo o mesmo pode e provavelmente irá verificar isso, fazendo com que o perito precise mudar o fluxo do programa (possivelmente o rootkit) para força-lo a executar em tais circunstancias.
 
