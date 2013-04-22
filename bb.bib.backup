@@ -302,21 +302,63 @@
   urldate 	= "06 de Abril de 2013"
 }
 
-@ARTICLE{DISTLER2007,
+@ARTICLE{PETRI2012,
   title 	= "Using UPX as a Security Packer",
   author 	= "Dr Petri",
-  publisher	= "SANS Institute Reading Room",
-  year 		= "2007",
-  url		= "http://www.sans.org/reading\_room/whitepapers/malicious/malware-analysis-introduction\_2103",
+  year 		= "2012",
+  url		= "http://dl.packetstormsecurity.net/papers/general/Using\_UPX\_as\_a\_security\_packer.pdf",
   urldate	= "29 de Março de 2013"
 }
 
+@ARTICLE{NEEDLE2006,
+  title 	= "Silver Needle in the Skype",
+  author 	= "Philippe Biondi and Fabrice Desclaux",
+  publisher	= "BlackHat Europe 2006",
+  year 		= "2006",
+  url		= "http://www.blackhat.com/presentations/bh-europe-06/bh-eu-06-biondi/bh-eu-06-biondi-up.pdf",
+  urldate	= "29 de Março de 2013"
+}
 
+@WWW{WISMAN2012,
+  title 	= "Syllabus C335 Computer Structures",
+  author 	= "Ray Wisman",
+  year 		= "2012",
+  url 		= "http://homepages.ius.edu/RWISMAN/C335/html/Chapter4.htm",
+  urldate 	= "29 de Novembro de 2012"
+}
 
+@WWW{WIKIDOT2010,
+  title 	= "Registradores",
+  author 	= "Wikidot",
+  year 		= "2010",
+  url 		= "http://assemblytutorial.wikidot.com/registers",
+  urldate 	= "29 de Novembro de 2012"
+}
 
+@ARTICLE{NICOLAS2007,
+  title 	= "Windows Anti-Debug Reference",
+  author 	= "Nicolas Falliere",
+  publisher	= "Security Focus",
+  year 		= "2007",
+  url		= "http://www.symantec.com/connect/articles/windows-anti-debug-reference",
+  urldate	= "29 de Março de 2013"
+}
 
+@ARTICLE{CPC,
+  title 	= "Código de Processo Civil",
+  author	= "Brasil",
+  year 		= "1973",
+  url		= "http://www.planalto.gov.br/ccivil\_03/leis/l5869.htm",
+  urldate	= "29 de Março de 2013"
+}
 
-
+@ARTICLE{CPP,
+  title 	= "Código de Processo Penal",
+  author	= "Brasil",
+  year 		= "1941",
+  url		= "http://www.planalto.gov.br/ccivil\_03/decreto-lei/del3689.htm",
+  urldate	= "29 de Março de 2013"
+}
 
 
 

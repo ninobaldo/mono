@@ -43,6 +43,31 @@ Para \citeonline{PAROS2009} os rootkits podem ter quatro tipos:
 
 Como pode ser notado, o tipo de ambiente onde o rootkit executa define o seu tipo, por exemplo, um rootkit que só executa em memória, será um \emph{user-mode} ou \emph{kernel-mode} rootkit dependendo do lugar na memória que o mesmo irá utilizar.
 
+Assim que o rootkit tem acesso \emph{root} como ele consegue ficar oculto ao mesmo tempo que ele monitora o usuário e permite o controle externo? Mater o controle sobre o usuário permite manter o rootkit escondido, pois controle e comando remoto não é um grande diferencial do rootkit e sim esconder-se e consequentimente esconder o que faz. \citeonlie{BUTLER2006} mostra em seu trabalho técnicas para manter o rootkit oculto, para isso o mesmo deve ganhar controle sobre a execução e/ou manipular o dados do \emph{kernel}.
+
+\section{Controle Sobre Execução}
+
+Para ganhar controle sobre a execução do sistema o rootkit pode substituir programas do sistema operacional por uma versão que faça o mesmo, mas que ignore a ação do rootkit ou redirecionar o fluxo de um chamada \emph{hook}.
+
+\emph{Windows application programming interface (Windows API)} é uma interface da família Microsoft Windows descrita no \emph{Windows Software Development Kit (SDK)} que podem ser chamadas em \emph{user-mode} \cite{WINAPI2008}. 
+O \emph{Windows API functions} nada mais são do que funções expostas pelo \emph{Windows API} para uso de aplicativos em geral, por exemplo, quando um aplicativo feito para Microsoft Windows precisa fazer algo abstraído pelo sistema operacional, como por exemplo, criar arquivos, listar processos etc, o mesmo irá utilizar essas \emph{functions}, ou seja, cada linguagem de programação possui métodos ou \emph{functions} próprias para criar um arquivo, cada qual com sua sintaxe e pecularidades, contudo é bem provável que sejam apenas outra abstração e que na realidade o mesmo use a \emph{function \textbf{CreateFile}} dispinibilizada pelo \emph{Windows API} como explicado por \citeonline{MARK2012}.
+
+As \emph{Native system services ou system calls}, são serviços do sistema operacional não documentados que diferente das \emph{Kernel support functions ou routines} que são subrotinas do sistema operacional Microsoft Windows chamados apenas em \emph{kernel-mode}, essas são disponibilizados para uso em \emph{user-mode}. 
+Sendo inclusive chamados por \emph{functions} do \emph{Windows API}, por exemplo, \emph{\textbf{NtCreateUserProcess}} é o serviço interno do sistema que a \emph{function} \emph{\textbf{CreateProcess}} chama para criar novos processos no Microsoft Windows \cite[p. 4]{MARK2012}.
+
+Ao criar um \emph{breakpoint} o processador redirecione o fluxo de determinado programa para outro para que o mesmo possa depurar \cite{WINDEB2013}. 
+Desse jeito ao incluir um \emph{breakpoint} em alguma \emph{function} do \emph{Windows API}, algum serviço do \emph{Native system services ou system calls} ou chamada do \emph{Kernel support functions ou routines} o rootkit recebe o controle da execução desses processo como se fosse um \emph{debugger}. 
+Como foi explicado anteriormente algumas dessas funções e/ou chamadas podem ser utilizadas tanto por rootkits que trabalham em \emph{user-mode} quanto pelos que trabalham em \emph{kernel-mode}. 
+
+Outra forma de \emph{hook} é interceptar chamadas a tabela de interrupções básicas. 
+Basicamente o processador pode receber dois tipos de exceções, uma gerada por hardware chamada de externa e interrupções geradas por programas \cite[p. 6-2 Vol. 3A]{INT64IA322011}. Essas interrupções podem variar, desde uma tecla sendo apertada pelo usuário, ou mudança de contexto do processador, ou até um \emph{chipset} da placa mãe informando que a tranferência entre o disco e a memória foi completado (DMA).
+
+A grosso modo, quando uma interrupção ou exceção ocorre o processador usa o endereço de memória armazenado no indice correspondente a interrupção lançada que por definição aponta para uma \emph{procedure} que trata a interrupção \cite{INT803861986}, ou seja, esse endereço na memória indica qual a \emph{procedure} especifica para a interrupção ou exceção que ocorreu. O rootkit pode interceptar uma chamada a tabela estrutura de dados com indices dessas tratativas como \emph{Interrupt Vector (IVT)} em modo real ou a \emph{Interrupt Descriptor Table (IDT)} em modo protegido, ambas com estruturas e funções similares, de forma que mude o fluxo de trativa.
+
+
+\section{Manipular Dados do Kernel}
+
+Outra forma do rootkit se manter oculto é manipular dados provindos da estrutura do \emph{kernel}, como é o caso do rootkit para Microsoft Windows XP FU rootkit e FUTo rootkit
 
 
 
@@ -69,7 +94,7 @@ Como pode ser notado, o tipo de ambiente onde o rootkit executa define o seu tip
 
 % o que o rootkit execucar sem ser percebido? Isso é fundamental para entender onde e o que o rootkit pode estar fazendo
 % hunk interrupções
-Basicamente o processador pode receber dois tipos de exceções, uma gerada por hardware chamada de externa e interrupções geradas por programas\cite[p. 6-2 Vol. 3A]{INT64IA322011}. A grosso modo, quando uma interrupção ou exceção ocorre o processador usa o endereço de memória armazenado no indice correspondente a interrupção lançada que por definição aponta para uma \emph{procedure} que trata a interrupção \cite{INT803861986}, ou seja, esse endereço na memória vai direcionar o processamento a \emph{procedure} especifica para a interrupção ou exceção que ocorreu. O rootkit pode interceptar uma chamada a tabela estrutura de dados com indices dessas tratativas como \emph{Interrupt Vector (IVT)} em modo real ou a \emph{Interrupt Descriptor Table (IDT)} em modo protegido, ambas as estruturas possuem funções similares, apesar da forma como trabalham ser muito distinta.
+
 
 %pathing
 
