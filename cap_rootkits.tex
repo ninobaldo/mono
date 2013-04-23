@@ -43,7 +43,7 @@ Para \citeonline{PAROS2009} os rootkits podem ter quatro tipos:
 
 Como pode ser notado, o tipo de ambiente onde o rootkit executa define o seu tipo, por exemplo, um rootkit que só executa em memória, será um \emph{user-mode} ou \emph{kernel-mode} rootkit dependendo do lugar na memória que o mesmo irá utilizar.
 
-Assim que o rootkit tem acesso \emph{root} como ele consegue ficar oculto ao mesmo tempo que ele monitora o usuário e permite o controle externo? Mater o controle sobre o usuário permite manter o rootkit escondido, pois controle e comando remoto não é um grande diferencial do rootkit e sim esconder-se e consequentimente esconder o que faz. \citeonlie{BUTLER2006} mostra em seu trabalho técnicas para manter o rootkit oculto, para isso o mesmo deve ganhar controle sobre a execução e/ou manipular o dados do \emph{kernel}.
+Assim que o rootkit tem acesso \emph{root} como ele consegue ficar oculto ao mesmo tempo que ele monitora o usuário e permite o controle externo? Mater o controle sobre o usuário permite manter o rootkit escondido, pois controle e comando remoto não é um grande diferencial do rootkit e sim esconder-se e consequentimente esconder o que faz. \citeonline{BUTLER2006} mostra em seu trabalho técnicas para manter o rootkit oculto, para isso o mesmo deve ganhar controle sobre a execução e/ou manipular o dados do \emph{kernel}.
 
 \section{Controle Sobre Execução}
 
@@ -64,116 +64,29 @@ Basicamente o processador pode receber dois tipos de exceções, uma gerada por ha
 
 A grosso modo, quando uma interrupção ou exceção ocorre o processador usa o endereço de memória armazenado no indice correspondente a interrupção lançada que por definição aponta para uma \emph{procedure} que trata a interrupção \cite{INT803861986}, ou seja, esse endereço na memória indica qual a \emph{procedure} especifica para a interrupção ou exceção que ocorreu. O rootkit pode interceptar uma chamada a tabela estrutura de dados com indices dessas tratativas como \emph{Interrupt Vector (IVT)} em modo real ou a \emph{Interrupt Descriptor Table (IDT)} em modo protegido, ambas com estruturas e funções similares, de forma que mude o fluxo de trativa.
 
-
 \section{Manipular Dados do Kernel}
 
-Outra forma do rootkit se manter oculto é manipular dados provindos da estrutura do \emph{kernel}, como é o caso do rootkit para Microsoft Windows XP FU rootkit e FUTo rootkit
+Outra forma do rootkit se manter oculto é manipular dados provindos da estrutura do \emph{kernel}, como mudar estruturas do mesmo desvinculando processo e drivers de listagens de processos ou ainda alterando tabelas de \emph{handle} \cite[p. 16]{BUTLER2006} esse que é o caso do rootkit para Microsoft Windows XP FU rootkit criado pelo pesquisar Jamie Butler, que manipula diretamente objetos do \emph{kernel} sem o uso de \emph{hook}, para isso ele muda os dados dentro da estrutura do \emph{EPROCESS} \cite[p. 4]{FLORIO2005}.
 
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/eprocess.png}
+  \caption{Processos vinculados \cite{FLORIO2005}}
+  \label{fig:eprocess}
+\end{figure}
 
+O sistema operacional Microsoft Windows tem duas listas diferentes de todos os processos e \emph{thread}, todos eles são associados a uma estrutura \emph{EPROCESS} que é vinculada a processo prévio e o próximo, como pode ser visto na figura \ref{fig:eprocess} formando uma lista de processo (\emph{double-linked list}). O que o rootkits como o FU rootkit, também chamados de \emph{Direct Kernel Object Manipulation (DKOM)}, fazem é desvincular o processo desse lista como na figura \ref{fig:unlinked-process} \cite{FLORIO2005}.
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=1]{figuras/unlink-process.png}
+  \caption{Processo desvinculado \cite{FLORIO2005}}
+  \label{fig:unlink-process}
+\end{figure}
 
+\section{Conclusão}
 
+\citeonline{GREG2005} diz que rootkits existem pelo mesmo motivo que grampos telefônicos ou espiões, existem para que pessoas possam saber ou controlar outras. Apesar de em teoria esses métodos serem facilmente compreendidos, na prática em um sistema operacional moderno como o Microsoft Windows 7 que possui inúmeras proteções, usar qualquer um desses métodos exige muita pesquisa. Por essa razão seu desenvolvimento exige conhecimentos profundos tanto de arquitetura de computadores quanto do funcionamento do sistema operacional que o mesmo pretende corromper tornando-o muito valioso. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% o que o rootkit execucar sem ser percebido? Isso é fundamental para entender onde e o que o rootkit pode estar fazendo
-% hunk interrupções
-
-
-%pathing
-
-
-% hook memory
-
-% Ir em cada referencia e verificar se foi usada
-
-falando assim parece uma tarefa fácil realizar qualquer um desses metodos...
-
-
-% \begin{citacao}
-% ``
-% 1989: Primeiro alterador de logs é encontrado em sistemas corrompidos.
-% 1994: Primeiros rootkits em sistemas operacionais da Sun são detectados.
-% 1996: Primeiro rootkit para Linux aparece publicamente.
-% 1997: Rootkits a nível de kernel (através de módulos carregáveis pelo kernel) são propostos
-% na ``Phrack''.
-% 1998: Rootkits que se instalam em níveis mais próximos ao hardware são propostos por Silvio
-% Cesare.
-% 2000: Rootkit a nível de biblioteca é lançado.
-% 2002: Funções de ``sniffers'' começam a ser introduzidas em rootkits.
-% 2005: SONY/BMG causam escândalos ao incluir rootkit antipirataria em seus CDs
-% 2006: A pesquisadora de segurança Joanna Rutkowska cria o Blue Pill, um rootkit a nível
-% de máquina virtual em hardware.
-% 2007: Mebroot, um rootkit a nível de boot, é descoberto pela empresa de segurança iDefense.
-% ''\cite[p. 13]{PR2011}
-% \end{citacao}
-
-
-%quem usa \cite[p. 13]{BILL2009}, usos para rootkit \cite{GREG2005} -> Why Do Rootkits Exist?
-
-% Como ele pode subverter um sistema
-
-% Análise, detecção e forense - montanaro.pdf
-
-%bombas lógicas
-
-
-% Mostrar o que ele pode fazer usando se possível com exemplos reais;
-%resumo: rootkits com suas práticas comuns e respectivos históricos junto com algumas técnicas de subversão
-%introdução: as práticas mais comuns e como o rootkit pode ser usado na antiforense Como o rootkit pode impedir a formação de provas;
-
-% \cite{PR2011} rootkit em bios e em outros lugares (onde o pode se esconder?) ou placa de video (eko)
-
-Jamie Butler, the creator of the FU rootkit
-
-
-O uso de rootkits é limitado a usuários avançados sendo que seu desenvolvimento exige conhecimentos profundos tanto de arquitetura de computadores quanto do funcionamento do Sistema Operacional que o mesmo vai corromper.
-
-
-
-
-
-
-
-
-
-
-Rootkits proporcionam uma grande variedades de opções e pode ser utilizado para quase tudo, 
-
-vem sendo utilizado historicamente para subverter sistemas dando permissão 
-
-O fato de alguns eventos e rootkits terem ficados famosos, como é o caso do stuxnet\cite{}, torna esse assunto muito interessante de ser abordado, porque 
-
-
-
-
-A grosso modo rootkits sempre tentarão esconder sua presença e seus rastros, logo a antiforense desde o inicio já é parte ...
-
-não são novidades e sua aplicação já não é 
-
-
-
-
-e durante o avanço do trabalho, poderão ser notadas diversas formas de detecção de rootkits além de indícios de seu uso em análises.
-
-
- 
- 
-
-
+Como foi mostrado de algum modo os rootkits sempre tentarão esconder sua presença e seus rastros, logo a antiforense faz é parte do seu conceito.
