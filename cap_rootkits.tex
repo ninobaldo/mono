@@ -1,42 +1,54 @@
-\chapter{Rootkits}
+\chapter{Rootkit}
+
+Ambientes informatizados trazem novas ameaças cada uma com um suas próprias características, também é comum a combinação dessas características para formar novas ameaças.
+Nessa parte serão mostradas as definições básicas de algumas das ameaças mais comuns e a diferença entre elas.
+
+É importante ressaltar que existem aplicações legítimas e legais no uso do rootkit como em computadores coorporativos e aplicações investigativas, contudo é inerente do rootkit obter acesso \emph{root} e manter-se oculto. 
+Dessa forma ele age contra o usuário do sistema e por esse motivo ele vai ser tratado como \emph{malware}.
+
+\section{Malware}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %				MALWARE					%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Outros agentes infeciosos: O que não é um rootkit?
 
-Malware é a junção das palavras em inglês \emph{malicious} com \emph{software}, esses termos em inglês pode ser traduzido livremente como aplicativo malicioso. Dessa forma podemos considerar como malware os vírus, worms, trojans, botnets kit dentro outros, contudo o inverso não é valido, ou seja, todo vírus é um malware, mas nem todo malware é um vírus.
+\emph{Malware} é a junção das palavras em inglês \emph{malicious} com \emph{software}, esses termos em inglês pode ser traduzido livremente como aplicativo ou código malicioso. Dessa forma podemos considerar como \emph{malware} os vírus, \emph{worms}, \emph{trojans}, \emph{botnets kit} dentro outros, contudo o inverso não é válido, ou seja, todo vírus é um \emph{malware}, mas nem todo \emph{malware} é um vírus.
 
 % definição de malware, virus, botnet etc. \cite[p. 15]{BILL2009}. diferenças entre worm e vírus
 % virus e worms, born to be spred
 % 1980 - virus - floppy disk - display in to startup "Your computer is now stoned"
 % 1988 - worm - Morris Worm
-Os vírus e worms são feitos para se espalha a diferença está em como eles se espalham. O vírus precisa ser ativado ou executado pelo usuário e em geral fica atrelado a algum executavel que pode ser ou não um programa legitimo subvertido \cite{MARK1995}, ao contrário do worm que não precisam da ação direta do usuário para se espalhar e permanece apenas na memória \cite{MCAFEE2013}.
+Os vírus e \emph{worms} são feitos para espalharem-se, a diferença está em como eles se espalham. O vírus precisa ser ativado ou executado pelo usuário e em geral fica atrelado a algum executável que pode ser ou não um programa legítimo subvertido \cite{MARK1995}, ao contrário do \emph{worm} que não precisam da ação direta do usuário para se espalhar e permanece apenas na memória \cite{MCAFEE2013}.
 
 % botnet zombies
-Uma \emph{botnet} é uma rede de computadores controlados por cybercriminosos \cite{KAS2013}. Basicamente quando um computador é infectado pelo agente da \emph{botnet} o mesmo se torna parte da rede e é controlado pelo dono da \emph{botnet}. 
+Uma \emph{botnet} é uma rede de computadores controlados por cibercriminosos \cite{KAS2013}. Basicamente quando um computador é infectado pelo agente da \emph{botnet} o mesmo se torna parte da rede e é controlado pelo dono da \emph{botnet}. 
+
+\section{Rootkit}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %				ROOTKIT					%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Definição: O que é rootkit?
-No universo \emph{UNIX\footnote{Um sistema operacional multiusuário amplamente utilizado.}} ou \emph{UNIX-like\footnote{Sistemas Operacionais baseados no Unix, como o GNU/Linux}} a conta de usuário com menor restrição de segurança é referênciada como conta \emph{root} sendo que em alguns sistemas o nome de usuário é literalmente root, mas isso é apenas uma convenção histórica do que uma imposição \cite{BILL2009}. Enquanto \emph{kit} significa conjunto de peças \cite{DIING}. 
+No universo \emph{UNIX\footnote{Um sistema operacional multiusuário amplamente utilizado.}} ou \emph{UNIX-like\footnote{Sistemas Operacionais baseados no Unix, como o GNU/Linux}} a conta de usuário com menor restrição de segurança é referênciada como conta \emph{root} sendo que em alguns sistemas o nome de usuário é literalmente root, mas isso é apenas uma convenção histórica e não uma imposição \cite{BILL2009}. Enquanto \emph{kit} significa conjunto de peças \cite{DIING}. 
 
-Rootkit pode ser visto como um ``kit'' composto de pequenos programas úteism por exemplo, binários, scripts, arquivos de configuração que permitem a um atacante manter o acesso ``root''. Em outras palavras, um rootkit é um conjunto de programas e de código, que permite a presença permanente ou consistente, não detectável em um computador \cite{GREG2005}.
+Os primeiros rootkits apareceram a cerca de 20 anos já no fim dos anos 80 e início dos 90, quando foram percebidos comportamentos anormais em computadores como espaço em disco utilizado sem identificação, conexões de rede não-listadas e uso anormal do CPU \cite{PR2011}.
+Rootkit pode ser visto como um \emph{kit} composto de pequenos programas úteis, por exemplo, binários, scripts, arquivos de configuração que permitem a um atacante manter o acesso ``root''. Em outras palavras, um rootkit é um conjunto de programas e de códigos, que permite a presença permanente ou consistente, não detectável em um computador \cite{GREG2005}.
 
-Essa coleção de ferramentas que permitem aos invasores ocultarem suas atividades em um computador, de modo que eles podem secretamente monitorar e controlar o sistema por um período prolongado, ou seja, existem três serviços que o são inerentes dos rootkits, ocultação, comando e controle (C2) e vigilância \cite{BILL2009}. Ocultação, o rootkit deve passar despercebido, sem que o usuário e/ou antivírus o detecte; vigilância ou monitoramento basicamente consiste em acompanhar as ações do usuário, o rootkit tem que ser capaz de saber o que o usuário está fazendo; e comando e controle, permite ao dono do rootkit o controle remoto sobre o mesmo, definindo suas ações e direcionando. Desses três serviços o mais importante para o rootkit é a furtividade, pois um rootkit detectável vai durar muito pouco.
-
-Como pode ser visto cada um desses agentes subversivos tem definições e características próprias diferentes e uma em comum todos eles subvertem o sistema de alguma forma, contudo é bom resaltar que nem todo rootkit é um malware, pois existem aplicações legítimas para o mesmo, como de computadores coorporativos e inclusive aplicações investigativas.
+Essa coleção de ferramentas que permitem aos invasóres ocultarem suas atividades em um computador, de modo que eles podem secretamente monitorar e controlar o sistema por um período prolongado. 
+Existem três serviços que são comuns aos rootkits: ocultação, comando e controle (C2) e vigilância \cite{BILL2009}. Ocultação, o rootkit deve passar despercebido, sem que o usuário e/ou antivírus o detecte; vigilância ou monitoramento basicamente consiste em acompanhar as ações do usuário, o rootkit tem que ser capaz de saber o que o usuário está fazendo; e comando e controle, permite ao dono do rootkit o controle remoto sobre o mesmo, definindo suas ações e direcionando-as. Desses três serviços o mais importante e obrigatório para o rootkit é a furtividade, pois um rootkit detectável vai durar muito pouco.
 
 %Historico
-Os primeiros rootkits apareceram em de 20 anos atrás no fim dos anos 80 e início dos 90, quando alguns foram percebidos comportamentos anormais em computadores como espaço em disco utilizado sem identificação, conexões de rede não-listadas e uso anormal do CPU \cite{PR2011}. 
 
+Como pode ser visto cada um desses agentes subversivos tem definições e características próprias diferentes e uma em comum todos eles subvertem o sistema de alguma forma.
+
+\section{Tipos de Rootkit}
 % Tipos
 Para \citeonline{PAROS2009} os rootkits podem ter quatro tipos:
 
 \begin{itemize}
   \item Ring 3 (User-mode): são rootkit que operam acima do sistema operacional como um aplicativo, mudando um aplicativo padrão ou injetando código na memória na área reservada a aplicações \emph{user-mode};
-  \item Ring 0 (Kernel-mode): operam injetando código na área da memória reservada ao \emph{kernel}, adicionando código ao \emph{kernel}, modificando \emph{drivers} etc, ou seja, esse tipo de rootkit roda no mesmo nível do \emph{kernel};
+  \item Ring 0 (Kernel-mode): operam injetando código na área da memória reservada ao \emph{kernel}, adicionando código ao \emph{kernel} ou modificando \emph{drivers}, ou seja, esse tipo de rootkit roda no mesmo nível do \emph{kernel};
   \item Hardware/Firmware based: os rootkit se instalam em \emph{firmwares} como placas de rede ou placas de vídeo, de forma que rodam indepententes do sistema operacional; e
   \item Virtualization based: feito para executar em ambientes virtualizados, estes rootkits executam junto ao sistema de virtualização para interceptar ou controlar as \emph{virtual machines}.
 \end{itemize}
