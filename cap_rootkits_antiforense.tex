@@ -1,7 +1,5 @@
 \chapter{Análise de Rootkits e Técnicas Antiforense}
 
-\section{Antiforense}
-
 \citeonline{RH2006} define antiforense como método para prevenir ou agir contra a ciência usada a favor das leis civis e criminais que são aplicadas por órgãos como a polícia. \citeonline{BERI2007}, amplia essa ideia mostrando que é mais que uma técnica usada, é uma abordagem crimosa. 
 Assim todas as tentativas de interferir na existência, quantidade e/ou qualidade da evidência de uma cena de crime, ou mesmo fazer a análise e exame das provas difíceis ou impossíveis de realizar, para \citeonline{ROG2005} será considerada antiforense. 
 Dessa forma concluímos resumidamente que a antiforense computacional pode ser definida como qualquer ação praticada para obstruir, dificultar ou destruir evidências ou provas no âmbito computacional.
@@ -27,21 +25,23 @@ Esses tipos serão apresentados durante as fases da análise \emph{post mortem}.
 
 \section{Análise de Rootkits}
 
-Quando o perito vai realizar a coleta do material para a análise, ele pode encontrar dois cenários onde o corpo de delito, que na ciência forense computacional quase sempre consiste em computadores, pode estar ligado ou desligado. 
+Na ciência forense computacional o corpo de delito quase sempre consiste em computadores e quando o perito vai realizar a coleta do material para a análise ele pode encontrar esse dispositivo ligado ou desligado. 
 Quando o mesmo está ligado é possível realizar a análise viva, entretando a análise \emph{live} de um ambiente com rootkit pode gerar dados falsos ou imprecisos.
 
 Análise \emph{live} ou análise viva, consiste em uma análise focada em extrair e examinar dados volatéis \cite{MCDOUGAL2006}, esses dados volatéis são perdidos ao desligar o computador, como por exemplo, o contéudo de registradores do processador, dados na \emph{cache}, dados na memória etc. 
-Essa abordagem possui diversas vantagens entre elas estão extração de dados voláteis como já citado, triagem de equipamentos, triagem de dados, preservação de dados criptografado e a possiblidade de estabelecer flagrante \cite{FBC2011}.
+Essa abordagem possui diversas vantagens entre elas estão extração de dados voláteis como já citado, triagem de equipamentos, triagem de dados, preservação de dados criptografados e a possiblidade de estabelecer flagrante \cite{FBC2011}.
 
-É importante ressaltar que toda ferramenta ou \emph{hardware} utilizado para a coleta de dados em equipamentos que ainda estão em execução, vai depender de dados fornecidos pelo equipamento periciado, ou seja, em algum momento essas ferramentas forenses vão requisitar dados de um sistema comprometido e passível de alguma interceptação mesmo quando a solução utilizada para coleta é um hardware \cite{JORUT2007}. 
+É importante ressaltar que toda ferramenta ou \emph{hardware} utilizado para a coleta de dados em equipamentos que ainda estão em execução, vai depender de dados fornecidos pelo equipamento periciado, ou seja, em algum momento essas ferramentas forenses vão requisitar dados de um sistema comprometido e passível de alguma interceptação. \citeonline{JORUT2007} mostra que mesmo quando a solução utilizada para coleta é um hardware isso pode acontecer. 
 Logo em um ambiente dominado por um rootkit não é um ambiente confiável, pois ele pode interceptar e alterar chamadas das ferramentas de análise, impossibilitando uma coleta real e fiel.
 
-A metodologia empregada na análise de um ambiente supostamente com um rootkit varia muito, mas em termos gerais a análise \emph{post mortem} é menos arriscada e indicada para casos de rootkits. 
-As medidas antiforense que podem ser tomadas pelo rootkit dependem do ambiente de execução e engloba também a equipe que o administra. No melhor dos cenários para o atacante é quando o sistema é administrado por leigos, não capacitados, sobrecarregados e/ou os sistemas não são atualizados com frequencia tornando mais fácil para o rootkit esconder-se exigindo menos do atacante. 
-No pior dos cenários o administradores são altamente qualificados, realizam rotinas frequentes, esta sempre atualizado e é auditorado \cite{BH2009}. 
+A metodologia empregada na análise de um ambiente supostamente com um rootkit varia muito, mas em termos gerais a análise \emph{post mortem} é menos arriscada.
+As medidas antiforense que podem ser tomadas pelo rootkit dependem do ambiente de execução e engloba também a equipe que o administra. 
+
+O melhor dos cenários para o atacante é quando o sistema é administrado por leigos, não capacitados, sobrecarregados e/ou os sistemas não são atualizados com frequencia tornando mais fácil para o rootkit esconder-se.
+No pior dos cenários o administradores são altamente qualificados, realizam rotinas frequentes e o ambiente esta sempre atualizado e auditorado \cite{BH2009}. 
 Entender isso pode indicar ao perito o quão complexo o rootkit é, pois quanto mais próximo do pior cenário mais avançado tem que ser o rootkit o que pode caracterizar um \emph{Advanced persistent threat (APT)} ou ameaça avançada e persistente, ou seja, o ataque utilizando o rootkit foi orquestrado e planejado apenas para esse alvo específico.
 
-Não existe técnica 100\% antiforense, então o objetivo do atacante é tornar a análise cansativa para induzir ao erro podendo adicionar inclusive falsos rootkits ou malwares para despistar, iludir ou levar a conclusões precipitadas. Em \cite{BH2009} são mostrados passos para a análise \emph{Post mortem} onde se suspeita de rootkit: 
+Não existe técnica 100\% antiforense, então o objetivo do atacante é tornar a análise cansativa para induzir ao erro podendo adicionar inclusive falsos rootkits ou \emph{malwares} para despistar, iludir ou levar a conclusões precipitadas. Em \cite{BH2009} são mostrados passos para a análise \emph{Post mortem} onde se suspeita de rootkit: 
 
 \begin{itemize}
   \item Clone do \emph{hard disk drive (HDD)};
@@ -52,28 +52,32 @@ Não existe técnica 100\% antiforense, então o objetivo do atacante é tornar a an
   \item Análise dinâmica dos executáveis suspeitos.
 \end{itemize}
 
-Esses passos pode ser vistos como filtros, onde cada passo retira cada vez mais ruído, eliminando em cada etapa arquivos superfulos. A seguir serão descritos cada um dos passos e alguns dos problemas que o mesmo pode gerar.
+Esses passos pode ser vistos como filtros, onde cada passo retira cada vez mais ruído, eliminando em cada etapa arquivos superfulos. A seguir serão descritos cada um dos passos e as técnicas antiforenses que o perito pode enfrentar.
 
 \section{Cópia forense do HDD}
 
-A primeira fase e mais importante é a coleta, que nesse caso é clone do HDD. O clone do HDD, pode ser feito com software, como o dd\footnote{http://pubs.opengroup.org/onlinepubs/9699919799/utilities/dd.html} ou por hardware específico para clonagem de HDDs. Por via de regra essas ferramentas são homologados por órgãos como \emph{National Institute of Standards and Technology (NIST)} que atestam a qualidade e eficácia dessas ferramentas em produzir cópias fidedignas que podem ser usadas em disputas legais como evidências. 
+A primeira fase e mais importante é a coleta, que nesse caso é clone do HDD. O clone do HDD, pode ser feito com software, como o dd\footnote{http://pubs.opengroup.org/onlinepubs/9699919799/utilities/dd.html} ou por hardware específico para clonagem de HDDs. 
+Por via de regra essas ferramentas são homologados por órgãos como \emph{National Institute of Standards and Technology (NIST)} que atestam a qualidade e eficácia dessas ferramentas em produzir cópias fidedignas que podem ser usadas em disputas legais como evidências. 
+
 Basicamente todos essas ferramentas fazem cópias de setor por setor de todo o disco, para que o perito possa trabalhar nessa cópia preservando o HDD original. Essas cópias já foram exaustivamente usadas em tribunais e são muito úteis e indispensáveis para a análise do perito. 
 Hoje sua eficácia não é questionada, pois essa cópia ou clone tem os dados idênticos ao do HDD objeto de análise e essa igualdade pode ser atestada com \emph{checksums} como os algoritmo de \emph{hash} \emph{MD5} ou \emph{SHA1} \cite{MULVEY2007}. Essa abordagem pode ter alguns empecilhos e o rootkit pode não vir a ser clonado junto com os dados do HDD.
 
 Primeiro e mais óbvio é que o rootkit pode nem estar no disco clonado, como estar somente na memória ou ser alocado em um outro dispositivo. O rootkit poder ser projetado para ficar somente na memória, entretando isso pode impedir que o mesmo persista já que é apagado sempre que o computador desliga \cite{PAROS2009}.
-Contudo o mesmo esteja num parque de máquinas que permita infectar o computador toda vez que este for iniciada, como em grandes \emph{data centers} em geral nunca tem todas as máquinas desligadas o rootkit pode ficar vivo na rede e persistir infectando novamente as máquinas assim que elas iniciarem. 
+Entretanto o mesmo pode estar num parque de máquinas que permita infectar o computador toda vez que este for iniciada, como em grandes \emph{data centers} em geral nunca tem todas as máquinas desligadas o rootkit pode ficar vivo na rede e persistir infectando novamente as máquinas assim que elas iniciarem. 
 
-Num \emph{Personal Computer (PC)} durante o \emph{boot} ele inicia o \emph{Basic Input/Output System (BIOS)} fornece suporte básico para os principais periféricos como teclado e vídeo em modo texto e inicia o \emph{Power-On Self-Test (POST)} que além de realizar alguns testes inicia, com base das configurações do SETUP salvas na memória CMOS, todos os circuitos perífericos, vídeo, Sistema Operacional e passa o controle para o sistema operacional \cite{TORRES2001}. 
-Durante todo esse processo o computador é executado em \emph{Real Mode}, e como já foi descrito anteriormente, em modo real os programas não são isolados uns dos outros como no \emph{Protected Mode}, logo qualquer programa em execução pode acessar todo conteúdo na memória. 
-O rootkit pode persistir no \emph{firmware}\footnote{Todo programa salvo numa \emph{Read-only memory (ROM)} é chamado de firmware} de algum periférico, como a placa de vídeo \cite{NICDI2012} ou placa de rede \cite{ABME2012}, dessa forma que tornariam o clone do HDD inútil além de ter acesso em \emph{Real Mode} na inicialização do computador.
+Durante o \emph{boot} de um \emph{Personal Computer (PC)} moderno, o \emph{firmware} de \emph{boot} inicia o \emph{Basic Input/Output System (BIOS)} dando suporte básico para os principais periféricos como teclado e vídeo em modo texto. Em seguida é iniciado o \emph{Power-On Self-Test (POST)} que além de realizar alguns testes inicia com base das configurações do SETUP salvas na memória CMOS todos os circuitos perífericos, vídeo em modo gráfico e passa o controle ao sistema operacional \cite{TORRES2001}. 
 
-O perito deve ter em mente ainda que o rootkit pode estar em áreas reservadas do disco como \emph{host protected area (HPA)} ou \emph{Device configuration overlay (DCO)}, essas areas são desenvolvidas para não serem modificadas ou mesmo acessadas por usuários, BIOS ou Sistema Operacional \cite{MMMP2006}. 
+Durante todo esse processo o computador é executado em \emph{Real Mode}, sendo que em modo real os programas não são isolados uns dos outros como no \emph{Protected Mode}. 
+Logo qualquer programa em execução pode acessar todo conteúdo na memória. 
+O rootkit pode persistir no \emph{firmware}\footnote{Todo programa salvo numa \emph{Read-only memory (ROM)} é chamado de firmware} de algum periférico, como a placa de vídeo \cite{NICDI2012} ou placa de rede \cite{ABME2012}, ou seja, ele irá executar antes do sistema operacional com todos os beneficios do modo real e tornar o clone do HDD inútil.
+
+O perito deve ter em mente ainda que o rootkit pode estar em áreas reservadas do disco como \emph{host protected area (HPA)} ou \emph{Device configuration overlay (DCO)}, essas areas são desenvolvidas para não serem modificadas ou mesmo acessadas por usuários, BIOS ou sistema operacional \cite{MMMP2006}. 
 Dessa forma dependendo da ferramenta utilizada para clone do HDD pode ser que essas áreas não sejam clonadas (\cite{NIJENC2006} e \cite{NIJFTK2006}), inutilizando o clone do HDD.
 
-Com o disco clonado o perito deve se ater a outros fatores, como criptografia, arquivos salvos em estruturas não convencionais etc. 
-O disco clonado pode ter \emph{full disk encryption} o que significa que todos os dados no disco estão criptografados \cite{RUBENS2012} e que ao clonar o clone, como é uma cópia fidedigna do original, também tem todos os dados criptografados. 
-Logo o disco deverá ser decriptado antes da análise. É improvável que um rootkit criptografe todo o disco da vítima, pois chamaria muita atenção e iria de encontro a uma de suas premissas que é se ocultar no sistema. 
-Então quando disco está encriptado, ele provavelmente foi feito pela vítima e consequentimente a maior interessada no trabalho do perito facilitando a decriptação do disco. O mais comum nesses casos quando envolve criptografia é do rootkit encriptar somente o seu binário, mas isso vai ser discutido adiante na análise estática.
+Outro assunto que o perito deve se ater é ao que o disco clonado pode ter \emph{full disk encryption} o que significa que todos os dados no disco estão criptografados \cite{RUBENS2012} e que o clone também terá todos os dados criptografados. 
+Logo o disco deverá ser decriptado antes da análise.
+Entretanto sendo improvável que um rootkit criptografe todo o disco da vítima, pois chamaria muita atenção e iria de encontro a uma de suas premissas que é se ocultar no sistema. 
+Então quando disco está encriptado, ele provavelmente foi feito pela vítima e consequentimente a maior interessada no trabalho do perito facilitando a decriptação do disco.
 
 \section{Recuperar arquivos}
 
@@ -88,19 +92,19 @@ O próximo passo a ser tomado deve ser recuperar todos os arquivos do disco, isso
 
 % Assinaturas de binários
 Todos os arquivos tem um especificação que define o formato que o arquivo deve ter para ser corretamente interpretado, essas especifição define um padrão de como o \emph{bits} são organizados internamente e é chamado de \emph{file format} \cite{ROUSE2005}. 
-Esse formato também é usado por ferramentas de \emph{data carving} para encontrar arquivos. Por exemplo a especificação do \emph{Portable Executable (PE) File Format} \cite{MS2013} determina que todos os programas comecem com um pequeno executável \emph{MS-DOS}. Esse pequeno executável inicia com o \emph{Magic Number} 0x5A4D ou \emph{MZ} em \emph{ASCII},as iniciais de Mark Zbikowski um dos arquitetos originais do MS-DOS \cite{PIETREK2002}, e uma mensagem como pode ser vista na figura \ref{fig:cal-hex}. A função desse pequeno programa é apresentar a mensagem ``This program cannot be run in DOS mode''. 
+Esse formato também é usado por ferramentas de \emph{data carving} para encontrar arquivos. Por exemplo a especificação do \emph{Portable Executable (PE) File Format} \cite{MS2013} determina que todos os programas comecem com um pequeno executável \emph{MS-DOS}. Esse pequeno executável inicia com o \emph{Magic Number} 0x5A4D ou \emph{MZ} em \emph{ASCII} (iniciais de Mark Zbikowski um dos arquitetos originais do MS-DOS \cite{PIETREK2002}), seguido de uma mensagem como pode ser vista na figura \ref{fig:cal-hex}. A função desse pequeno programa é apresentar a mensagem ``This program cannot be run in DOS mode''. 
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/cal-hex.png}
+  \includegraphics[scale=0.7]{figuras/cal-hex.png}
   \caption{Hexadecimal da Microsoft Calculator v. 5.1 visto no WinHex 16.3 SR-2}
   \label{fig:cal-hex}
 \end{figure}
 
-Programas que fazem \emph{data carving} buscam essas estruturas definidas, para encontrar executáveis. Contudo o rootkit pode usar programas como o \emph{Transmogrify} do \emph{Metasploit Anti-Forensics Project (MAFIA)} que é capaz de mascarar um arquivo em qualquer assinatura \cite{MAYNOR2007}, de forma a deixar um executável no formato de um arquivo texto por exemplo.
+Programas que fazem \emph{data carving} buscam essas estruturas definidas para encontrar arquivos, mas o rootkit pode usar programas como o \emph{Transmogrify} do \emph{Metasploit Anti-Forensics Project (MAFIA)} que é capaz de mascarar um arquivo em qualquer assinatura \cite{MAYNOR2007}, de forma a deixar um executável no formato de um arquivo texto por exemplo.
 
 Outra forma do rootkit esconde-se de um \emph{data carving} é utilizando-se de uma organização de arquivo não convencional, como usar fragmentos de diversos arquivos que só fazem sentido quando organizados de determinada forma, salvar seus arquivos em slack space buscando e indexando-os em um \emph{file system} próprio \cite{CHUCK2007}, ou ainda usando \emph{features} de um sistema de arquivos como as \emph{streams} do NTFS \cite{IRBY2006}. 
-Entretando por mais eficinte que seja o método utilizado, o rootkit em algum momento tem que executar, logo em algum ponto o rootkit tem que trabalhar com estruturas convencionais para que o sistema operacional o interprete, mesmo que seja apenas um \emph{stub} (ver análise estática).
+Entretanto por mais eficinte que seja o método utilizado, o rootkit em algum momento tem que executar, logo em algum ponto o rootkit tem que trabalhar com estruturas convencionais para que o sistema operacional o interprete, mesmo que seja apenas um \emph{stub} (ver análise estática).
 
 \section{Coletar metadados dos arquivos}
 
@@ -109,14 +113,14 @@ Nessa etapa é feita a coleta dos metadados de todos os arquivos, segue os princi
 \begin{itemize}
   \item Hash;
   \item MAC time;
-  \item Localização completa do arquivo em disco (\emph{Path}); e
   \item Nome;
+  \item Localização completa do arquivo em disco (\emph{Path}); e
   \item Tamanho;
 \end{itemize}
 
 É importante que se tenha ao menos esses metadados dos arquivos recuperados. Os próximos passos podem depender de um desses elementos. O \emph{hash} é fundamental para o próximo passo, o tamanho vai ser abordado na análise estática, o nome e \emph{path} são obviamente para sua identificação e para localização, e o \emph{MAC (Modify, Access, Create) time} pode vir a ser utilizado para desenvolver uma  \emph{timeline}, ferramenta útil e poderosa para favor do perito.
 
-A análise da \emph{timeline} é um importante passo para todo processo tradicional de investigação, com base nela um perito forense computacional pode extrair informações cruciais para o caso \cite{KRISTINN2010}. Criar uma \emph{timeline} de eventos com base nos \emph{MAC time} dos arquivos ajuda a entender o ciclo de contaminação, além de levantar suspeitas sobre varios dados inconsistentes, como por exemplo, porque o papel de parede do Windows tem a data de modificação ou criação recente? Além de ajudar a entender como o rootkit pode ter se mantido no ambiente analisado. Dessa forma é possível recriar a cadeia de eventos gerando ao mesmo tempo contexto.
+A análise da \emph{timeline} é um importante passo para todo processo tradicional de investigação, com base nela um perito forense computacional pode extrair informações cruciais para o caso \cite{KRISTINN2010}. Criar uma \emph{timeline} de eventos com base nos \emph{MAC time} (figura \ref{fig:timestomp_mace}) dos arquivos ajuda a entender o ciclo de contaminação, além de levantar suspeitas sobre varios dados inconsistentes, como por exemplo, porque o papel de parede do Windows tem a data de modificação ou criação recente? Além de ajudar a entender como o rootkit pode ter se mantido no ambiente analisado. Dessa forma é possível recriar a cadeia de eventos gerando ao mesmo tempo contexto.
 
 \begin{figure}[htb]
   \centering
@@ -125,7 +129,7 @@ A análise da \emph{timeline} é um importante passo para todo processo tradiciona
   \label{fig:timestomp_mace}
 \end{figure}
 
-Para \cite{HALL2011} um dos principais desafios na análise de \emph{timeline} envolve a fácil manipulação. Para não levantar suspeitas, ou dificultar o processo de análise da \emph{timeline}, o rootkit pode ser programado a alterar o \emph{MAC time} quando necessário. O programa \emph{Timestomp} também do \emph{MAFIA} e hoje integrado ao \emph{Meterpreter} é capaz de alterar esses metadados como é mostrado na figura \ref{fig:Timestomp_mace_change}.
+Para \citeonline{HALL2011} um dos principais desafios na análise de \emph{timeline} envolve a fácil manipulação. Para não levantar suspeitas, ou dificultar o processo de análise da \emph{timeline}, o rootkit pode ser programado a alterar o \emph{MAC time} quando necessário. O programa \emph{Timestomp} também do \emph{MAFIA} e hoje integrado ao \emph{Meterpreter} é capaz de alterar esses metadados como é mostrado na figura \ref{fig:Timestomp_mace_change}.
 
 \begin{figure}[htb]
   \centering
@@ -141,14 +145,14 @@ Para \cite{HALL2011} um dos principais desafios na análise de \emph{timeline} en
 
 \section{Retirar arquivos conhecidos}
 
-No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. Comparando os hashes dos arquivos com essas bases é possível retirar todos os arquivos conhecidos que são seguros, como arquivos do sistema operacional e também arquivos conhecidamente maliciosos diminindo o escopo que o perito deve trabalhar.
-
 No passo anterior foram retirados \emph{hashes} dos arquivos encontrados e eles podem ser comparados com bases de hashes ou \emph{hashset} conhecidos, como os fornecidos pelo \emph{National Software Reference Library (NSRL)} \footnote{http://www.nsrl.nist.gov/Downloads.htm} fornecidos pelo NIST. 
 Comparando os hashes dos arquivos com \emph{hashset} de arquivos conhecidos é possível retirar todos os arquivos conhecidos maliciosos também conhecidos como \emph{known bad} ou arquivos inequivocamente bons (\emph{known good}) como os do sistema operacional, diminindo o escopo que o perito deve trabalhar. 
-O processo para se fazer esse processo é bem simples, uma vez com o \emph{hashset} dos arquivos do disco investigado, o perito precisa apenas compara-los com os \emph{hashsets} de arquivos conhecidos.
+O processo é bem simples, uma vez com o \emph{hashset} dos arquivos do disco investigado, o perito precisa apenas compara-los com os \emph{hashsets} de arquivos conhecidos.
 
 Para evitar ou atrapalhar esse processo o rootikit teria que ter o mesmo hash de um arquivo dito como bom. 
-Seguindo os preceitos do Paradoxo do aniversário que mostra a probabilidade de duas pessoas numa sala terem o mesmo aniversário, \cite{JEFF2011} apresenta a formula: $1 - e^{\frac{-k(k-1)}{2N}}$, onde N é a quantidade de valores distintos que o hash pode apresentar e k é o tamanho do valor sequencial comparado, exemplo na sequencia: $0001_2$, $0010_2$, $0011_2$ e $0100_2$, o tamanho seria $0100_2$. A tabela \ref{tab:hash-coll} mostra probabilidade de uma colisão de hash numa repetição uniforme e sequencial.
+Seguindo os preceitos do paradoxo do aniversário que mostra a probabilidade de duas pessoas numa sala terem o mesmo aniversário, \citeonline{JEFF2011} apresenta a formula: $1 - e^{\frac{-k(k-1)}{2N}}$, onde N é a quantidade de valores distintos que o hash pode apresentar e k é o tamanho do valor sequencial comparado, exemplo na sequencia: $0001_2$, $0010_2$, $0011_2$ e $0100_2$, o tamanho seria $0100_2$. A tabela \ref{tab:hash-coll} mostra probabilidade de uma colisão de hash numa repetição uniforme e sequencial.
+
+\pagebreak
 
 \begin{table}[htb]
   \centering  
@@ -164,9 +168,9 @@ Seguindo os preceitos do Paradoxo do aniversário que mostra a probabilidade de d
   \label{tab:hash-coll}
 \end{table}
 
-Perceba, que o número é sequencial, ou seja, com valores aleatórios, como os encontrados em discos isso é improvável. as chances de um valor arbitrário (como o rootkit) coincidir com o hash de um arquivo bom são improváveis, contudo não impossíveis, como pode ser visto no trabalho dos chineses Xiaoyun Wang e Hongbo Yu da Universidade de Shandong em 2005 \cite{XIAOYUN2005}, no trabalho eles desenvolvem um algoritmo que pode ser usado para criar arquivos arbitrários com o mesmo hash MD5, mesmo assim essa técnica é muito complexa, pois mesmo em MD5 tornar um rootkit igual a algum arquivo do bom é bem dificil e além disso não se tem noticias de nenhum algoritmo que faça com que o hash de um arquivo seja o mesmo que de outro em dois algoritmos diferentes, exemplo SHA1 e MD5. 
+O hash de um valor arbitrário (como o rootkit) coincidir com o hash de um arquivo bom é improvável, contudo não impossível, como pode ser visto no trabalho dos chineses Xiaoyun Wang e Hongbo Yu da Universidade de Shandong em 2005 \cite{XIAOYUN2005}, no trabalho eles desenvolvem um algoritmo que pode ser usado para criar arquivos arbitrários com o mesmo hash MD5, mas isso pode ser facilmente resolvido utilizando mais de um algoritmo como por exemplo SHA1 e MD5. 
 
-Outra forma que o rootkit pode se valer para anular essa técnica, de forma menos sofisticada é alterar partes não significantes de arquivos do computador, como na mensagem mostrada do cabeçalho da \emph{PE}, pois mudar qualquer uma das letras da mensagem altera também o hash do mesmo, contudo isso fugiria de uma regra básica dos rootkits que é ficar indetectável. No fim das contas esse método é recomendado por sua grande utilidade e dificilmente um rootkit tentará ou consiguirá perverte-lo, entretanto vale as ressalvas apresentadas.
+Outra forma que o rootkit pode se valer para anular essa técnica, é alterar partes não significantes de arquivos do computador, como na mensagem mostrada do cabeçalho da \emph{PE}, pois mudar qualquer uma das letras da mensagem altera também o hash do mesmo, contudo isso fugiria de uma regra básica dos rootkits que é ficar indetectável. No fim das contas esse método é recomendado por sua grande utilidade e dificilmente um rootkit tentará ou consiguirá perverte-lo, entretanto vale as ressalvas apresentadas.
 
 % explica o attack http://www.codeproject.com/Articles/11643/Exploiting-MD5-collisions-in-C e http://www.mscs.dal.ca/~selinger/md5collision/
 
@@ -182,17 +186,20 @@ Outra forma que o rootkit pode se valer para anular essa técnica, de forma menos
 
 \section{Análise estática dos executáveis suspeitos desconhecidos}
 
-Análise estática é a analise do código de determinado malware para se ter uma melhor compreensão sobre suas funções, características e objetivos \cite{DISTLER2007}. Depois de filtrar os arquivos conhecidos o perito deverá iniciar a análise estática de alguns arquivos suspeitos, certamente analisar todos os arquivos desconhecidos levaria muito tempo, inviabilizando na maioria dos casos a pericia. 
+Análise estática é a analise do código de determinado malware para se ter uma melhor compreensão sobre suas funções, características e objetivos \cite{DISTLER2007}. Depois de filtrar os arquivos conhecidos o perito deverá iniciar a análise estática de alguns arquivos suspeitos.
+Certamente analisar todos os arquivos desconhecidos levaria muito tempo, inviabilizando na maioria dos casos a pericia. 
 O ideal nesse momento é filtrar dentre os arquivos desconhecidos os que são potenciamente maliciosos, para isso o especialista deverá ficar atendo principalmente a binários. Arquivos suspeitos são encontrados em todas as fases apresentadas, principalmente na recuperação de arquivos e na coleta de metadados, essas fases podem ajudar e muito a levantas suspeitas de arquivos, por exemplo, porque um arquivo de imagem com assinatura de jpg tem 2GB?
 
-A fase onde são retirados os arquivos conhecidos, pode revelar programas conhecidamente maliciosos, esses arquivos podem ser investigados nessa fase também, para responder a pergunta primordial que é: esse código malicioso poderia subverter o(s) sistema(s) analisado? A resposta vai depender muito do tipo de ambiente analisado, pois se o ambiente for muito seguro, dificilmente uma ameaça qualquer conseguiria persistir, além do fato de que as chances de um rootkit desenvolvido por um \emph{APT} estar em qualquer base de arquivos conhecidos é mínima. 
+A fase onde são retirados os arquivos conhecidos, pode revelar programas conhecidamente maliciosos, esses arquivos podem ser investigados nessa fase também, para responder a pergunta primordial que é: esse código malicioso poderia subverter o(s) sistema(s) analisado? A resposta vai depender muito do tipo de ambiente analisado, pois se o ambiente for muito seguro, dificilmente uma ameaça qualquer conseguiria persistir, além do fato de que as chances de um rootkit \emph{APT} estar em qualquer base de arquivos conhecidos é mínima. 
 
 De qualquer forma apesar da resposta óbvia ser em sua grande maioria verdadeira, o perito não pode aceita-la resoluto se apegando a qualquer evidência solta ou mal compreendida, porque existe a chance, mesmo que mínima de que o artefato malicioso encontrado tenha sido plantado. Esse texto percore sobre rootkit e sempre tenderá ao pior dos cenários, contudo cautela e bom senso é vital.
 
-A antiforense de processos de análise estática, consiste em impedir que o(s) código(s) do rootkit sejam analisados, para isso é comum que se use compreensão e criptografia nos arquivos do rootkit. Essa compreensão e/ou criptografia utilizada em qualquer código, sendo ele malicioso ou não, mexe com a estrutura do arquivo e o torna irreconhecível, de modo que não pode ser executado normalmente. 
-Técnicas como essa são muito utilizadas por \cite{malwares} para não serem detectados por antivirus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado. Para resolver esse problema existe o \emph{stub}.  
+\subsection{Packer}
 
-Um \emph{packer} é um programa que comprime um executável dentro de uma estrutura anormal e menor, de forma análoga a um programa de compactação de arquivos para o vulgamente chamado \emph{zip} só que com executáveis. Com \cite{PETRI2012} e \cite{BH2009} é possível entender como funciona um packer, mas especificamente o \emph{Ultimate Packer for eXecutables (UPX)} \footnote{http://upx.sourceforge.net/} é um \emph{packer} que suporta diversos tipos de executáveis de diversos ambientes como mostra a tabela \ref{tab:upx-comp}. 
+A antiforense de processos de análise estática, consiste em impedir que os códigos do rootkit sejam analisados, para isso é comum que se use compreensão e criptografia nos arquivos do rootkit. Essa compreensão e/ou criptografia utilizada em qualquer código, sendo ele malicioso ou não, mexe com a estrutura do arquivo e o torna irreconhecível, de modo que não pode ser executado normalmente. 
+Técnicas como essa são muito utilizadas por \emph{malwares} para não serem detectados por antivirus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado. Para resolver esse problema existe o \emph{stub} que será explicado abaixo.  
+
+Um \emph{packer} é um programa que comprime um executável dentro de uma estrutura anormal e menor, de forma análoga a um programa de compactação de arquivos para o vulgamente chamado \emph{zip} só que com executáveis. Com \citeonline{PETRI2012} e \citeonline{BH2009} é possível entender como funciona um packer, mas especificamente o \emph{Ultimate Packer for eXecutables (UPX)} \footnote{http://upx.sourceforge.net/} que é um \emph{packer} que suporta diversos tipos de executáveis de diversos ambientes como mostra a tabela \ref{tab:upx-comp}. 
 
 \begin{table}[htb]
   \centering  
@@ -206,7 +213,6 @@ Um \emph{packer} é um programa que comprime um executável dentro de uma estrutur
       i086-dos16.com & DOS 16-bit .com file  \\ \hline
       i086-dos16.exe & DOS 16-bit executable  \\ \hline
       i086-dos16.sys & DOS 16-bit .sys file \\ \hline
-      i386-dos32.djgpp2.coff & DOS 32-bit COFF  \\ \hline
       i386-dos32.tmt.adam & DOS 32-bit executable \\ \hline
       i386-dos32.watcom.le & DOS 32-bit linear executable  \\ \hline
       i386-win32.pe & Windows 32-bit executable or DLL \\ \hline
@@ -219,7 +225,7 @@ Ao lidar com executáveis Windows principalmente \emph{PE}, será encontrado uma e
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/pe-sections.png}
+  \includegraphics[scale=0.45]{figuras/pe-sections.png}
   \caption{Hello World - PIMAGE SECTION HEADER \cite{PETRI2012}}
   \label{fig:pe-sections}
 \end{figure}
@@ -231,14 +237,17 @@ O \emph{stub} descompacta o \emph{payload} que nesse caso é o executável origina
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/upx-sections.png}
+  \includegraphics[scale=0.4]{figuras/upx-sections.png}
   \caption{Packed Hello World - PIMAGE SECTION HEADER \cite{PETRI2012}}
   \label{fig:upx-sections}
 \end{figure}
 
-A seção upx0 é basicamente espaço vazio que ocuparão na memória, o upx1 é onde fica o \emph{stub} e o executável original compactado. O \emph{stub} irá descompactar o executável original o inserindo no espaço vazio utilizado pela seção upx0 que ficam na \emph{low memory} e executado-o, dessa forma o \emph{stub} que fica logo acima na parte da memória também é sobrescrito durante o processo. Como pode ser percebido pela pecularidade o executável original não pode ser análisado enquanto estiver compactado.
+A seção upx0 é basicamente espaço vazio que ocuparão na memória, o upx1 é onde fica o \emph{stub} e o executável original compactado. O \emph{stub} irá descompactar o executável original o inserindo no espaço vazio utilizado pela seção upx0 que ficam na \emph{low memory} e executado-o, dessa forma o \emph{stub} que fica logo acima na parte da memória também é sobrescrito durante o processo.
+
+\subsection{Bytecode}
 
 Outra forma de impossibilitar a análise estática, é compilar o rootkit em algum \emph{bytecode}, que são interpretados por alguma \emph{virtual machine} de forma análoga com código feito em Java e/ou .Net, ou seja, o código escrito em geral em uma linguagem de alto nível é compilado para algum tipo de \emph{bytecode}, conhecidos como o \emph{Java bytecode} ou o \emph{.Net bytecode}, ou até mesmo algum \emph{bytecode} privado. Em qualquer uma dessas possibilidades, o ambiente que o mesmo ira ser executado deverá ter a \emph{virtual machine}, porque será ela que irá interpretar o \emph{bytecode} e traduzir para instruções que o processador compreende.
+
 As complicações para o uso dessa abordagem envolve que necessariamente o criador do rootkit terá que utilizar uma \emph{virtual machine} para interpretar o \emph{bytecode} em tempo de execução, caso seja feito em algum \emph{bytecode} conhecido, o rootkit vai ser facilmente decompilado, mas se usar um \emph{bytecode} privado o mesmo irá ter que criar a \emph{virtual machine} privada também o que demanda muito tempo, mas em compensação dificulta muito o trabalho do perito, que antes de analisar o código terá que entender e decompilar a \emph{virtual machine}. Da mesma forma que o código compactado, o código em \emph{bytecode} não possui instruções conhecidas, logo ferramentas ou até mesmo o processador não o interpreta. 
 
 Esses foram dois metódos que podem ser utilizados para evitar ou complicar o processo de análise estática. Técnicas como essa podem ser usadas por programas legitimos também como é o caso do skype \cite{NEEDLE2006}. O importante é entender que não importa o que o rootkit pode usar, mas ele sempre vai ter que ter uma estrutura padrão para sua execução e que quanto mais baixo o nível de execução menos o rootkit pode fazer para se esconder, menos ele precisa efetivamente para se esconder e mais controle ele consegue do sobre o sistema infectado, por exemplo, se um rootkit roda desde a inicialização da \emph{BIOS}, quando o sistema operacional for executado o rootkit já está sendo executado.
@@ -247,21 +256,19 @@ Esses foram dois metódos que podem ser utilizados para evitar ou complicar o pro
 
 As técnicas de antiforense mostradas na análise estática podem ser combinadas dificultando ainda mais a análise e tornar o trabalho tão demorado que é proíbitivo continuar, contudo o \emph{stub} tem a chave para decodificar o binário, nesses casos a análise dinâmica pode acelerar o processo. O objetivo da análise dinâmica é o mesmo da análise estática apesar dos metódos diferentes \cite{DISTLER2007}.
 
-Existe muitas formas e técnicas aplicavéis a análises dinâmicas, como análise do tráfego, análise da memória, análise dos processos, análise do registro do Windows etc, essa análise é bem diferente da que pode ser feita no ambiente infectado, mesmo que sejam usados técnicas e ferramentas bem parecida, porque a primeira, como já foi dito, pode ter total controle sobre o ambiente ao contrário do segundo tipo que o perito prepara o ambiente e monitora. 
-Nesse caso, quem chega primeiro tem todas as vantagens, seja o perito investigando um ambiente comprometido ou seja o rootkit executado em um ambiente preparado pelo perito. No primeiro caso talvez fosse mais indicado a uma resposta a incidentes, onde se precise em muito pouco tempo descobrir o que esta acontecendo.
+Existe muitas formas e técnicas aplicavéis a análises dinâmicas, como análise do tráfego, análise da memória, análise dos processos, análise do registro do Windows etc, essa análise é bem diferente da que pode ser feita no ambiente infectado (análise \emph{live}), mesmo que sejam usados técnicas e ferramentas bem parecida, porque a primeira, como já foi dito, o rootkit tem todas as vantagens e pode ter total controle sobre o ambiente ao contrário do segundo tipo que o perito prepara o ambiente e monitora. 
+Nesse caso, quem chega primeiro tem todas as vantagens, seja o perito investigando um ambiente comprometido ou seja o rootkit executado em um ambiente preparado pelo perito.
 
-Os \emph{packers} também são um empecilho nessa fase e tudo fica mais complicado quando é usado um \emph{packer} privado, pois nem todos se comportam como o \emph{UPX}, de forma que o \emph{packer} pode dividir o código em diversos seções e cada uma delas pode haver uma chave criptogradada diferente. O rootkit pode ser programado para só executar no ambiente que ele infecta, por exemplo, ele pode usar verificações do hardware, ou ainda pode usar o \emph{hardware} como parte da senha para descompactar e/ou decriptar o binário original.
+Os \emph{packers} também são um empecilho nessa fase e tudo fica mais complicado quando é usado um \emph{packer} privado, pois nem todos se comportam como o \emph{UPX}, de forma que o \emph{packer} pode dividir o código em diversos seções e cada uma delas pode haver uma chave criptogradada diferente ou então o rootkit pode ser programado para só executar no ambiente que ele infecta, por exemplo, ele pode usar verificações do hardware, ou ainda pode usar o \emph{hardware} como parte da senha para descompactar e/ou decriptar o binário original.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/regiters.jpg}
+  \includegraphics[scale=0.5]{figuras/regiters.jpg}
   \caption{Registradores básicos IA32 \cite{WISMAN2012}}
-  \label{fig:regiters}
+  \label{fig:registers}
 \end{figure}
 
-O processador tem um registrador especial para \emph{flags} na arquitetura Intel de microprocessadores \emph{IA32} (figura \ref{fig:registers}), onde cada \emph{bit} desse registrador representa um \emph{flag} diferente, a diferença principal entre um processo comum e um que está sendo depurado é que o processo possuí o \emph{bit 8} ou \emph{Trap Flag (TF)} setada no registrador de \emph{flags} chamado de \emph{EFLAGS} (veja a figura \ref{fig:eflag}), de forma que o processador irá executar um instrução por vez, ignorando o paralelismo e \emph{pipeline} e a instrução tem que fazer o ciclo completo antes de executar a próxima instrução, desse jeito o processador permite que os registradores, memória e instruções possam ser verificadas a cada passo do mesmo, isso é garantido pelo processador e por si só já torna o trabalho do perito mais fácil, pois ao depurar o código o mesmo é capaz de entender o que se passa em cada passo \cite{WIKIDOT2010}. 
-No Windows tem métodos de verificar se o programa está sendo executado, como as do Windows SDK possui duas rotinas, \emph{WINAPI isDEBUggerPresent(void)} em  \emph{user-mode} e \emph{KdRefreshDebuggerNotPresent()} em  \emph{Kernel-mode} \cite{NICOLAS2007}, ou seja, o rootkit tem como identificar se está sendo depurado.
-
+O processador tem um registrador especial para \emph{flags} na arquitetura Intel de microprocessadores \emph{IA32} (figura \ref{fig:registers}), onde cada \emph{bit} desse registrador representa um \emph{flag} diferente, a diferença principal entre um processo comum e um que está sendo depurado é que este possuí o \emph{bit 8} ou \emph{Trap Flag (TF)} setada no registrador de \emph{flags} chamado de \emph{EFLAGS} (veja a figura \ref{fig:eflag}). 
 
 \begin{figure}[htb]
   \centering
@@ -270,5 +277,9 @@ No Windows tem métodos de verificar se o programa está sendo executado, como as 
   \label{fig:eflag}
 \end{figure}
 
-Outra forma utilizada para análise dinâmica é o uso de \emph{virtual machines} que facilitam muito o trabalho. Contudo existe também antivirtualizadores, ou seja, no código o rootkit pode verifica se está num ambiente virtualizado e não executar.
-Se o rootkit pode ter todas essas técnicas para evitar ser análisado dinâmicamente, contudo o mesmo principio persiste, o mesmo tem que executar de forma padrão, ou seja, o programa não pode evitar ser executado porque está num ambiente virtualizado ou mesmo porque está sendo depurado, contudo o mesmo pode e provavelmente irá verificar isso, fazendo com que o perito precise mudar o fluxo de execução para força-lo a executar em tais circunstancias.
+No modo de \emph{debug} o processador irá executar um instrução por vez, ignorando o paralelismo e \emph{pipeline} forçando um ciclo de processamento completo antes de executar a próxima instrução, desse jeito o processador permite que os registradores, memória e instruções possam ser verificadas a cada passo \cite{WIKIDOT2010}. 
+
+O Windows tem métodos para verificar se o programa está sendo executado. O \emph{ Windows SDK} possui duas rotinas, \emph{WINAPI isDEBUggerPresent(void)} em  \emph{user-mode} e \emph{KdRefreshDebuggerNotPresent()} em  \emph{Kernel-mode} \cite{NICOLAS2007}, ou seja, o rootkit tem como identificar se está sendo depurado.
+
+O uso de \emph{virtual machines} que facilitam muito o trabalho durante a análise. Contudo existe também formas do rootkit verificar se está num ambiente virtualizado e não executar.
+Se o rootkit pode ter todas essas técnicas para evitar ser análisado dinâmicamente, contudo o rootkit tem que executar de forma padrão e para evitar ser executado porque está num ambiente virtualizado ou depurado ele pode e provavelmente irá verificar durante a execução fazendo com que o perito precise mudar o fluxo de execução para força-lo a executar em tais circunstancias.

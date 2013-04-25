@@ -44,61 +44,65 @@ Como pode ser visto cada um desses agentes subversivos tem definições e caracter
 
 \section{Tipos de Rootkit}
 % Tipos
-Para \citeonline{PAROS2009} os rootkits podem ter quatro tipos:
+Para \citeonline{PAROS2009} os rootkits são divididos em quatro grupos:
 
 \begin{itemize}
-  \item Ring 3 (User-mode): são rootkit que operam acima do sistema operacional como um aplicativo, mudando um aplicativo padrão ou injetando código na memória na área reservada a aplicações \emph{user-mode};
-  \item Ring 0 (Kernel-mode): operam injetando código na área da memória reservada ao \emph{kernel}, adicionando código ao \emph{kernel} ou modificando \emph{drivers}, ou seja, esse tipo de rootkit roda no mesmo nível do \emph{kernel};
-  \item Hardware/Firmware based: os rootkit se instalam em \emph{firmwares} como os \emph{firmwares} das placas de rede ou placas de vídeo, de forma que rodam indepententes do sistema operacional; e
-  \item Virtualization based: feito para executar em ambientes virtualizados, estes rootkits executam junto ao sistema de virtualização para interceptar ou controlar as \emph{virtual machines}.
+  \item Ring 3 (\emph{user-mode}): são rootkit que operam acima do sistema operacional como um aplicativo, mudando um aplicativo padrão ou injetando código na memória na área reservada a aplicações \emph{user-mode};
+  \item Ring 0 (\emph{kernel-mode}): esse tipo de rootkit roda no mesmo nível do \emph{kernel} e operam injetando código na área da memória reservada ao \emph{kernel}, adicionando código ao \emph{kernel} ou modificando \emph{drivers};
+  \item Hardware/Firmware: os rootkit se instalam em \emph{firmwares} como os \emph{firmwares} das placas de rede ou placas de vídeo, de forma que rodam indepententes do sistema operacional; e
+  \item Virtualização: feitos para executarem em ambientes virtualizados, estes rootkits executam junto ao sistema de virtualização para interceptar ou controlar as \emph{virtual machines}.
 \end{itemize}
 
 Como pode ser notado, o tipo de ambiente onde o rootkit executa define o seu tipo, por exemplo, um rootkit que só executa em memória, será um \emph{user-mode} ou \emph{kernel-mode} rootkit dependendo do lugar na memória que o mesmo irá utilizar.
 
-Assim que o rootkit tem acesso \emph{root} como ele consegue ficar oculto ao mesmo tempo que ele monitora o usuário e permite o controle externo? Mater o controle sobre o usuário permite manter o rootkit escondido, pois controle e comando remoto não é um grande diferencial do rootkit e sim esconder-se e consequentimente esconder o que faz. \citeonline{BUTLER2006} mostra em seu trabalho técnicas para manter o rootkit oculto, para isso o mesmo deve ganhar controle sobre a execução e/ou manipular o dados do \emph{kernel}.
+Mater o controle sobre o usuário permite ao rootkit continuar escondido. \citeonline{BUTLER2006} mostra em seu trabalho técnicas para manter o rootkit oculto, para isso o mesmo deve ganhar controle sobre a execução e/ou manipular o dados do \emph{kernel}.
 
 \section{Controle Sobre Execução}
 
-Para ganhar controle sobre a execução do sistema o rootkit pode substituir programas do sistema operacional por uma versão que faça o mesmo, mas que ignore a ação do rootkit ou redirecionar o fluxo de um chamada \emph{hook}.
+Para ganhar controle sobre a execução do sistema o rootkit pode substituir programas do sistema operacional por uma versão que faça o mesmo, mas que ignore a ação do rootkit ou redirecionar o fluxo de uma chamada \emph{hook}.
 
-\emph{Windows application programming interface (Windows API)} é uma interface da família Microsoft Windows descrita no \emph{Windows Software Development Kit (SDK)} que podem ser chamadas em \emph{user-mode} \cite{WINAPI2008}. 
-O \emph{Windows API functions} nada mais são do que funções expostas pelo \emph{Windows API} para uso de aplicativos em geral, por exemplo, quando um aplicativo feito para Microsoft Windows precisa fazer algo abstraído pelo sistema operacional, como por exemplo, criar arquivos, listar processos etc, o mesmo irá utilizar essas \emph{functions}, ou seja, cada linguagem de programação possui métodos ou \emph{functions} próprias para criar um arquivo, cada qual com sua sintaxe e pecularidades, contudo é bem provável que sejam apenas outra abstração e que na realidade o mesmo use a \emph{function \textbf{CreateFile}} dispinibilizada pelo \emph{Windows API} como explicado por \citeonline{MARK2012}.
+\emph{Windows application programming interface (Windows API)} é uma interface da família Microsoft Windows descrita no \emph{Windows Software Development Kit (SDK)} que podem ser chamadas em \emph{user-mode} \cite{WINAPI2008}.
+A \emph{Windows API} nada mais é do que um conjunto de funções expostas para uso de aplicativos em geral, por exemplo, quando um aplicativo feito para Microsoft Windows precisa fazer algo abstraído pelo sistema operacional, como por exemplo, criar arquivos, listar processos etc, o mesmo provavelmente irá utilizar essas \emph{functions} para tal tarefa.
+Apesar cada linguagem de programação possui métodos ou \emph{functions} próprias para criar um arquivo, cada qual com sua sintaxe e pecularidades, contudo é bem provável que sejam apenas outra abstração e que na realidade o mesmo use a \emph{function \textbf{CreateFile}} dispinibilizada pelo \emph{Windows API} \cite{MARK2012}.
 
-As \emph{Native system services ou system calls}, são serviços do sistema operacional não documentados que diferente das \emph{Kernel support functions ou routines} que são subrotinas do sistema operacional Microsoft Windows chamados apenas em \emph{kernel-mode}, essas são disponibilizados para uso em \emph{user-mode}. 
-Sendo inclusive chamados por \emph{functions} do \emph{Windows API}, por exemplo, \emph{\textbf{NtCreateUserProcess}} é o serviço interno do sistema que a \emph{function} \emph{\textbf{CreateProcess}} chama para criar novos processos no Microsoft Windows \cite[p. 4]{MARK2012}.
+\emph{Native system services ou system calls} são serviços do sistema operacional não documentados que são disponibilizados para uso em \emph{user-mode}, sendo inclusive chamados por \emph{functions} do \emph{Windows API}, por exemplo, \emph{\textbf{NtCreateUserProcess}} é o serviço interno do sistema que a \emph{function} \emph{\textbf{CreateProcess}} do \emph{Windows API} chama para criar novos processos. Já as chamadas \emph{Kernel support functions ou routines} também são subrotinas do sistema operacional Microsoft Windows, contudo essas são apenas chamadas em \emph{kernel-mode} \cite[p. 4]{MARK2012}.
 
 Ao criar um \emph{breakpoint} o processador redirecione o fluxo de determinado programa para outro para que o mesmo possa depurar \cite{WINDEB2013}. 
-Desse jeito ao incluir um \emph{breakpoint} em alguma \emph{function} do \emph{Windows API}, algum serviço do \emph{Native system services ou system calls} ou chamada do \emph{Kernel support functions ou routines} o rootkit recebe o controle da execução desses processo como se fosse um \emph{debugger}. 
+Desse jeito ao incluir um \emph{breakpoint} em alguma \emph{function} do \emph{Windows API}, algum serviço do \emph{system calls} ou ainda na chamada de uma \emph{routine} o rootkit recebe o controle da execução desses processo como se fosse um \emph{debugger}. 
 Como foi explicado anteriormente algumas dessas funções e/ou chamadas podem ser utilizadas tanto por rootkits que trabalham em \emph{user-mode} quanto pelos que trabalham em \emph{kernel-mode}. 
 
 Outra forma de \emph{hook} é interceptar chamadas a tabela de interrupções básicas. 
 Basicamente o processador pode receber dois tipos de exceções, uma gerada por hardware chamada de externa e interrupções geradas por programas \cite[p. 6-2 Vol. 3A]{INT64IA322011}. Essas interrupções podem variar, desde uma tecla sendo apertada pelo usuário, ou mudança de contexto do processador, ou até um \emph{chipset} da placa mãe informando que a tranferência entre o disco e a memória foi completado (DMA).
 
-A grosso modo, quando uma interrupção ou exceção ocorre o processador usa o endereço de memória armazenado no indice correspondente a interrupção lançada que por definição aponta para uma \emph{procedure} que trata a interrupção \cite{INT803861986}, ou seja, esse endereço na memória indica qual a \emph{procedure} especifica para a interrupção ou exceção que ocorreu. O rootkit pode interceptar uma chamada a tabela estrutura de dados com indices dessas tratativas como \emph{Interrupt Vector (IVT)} em modo real ou a \emph{Interrupt Descriptor Table (IDT)} em modo protegido, ambas com estruturas e funções similares, de forma que mude o fluxo de trativa.
+A grosso modo, quando uma interrupção ou exceção ocorre o processador usa o endereço de memória armazenado no indice correspondente a interrupção lançada que por definição aponta para uma \emph{procedure} que trata a interrupção \cite{INT803861986}, ou seja, esse endereço na memória indica qual é a \emph{procedure} especifica para a interrupção ou exceção que ocorreu. O rootkit pode interceptar uma chamada a tabela estrutura de dados com indices dessas tratativas como \emph{Interrupt Vector (IVT)} em modo real ou a \emph{Interrupt Descriptor Table (IDT)} em modo protegido, ambas com estruturas e funções similares, de forma que mude o fluxo de trativa.
 
 \section{Manipular Dados do Kernel}
 
 Outra forma do rootkit se manter oculto é manipular dados provindos da estrutura do \emph{kernel}, como mudar estruturas do mesmo desvinculando processo e drivers de listagens de processos ou ainda alterando tabelas de \emph{handle} \cite[p. 16]{BUTLER2006} esse que é o caso do rootkit para Microsoft Windows XP FU rootkit criado pelo pesquisar Jamie Butler, que manipula diretamente objetos do \emph{kernel} sem o uso de \emph{hook}, para isso ele muda os dados dentro da estrutura do \emph{EPROCESS} \cite[p. 4]{FLORIO2005}.
 
+\pagebreak
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/eprocess.png}
+  \includegraphics[scale=0.5]{figuras/eprocess.png}
   \caption{Processos vinculados \cite{FLORIO2005}}
   \label{fig:eprocess}
 \end{figure}
 
-O sistema operacional Microsoft Windows tem duas listas diferentes de todos os processos e \emph{thread}, todos eles são associados a uma estrutura \emph{EPROCESS} que é vinculada a processo prévio e o próximo, como pode ser visto na figura \ref{fig:eprocess} formando uma lista de processo (\emph{double-linked list}). O que o rootkits como o FU rootkit, também chamados de \emph{Direct Kernel Object Manipulation (DKOM)}, fazem é desvincular o processo desse lista como na figura \ref{fig:unlinked-process} \cite{FLORIO2005}.
+No sistema operacional Microsoft Windows todos os processos possuem uma estrutura \emph{EPROCESS} que é vinculada a um processo prévio e o um posterior, como pode ser visto na figura \ref{fig:eprocess} formando uma lista de processo (\emph{double-linked list}). O que o rootkits como o FU rootkit, também chamados de \emph{Direct Kernel Object Manipulation (DKOM)} fazem é desvincular o processo desse lista como na figura \ref{fig:unlink-process} \cite{FLORIO2005}.
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[scale=1]{figuras/unlink-process.png}
+  \includegraphics[scale=0.5]{figuras/unlink-process.png}
   \caption{Processo desvinculado \cite{FLORIO2005}}
   \label{fig:unlink-process}
 \end{figure}
 
-\section{Conclusão}
+\pagebreak
 
-\citeonline{GREG2005} diz que rootkits existem pelo mesmo motivo que grampos telefônicos ou espiões, existem para que pessoas possam saber ou controlar outras. Apesar de em teoria esses métodos serem facilmente compreendidos, na prática em um sistema operacional moderno como o Microsoft Windows 7 que possui inúmeras proteções, usar qualquer um desses métodos exige muita pesquisa. Por essa razão seu desenvolvimento exige conhecimentos profundos tanto de arquitetura de computadores quanto do funcionamento do sistema operacional que o mesmo pretende corromper tornando-o muito valioso. 
+\section{Considerações}
 
 Como foi mostrado de algum modo os rootkits sempre tentarão esconder sua presença e seus rastros, logo a antiforense faz é parte do seu conceito.
+\citeonline{GREG2005} dizem que rootkits existem pelo mesmo motivo que grampos telefônicos ou espiões, existem para que pessoas possam saber ou controlar outras. Apesar de em teoria esses métodos serem facilmente compreendidos, na prática em um sistema operacional moderno como o Microsoft Windows 7 que possui inúmeras proteções, usar qualquer um desses métodos exige muita pesquisa.
+Por essa razão o desenvolvimento de rootkits exige conhecimentos profundos tanto de arquitetura de computadores quanto do funcionamento do sistema operacional tornando-o muito valioso. 
+
