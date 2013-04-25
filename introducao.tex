@@ -1,65 +1,32 @@
+% ---------------------------------------------------------------------------------------------------- %
+%					ORIENTAÇÕES
+% ---------------------------------------------------------------------------------------------------- %
+% 	É a apresentação sucinta e objetiva do trabalho, fornecendo informações sobre sua natu-
+% reza, importância e critérios de elaboração, tais como: objetivos, métodos e procedimen-
+% tos seguidos.
+% Lendo a introdução, o leitor deve sentir-se esclarecido a respeito do conteúdo do trabalho,
+% assim como do raciocínio que foi desenvolvido.
+
 \chapter{Introdução}
 
 % ---------------------------------------------------------------------------------------------------- %
 %					ORIENTAÇÕES
 % ---------------------------------------------------------------------------------------------------- %
-%Na introdução você deve retomar os itens do projeto e deixar bem claros: tema, objetivos, justificativa, metodologia e se possível, quais serão os capítulos, ou seja, comentar o sumário, apresnetando o que fará em cada capítulo.
+%	Na introdução você deve retomar os itens do projeto e deixar bem claros: tema, objetivos, 
+% justificativa, metodologia e se possível, quais serão os capítulos, ou seja, comentar o sumário, 
+% apresnetando o que fará em cada capítulo.
 % ---------------------------------------------------------------------------------------------------- %
 
+O perito deve precaver-se de supor que situações mais corriqueiras tenham só e apenas a resposta mais obvia desse modo evitando que sejam subestimadas. 
+Além do conhecimento técnico e de foro que se espera de um perito, compreender que existem técnicas sofisticadas para destruir e/ou dificultar acesso a provas no ambito computacional é de fundamental necessidade para qualquer perito. 
+A combinação do uso de diversas técnicas avançadas com maestria se mostra realmente desafiadora, pois quando isso ocorre o artefato investigado pode estar preparado para ser investigado removendo rastros e evitando a crição de evidências.
 
-O rootkit é em geral é utilizado por atacantes avançados com fins maliciosos e oferece grande obstáculo para ser detectado, pois seu uso força o perito a ter um conhecimento amplo além de usar técnicas sofisticadas. Entender o seu funcionamento é determinande para uma pericia bem sucedida. 
-Esta monografia apresenta uma incursão na antiforense focada na utilização de rootkits em ambientes Microsoft Windows, visando mostrar o que é um rootkit e o que o mesmo pode fazer para evitar coleta ou análise de provas. 
+O rootkit é uma ferramenta utilizada por atacantes avançados com fins maliciosos e oferece grande obstáculo para ser detectado justamente por ser furtivo e sofisticado recurso de controle de sistemas operacionais.
+Seu uso força o perito a ter um conhecimento amplo e usar técnicas também sofisticadas para investiga-lo.
+Logo entender o seu funcionamento é determinande para uma pericia bem sucedida. 
 
-Técnicas podem ser usadas para ocultar ações, acobertalas ou destruir evidências, com rootkits usuários avançados pode disfarçar, dificultar ou impossíbilidar a ação de um perito forense computacional na obtenção de provas. 
-Para desenvolver esse tema foi utilizada vasta bibliografia, exemplos reais e estudo de técnicas de antiforense.
-
-
-\section{Objetivos}
-
-% ---------------------------------------------------------------------------------------------------- %
-% Que problemas o estudo do tema pode resolver? (PREPARAÇÃO PAR AO PROBLEMA DE PESQUISA E OBJETIVO)}
-% ---------------------------------------------------------------------------------------------------- %
-
-Pode esclarecer diversos tópicos obscuros a respeito do que pode ser encontrado em investigações forenses quando o perito se ve de frente com ameaças persistentes e elaboradas, ou seja, ajuda a resolver casos onde existiu antiforense.
-
-\subsection{Objetivo Geral}
-
-% ---------------------------------------------------------------------------------------------------- %
-%					ORIENTAÇÕES
-% ---------------------------------------------------------------------------------------------------- %
-%	É necessário apresentar o objetivo geral da pesquisa, ou seja, a meta proposta para a investigação, 
-% que deve ser coerente com a questão de pesquisa.
-% ---------------------------------------------------------------------------------------------------- %
-
-Apresentar o funcionamento de rootkits voltados para antiforense.
-
-\subsection{Objetivo Específico}
-
-% ---------------------------------------------------------------------------------------------------- %
-%					ORIENTAÇÕES
-% ---------------------------------------------------------------------------------------------------- %
-%	De forma complementar, os objetivos específicos, também presentes nesse item, constituem as etapas 
-% de trabalho que permitem alcançar o objetivo geral. Como os objetivos traduzem ações que serão executadas 
-% ao longo da pesquisa; a apresentação destes no texto requer a utilização de verbos no infinitivo.
-% ---------------------------------------------------------------------------------------------------- %
-
-Apresentar o que é ciência forense, para que serve a ciência forense, o que é computação forense e citar a legislação que garante a existência do perito no Brasil;
-Mostrar o que é antiforense computacional, categorizar os tipos de antiforense computacional  e descrever os tipos de computação forense; e
-Expor o que é um rootkit, como ele funciona e como ele pode impedir a formação de provas.
-
-\section{Descrição dos capítulos}
-
-Ao longo dos capítulos são desenvolvidos os conhecimentos para o entendimento do tema proposto, onde cada um foi dividido em um assunto específico. 
-Nos dois primeiros capitulos são mostrados conceitos introdutórios enquanto que e nos dois últimos iram mais a fundo no tema. 
-
-No primeiro capítulo \emph{Ciência Forense Computacional}, será mostrado uma visão ampla do que é a ciência forense, como ela é aplicada na computação, o que é um perito forense computacional e os respaldos legais para sua atuação. 
-No segundo capítulo \emph{Antiforense}, são apresentados conceitos e tipos de antiforense com suas respectivas explicações. 
-
-No terceiro capítulo \emph{Rootkit}, conduz a uma visão do funcionamento de um rootkit e algumas técnicas para subverter os sistema. o que é um malware e a diferenciação do que é virus, worm, botnet e rootkit. A origem do nome rootkit, o que significa ser o usuário root, os objetivos do rootkit, suas premissas, sua definição, o que um código precisa para ser considerado rootkit, um pouco da história do rootkit, tecnicas para subversao do sistema como hook de chamada, pathing, hook de memoria, tipos de rootkit. Overview do FU rootkit, que tipo de usuário usa rootkit.
-
-Por fim no quarto capítulo \emph{Análise de Rootkits} será apresentada a análise \emph{post mortem}, o porquê da escolha do tipo de análise em detrimento da análise \emph{live} e os passos para uma análise \emph{post mortem} que irá mostrar em cada etapa o que deve ser feito, técnicas antiforense para a fase especifica e o quão complicado e impactante ela é.
-
-\section{Metodologia}
+Esta monografia apresenta uma incursão na antiforense focada na utilização de rootkits em ambientes Microsoft Windows, visando mostrar o que é um rootkit e os principais empecilhos que o perito pode encontrar ao analisá-lo. 
+Para desenvolver esse tema foi utilizada vasta bibliografia e referências reais para melhor entendimento das técnicas de antiforense computacionais utilizadas ou idealizadas que podem ser utilizados por rootkits.
 
 \section{Justificativa}
 
@@ -71,55 +38,77 @@ Por fim no quarto capítulo \emph{Análise de Rootkits} será apresentada a análise
 % contribuições resultantes do trabalho proposto.
 % ---------------------------------------------------------------------------------------------------- %
 
-Por que invadir um país armado arriscando vidas de centenas se você pode destruir centrífugas de enriquecimento de urânio de forma sigilosa do outro lado do planeta? Conforme o mundo se digitalizou se digitalizaram-se também as suas ameaças, onde antes se podia ver mesmo que por instantes misseis ou bombas sendo lançada hoje temos inúmeras ameaças invisíveis que podem causar tanto estrago quanto, contudo pelo príncipio de Locard o problema dessas ameaças invisíveis é que elas podem não ser tão invisíveis assim, levando a procura de metodos antiforense mais eficazes.
+Conforme o mundo digitalizou-se, digitalizaram-se também as suas ameaças, onde antes se podia ver mesmo que por instantes misseis ou bombas sendo lançada hoje temos inúmeras ameaças invisíveis que podem causar tanto estrago quanto, contudo na luz do príncipio de Locard que diz que tudo que é tocado deixa vestigios.
+O perito deve estar preparado para a ação de um usuário avançado que conheça bem o sistema operacional atacado, comprometido ou usado. 
+Mesmo que não seja algo corriqueiro na rotina da grande maioria dos profissionais, encontrar um atacante de alto nível trará novos desafios e obstáculos tão pouco corriqueiros quanto. 
+Saber como dificultar ou impossibilitar o trabalho do perito é como ele poderá evitar a armadilha de achar que no corpo (corpo de delito) investigado não existe nada. 
 
-Durante a perícia o perito pode se deparar com um ataquante avançado que utiliza técnicas bem sofisticadas para esconder ou destruir evidências imposibilitando ou dificultando a obtenção de provas e comprometendo a qualidade das mesmas quando são obtidas. Para tal feito o ataquante pode se valer de rootkits.
+A figura \ref{fig:graph-root} mostra que quantidade de amostras únicas encontradas de rootkits entre 2009 e 2012 por trimestre nunca foi abaixo de 100 mil.
+Esses dados indicam que é uma ameaça real e constante. 
+Estudar o comportamento dos rootkits e entender como ele pode ser usado na antiforense, permite ao perito lidar corretamente com rootkits.
 
-Ao estudar o comportamento dos rootkits e entender como ele pode ser usado na antiforense, permite ao perito lidar corretamente com rootkits, como por exemplo,  desenvolvendo rotinas.
+\begin{figure}[htb]
+  \centering
+  \includegraphics[scale=0.5]{figuras/graph-root.png}
+  \caption{Amostras Rootkit únicas Descobertas \cite{MCAFEE2012}}
+  \label{fig:graph-root}
+\end{figure}
 
-O perito deve estar preparado para a ação de um usuário avançado que conheça bem o sistema operacional atacado, comprometido ou usado. Mesmo que não seja algo corriqueiro na rotina da grande maioria dos profissionais, encontrar um atacante de alto nível trará novos desafios e obstáculos tão poucos corriqueiros. Saber como dificultar ou impossibilitar o trabalho do perito é como ele poderá evitar a armadilha de achar que no corpo (corpo de delito) investigado não existe nada.
-
-Conhecendo como essas técnicas podem ser usadas o períto pode se precaver e saber agir no momento de detectar o uso dos mesmos. O perito deve tomar alguns cuidados na análise de computadores, pois o mesmo pode ter sido usado por um usuário avançado o que muda razoavelmente a sua abordagem.
+Conhecendo essas técnicas é uma forma de se precaver e saber como agir no momento de detectar o uso dos mesmos.
 Sendo assim, esse trabalho poderá ajudar a traçar um processo bem elaborado de trabalho que seja rápida e eficiente sem deixar brechas que permitam ou ajudem ações antiforenses. Com um processo bem definido o perito tende a diminuir o tempo de análise e um melhor aproveitamento das mesmas. Provendo mais qualidade com mais precisão.
 
+\section{Objetivos}
 
-\section{O Problema de Pesquisa}
+% ---------------------------------------------------------------------------------------------------- %
+% Que problemas o estudo do tema pode resolver? (PREPARAÇÃO PAR AO PROBLEMA DE PESQUISA E OBJETIVO)}
+% ---------------------------------------------------------------------------------------------------- %
+
+Esse estudo pode ajudar a esclarecer diversos tópicos obscuros a respeito do que pode ser encontrado em investigações forenses computacionais quando o perito se vê diante de ameaças persistentes e elaboradas como um rootkit e consequentimente pode ajudar a resolver casos onde foram feitas antiforense.
+
+\subsection{Objetivo Geral}
 
 % ---------------------------------------------------------------------------------------------------- %
 %					ORIENTAÇÕES
 % ---------------------------------------------------------------------------------------------------- %
-% 	O Problema de Pesquisa: (definir o problema na forma de uma pergunta): O problema de pesquisa 
-% constitui a questão central a ser respondida pela pesquisa e deve ser coerente com os objetivos 
-% propostos, bem como apresentar relação com a justificativa desenvolvida.
+%	É necessário apresentar o objetivo geral da pesquisa, ou seja, a meta proposta para a investigação, 
+% que deve ser coerente com a questão de pesquisa.
 % ---------------------------------------------------------------------------------------------------- %
 
-Técnicas podem ser usadas para ocultar processos ou ações. Como um rootkit funciona e como ele pode ser usado para antiforense?
+Apresentar um processo para análise \emph{post mortem} de computadores com Microsoft Windows e as principais técnicas antiforense que podem ser encontradas em cada fase do processo.
 
+\subsection{Objetivo Específico}
 
-% ---------------------------------------------------------------------------------------------------- %
-% Que repercussões e/ou contribuições o estudo do tema pode trazer no nível social, cultural e/ou 
-% econômico?(PREPARAÇÃO PARA A JUSTIFICATIVA E PROBLEMA DE PESQUISA)
-% ---------------------------------------------------------------------------------------------------- %
-
-Pode ajudar a traçar um processo bem elaborado de trabalho que seja rápida e eficiente sem deixar brechas que permitam ou ajudem ações antiforenses. Com um processo bem definido o perito tende a diminuir o tempo de análise e um melhor aproveitamento das mesmas. Provendo mais qualidade e mais precisam nas futuras análises.
-
-
-\section{Delimitações do Estudo}
 % ---------------------------------------------------------------------------------------------------- %
 %					ORIENTAÇÕES
 % ---------------------------------------------------------------------------------------------------- %
-%	Apresentar o recorte estabelecido para a pesquisa.O foco.
+%	De forma complementar, os objetivos específicos, também presentes nesse item, constituem as etapas 
+% de trabalho que permitem alcançar o objetivo geral. Como os objetivos traduzem ações que serão executadas 
+% ao longo da pesquisa; a apresentação destes no texto requer a utilização de verbos no infinitivo.
 % ---------------------------------------------------------------------------------------------------- %
-Análise de rootkits em ambientes Windows 7 voltados para restringir ou destruir provas.
+Segue os objetivos específicos utilizados para alcançar o objetivo principal:
 
+\begin{itemize}
+  \item Apresentar o que é ciência forense, para que serve a ciência forense, o que é computação forense e citar a legislação que garante a existência do perito no Brasil;
+  \item Mostrar o que é antiforense computacional, categorizar os tipos de antiforense computacional  e descrever os tipos de computação forense;
+  \item Expor o que é um rootkit, como ele funciona e como ele pode impedir a formação de provas; e
+  \item Apresentar um processo de análise em fases.
+\end{itemize}
+ 
 
-\section{descricao dos capitulos} 
+\section{Descrição dos capítulos}
 
+Ao longo dos capítulos são desenvolvidos os conhecimentos para o entendimento do tema proposto, onde cada um foi dividido em um assunto específico.
 
-%O perito deve precaver-se de supor que situações mais corriqueiras tenham só e apenas a resposta mais obvia desse modo evitando que sejam subestimadas. Além do conhecimento técnico e de foro que se espera de um perito, compreender que existem técnicas sofisticadas para destruir e/ou dificultar acesso a provas no ambito computacional é de fundamental necessidade para qualquer perito. A combinação do uso de diversas técnicas avançadas com maestria se mostra realmente desafiadora, pois quando isso ocorre o artefato investigado pode estar preparado para ser investigado removendo rastros e evitando a crição de evidências.
+No capítulo \emph{Ciência Forense Computacional}, será mostrado uma visão ampla do que é a ciência forense, como ela é aplicada na computação, o que é um perito forense computacional e os respaldos legais para sua atuação.
+
+No capítulo \emph{Rootkit}, conduz a uma visão do funcionamento de um rootkit, algumas técnicas para subverter os sistema, o que é um \emph{malware}, a origem do nome rootkit, o que significa ser o usuário root, os objetivos do rootkit, suas premissas e sua definição.
+Também será mostrado os tipos de rootkits e analisado duas categorias gerais que exemplificam como o rootkit pode se manter oculto.
+
+Por fim no último capítulo \emph{Análise de Rootkits}, será apresentado um processo de análise \emph{post mortem} com passos que irão mostrar em cada etapa o que deve ser feito, técnicas antiforense e o quão complicado e impactante ela é.
+
+% \section{Metodologia}
+% \section{descricao dos capitulos} 
 
 %Peritos em sua nobre luta diária podem se deparar, em uma das suas próximas empreitadas tão utéis para a sociedade, com algum artefato que tenham sido subvertido por alguém com o mesmo ou um maior conhecimento do que o seu sobre o corpo de delito periciado.
-
-
 
 %Portando em assuntos que fojem da mediocridade cotidiana e adentram nesse mundo instigante e revelador da análise de artefatos únicos, se faz necessário que quanto maior o desafio, maior deverá ser a dedicação e paixão do perito.

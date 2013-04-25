@@ -1,22 +1,21 @@
-\chapter*{Resumo}
+% ---------------------------------------------------------------------------------------------------- %
+%					ORIENTAÇÕES
+% ---------------------------------------------------------------------------------------------------- %
+% Resumo na língua vernácula
+% Elemento obrigatório, consiste na apresentação concisa dos pontos relevantes do texto.
+% Elaborado em português, põe em evidência as matérias mais importantes do conteúdo,
+% visando a fornecer, dessa forma, meios para a decisão do leitor sobre a conveniência, ou
+% não, de consultar o texto completo.
+% Redigido pelo próprio autor, contendo de 150 a 500 palavras e deve dar uma visão conci-
+% sa e clara do conteúdo, ou seja, as idéias principais do texto e as conclusões do trabalho.
+% Na apresentação, o resumo deve ser redigido em parágrafo único, utilizando-se espaço
+% de 1,5 cm, com frases claras e concatenadas e seguido das palavras mais representati-
+% vas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores (ANEXO AQ).
 
-Esta monografia é um estudo sobre antiforense com utilização de rootkits sendo desenvolvida como trabalho de conclusão de curso \emph{Latu sensu} em computação forense, pela Universidade Presbiteriana Mackenzie de São Paulo, visando mostrar como funciona um rootkit e como ele pode ser usado na antiforense. Definições de antiforense e rootkits com práticas comuns e históricos  junto com algumas formas de utilização demonstrarão que o uso combinado de técnicas antiforenses incorporadas a rootkits cria mecanimos de destruíção de provas de forma sistemática. 
 
 
+\begin{resumo}
+Esta monografia é um estudo sobre antiforense com utilização de rootkits visando mostrar como funciona um rootkit e como ele pode ser usado na antiforense. Definições de antiforense e rootkits com suas práticas comuns e respectivos históricos junto com algumas técnicas de subversão demonstrarão que o uso combinado de técnicas antiforenses incorporadas a rootkits cria mecanimos de destruíção de provas de forma sistemática e eficiênte. 
 
-
-\section*{Apenas didático}
-
-Professora Ivete, para fins didáticos e de melhoria na nossa comunicação eu deixo essa seção. Lembrando que ela será removida antes da entrega final, servindo apenas para demonstrar minha linha de racionío.
-
-Solicitado pela senhora nas correções: ``Apresente, de forma resumida, o tema, os objetivos, a metodologia e as hipóteses.''
-
-
-Tema: Esta monografia é um estudo sobre antiforense com utilização de rootkits [...]
-
-Objetivo: [...] mostrar como funciona um rootkit e como ele pode ser usado na antiforense.
-
-Metodologia é apresentar: Definições de antiforense e rootkits, suas práticas comuns e respectivos históricos junto com algumas técnicas de subversão [...]
-
-A Hipótose é que: [...] o uso combinado de técnicas antiforenses incorporadas a rootkits cria mecanimos de destruíção de provas de forma sistemática.
-
+\textbf{Palavras-chave:} antiforense, rootkit, forense, provas, evidências.
+\end{resumo}

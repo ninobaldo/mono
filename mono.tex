@@ -8,63 +8,91 @@
 \usepackage{psfrag}
 \usepackage[center]{caption2}
 \usepackage{amsmath}
-
-
-\include{newcomands}
+% \include{newcomands}
 
 \begin{document}
   \DeclareGraphicsRule{.eps.gz}{eps}{.eps.bb}{`gunzip -c #1}
 
-  % dados da monografia
+% ---------------------------------------------------------------------------------------------------- %
+%					DADOS
+% ---------------------------------------------------------------------------------------------------- %
+  
+  
+  \instituicao{Universidade Presbiteriana Mackenzie}
   \autor{Álvaro Vilobaldo Rios da Silva}
   \titulo{Antiforense com uso de rootkits}
-  \orientador{Ivete Irene dos Santos}
-  \comentario{Monografia de Conclusão de Curso apresentada à Universidade Presbiteriana Mackenzie de São Paulo como requisito parcial à obtenção do título de Especialista em Computação Forense do Curso Lato Sensu em Computação Forense} 
-% Trabalho de Conclusão de Curso apresentado
-% ao Departamento de Pós-Graduação da Fa-
-% culdade de Direito da Universidade do Estado
-% do Rio de Janeiro como requisito parcial para
-% obtenção do título de Especialista em Direito
-% do Consumidor
-  \instituicao{Universidade Presbiteriana Mackenzie}
   \local{São Paulo}
   \data{2013}
+  \orientador{Ivete Irene dos Santos}
+  \comentario{Monografia de Conclusão de Curso apresentada à Universidade Presbiteriana Mackenzie de São Paulo como requisito parcial à obtenção do título de Especialista em Computação Forense do Curso Lato Sensu em Computação Forense} 
 
-  % elementos pré-textuais
-  %   São chamados elementos pré-textuais aqueles que contêm 
-  % informações relacionadas com a identificação e a 
-  % utilização do trabalho.
+% ---------------------------------------------------------------------------------------------------- %
+%					ELEMENTOS PRÉ-TEXTUAIS
+% ---------------------------------------------------------------------------------------------------- %
+%   São chamados elementos pré-textuais aqueles que contêm informações relacionadas com a identificação
+% e a utilização do trabalho.
+% ---------------------------------------------------------------------------------------------------- %
 
   \include{capa}
-%   \include{lombada} % retirado por ser opcional
-  \include{folharosto} % pendente - falta ficha catalografica
-%   \include{errata}  % não foi necessário nenhuma errata até agora
-  \include{folhaaprovacao} % pendente - nome, assinatura e instituição dos membros componentes da banca examinadora
-
-
-%   \include{dedicatoria} % retirado por ser opcional
-  \include{epigrafe}
+%   \include{lombada}		% opcional
+  \include{folharosto}
+%   \include{errata}		% opcional
+  \include{folhaaprovacao}
+%   \include{dedicatoria}	% opcional
+%   \include{agradecimento}	% opcional
+%   \include{epigrafe}		% opcional
   \include{resumolinguavernacula}
   \include{resumolinguaestrangeira}
-  \include{ilustracoes}
-  \include{tabelas}
-  \include{abreviaturas}
+  \include{ilustracoes}		% opcional
+  \include{tabelas}		% opcional
+%   \include{abreviaturas}	% opcional
   \include{sumario} 
 
-  % elementos textuais
-  \include{introducao}	
-  % desenvolvimento
-    \include{cap_forense}
-%     \include{cap_antiforense} removido e adicionado como section na análise
-    \include{cap_rootkits}
-    \include{cap_rootkits_antiforense}
-  %\include{cap_analise}
-  %fim do desenvolvimento
+% ---------------------------------------------------------------------------------------------------- %
+%					ELEMENTOS TEXTUAIS
+% ---------------------------------------------------------------------------------------------------- %
+% 	Consistem na ordenação sistemática e lógica do conteúdo, tendo sua organização deter-
+% minada pela natureza do trabalho.
+% Apresentam os seguintes elementos obrigatórios:
+% · Introdução;
+% · Desenvolvimento;
+% · Conclusão(ões)
+% ---------------------------------------------------------------------------------------------------- %
+
+% ---------------------------------------------------------------------------------------------------- %
+% Introdução
+% ---------------------------------------------------------------------------------------------------- %
+
+  \include{introducao}
+
+% ---------------------------------------------------------------------------------------------------- %
+% Desenvolvimento
+% ---------------------------------------------------------------------------------------------------- %
+% Parte principal do texto, que contém a exposição ordenada e pormenorizada do assunto.
+% Divide-se em seções que variam em função da abordagem do tema e do método.
+% ---------------------------------------------------------------------------------------------------- %
+
+  \include{cap_forense}			% Ciência Forense Computacional
+  \include{cap_rootkits}		% Rootkit
+  \include{cap_rootkits_antiforense}	% Análise de Rootkits e Técnicas Antiforense
+
+% ---------------------------------------------------------------------------------------------------- %
+% Conclusão
+% ---------------------------------------------------------------------------------------------------- % 
+
   \include{conclusao}
 
-  % elementos pós-textuais
+% ---------------------------------------------------------------------------------------------------- %
+%					ELEMENTOS PÓS-TEXTUAIS
+% ---------------------------------------------------------------------------------------------------- %
+% São os elementos que complementam o trabalho e que se compõem na seguinte ordem:
+% · referências;
+% · glossário;
+% · apêndice(s);
+% · anexo(s);
+% · índice(s).
+% ---------------------------------------------------------------------------------------------------- %
   \include{referencia}
-  \include{glossario}
-  \include{apendiceanexos}
-
+%   \include{glossario}		% opcional
+%   \include{apendiceanexos}	% opcional
 \end{document}
