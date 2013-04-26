@@ -125,7 +125,7 @@ A análise da \emph{timeline} é um importante passo para todo processo tradiciona
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=1]{figuras/Timestomp-mace.jpg}
-  \caption{Arquivo com MAC time original \cite{IMGTIMEMC1}}
+  \caption{Arquivo com MAC time original \cite{IMGTIMEMC}}
   \label{fig:timestomp_mace}
 \end{figure}
 
@@ -134,7 +134,7 @@ Para \citeonline{HALL2011} um dos principais desafios na análise de \emph{timeli
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=1]{figuras/Timestomp-mace-change.jpg}
-  \caption{Utilização do timestomp \cite{IMGTIMEMC2}}
+  \caption{Utilização do timestomp \cite{IMGTIMEMC}}
   \label{fig:Timestomp_mace_change}
 \end{figure}
 
@@ -207,11 +207,8 @@ Um \emph{packer} é um programa que comprime um executável dentro de uma estrutur
   \hline
       \textbf{Nome completo} & \textbf{Descrição} \\ \hline
       amd64-linux.elf & Linux ELF \\ \hline
-      amd64-linux.kernel.vmlinux & Linux kernel \\ \hline
       arm-wince.pe & Windows CE executable or DLL \\ \hline
       fat-darwin.macho & Mac OS X executable \\ \hline
-      i086-dos16.com & DOS 16-bit .com file  \\ \hline
-      i086-dos16.exe & DOS 16-bit executable  \\ \hline
       i086-dos16.sys & DOS 16-bit .sys file \\ \hline
       i386-dos32.tmt.adam & DOS 32-bit executable \\ \hline
       i386-dos32.watcom.le & DOS 32-bit linear executable  \\ \hline
@@ -232,15 +229,15 @@ Ao lidar com executáveis Windows principalmente \emph{PE}, será encontrado uma e
 
 Depois de compactado o \emph{UPX}, deixa as seções do executável como o da figura \ref{fig:upx-sections}. O \emph{UPX} combina todas as seções .text, .data, .idata etc em uma única seções chamada upx1, onde tem uma \emph{stub} que descompacta o binário original.
 
-O que o \emph{UPX} faz é colocar o binário numa forma comprimida que o deixa com uma estrutura incomum ao ambiente de execução, logo as ferramentas de engenharia reversa como \emph{disassemblers} não conseguem interpretar e consequentimente o sistema operacional também não, contudo o \emph{UPX} também adiciona um executável capaz de descomprimir e executar o executável original em tempo de execução chamado de \emph{stub}.
-O \emph{stub} descompacta o \emph{payload} que nesse caso é o executável original e muda o controle do executável para o \emph{entry point} do binário original. 
-
 \begin{figure}[htb]
   \centering
   \includegraphics[scale=0.4]{figuras/upx-sections.png}
   \caption{Packed Hello World - PIMAGE SECTION HEADER \cite{PETRI2012}}
   \label{fig:upx-sections}
 \end{figure}
+
+O que o \emph{UPX} faz é colocar o binário numa forma comprimida que o deixa com uma estrutura incomum ao ambiente de execução, logo as ferramentas de engenharia reversa como \emph{disassemblers} não conseguem interpretar e consequentimente o sistema operacional também não, contudo o \emph{UPX} também adiciona um executável capaz de descomprimir e executar o executável original em tempo de execução chamado de \emph{stub}.
+O \emph{stub} descompacta o \emph{payload} que nesse caso é o executável original e muda o controle do executável para o \emph{entry point} do binário original. 
 
 A seção upx0 é basicamente espaço vazio que ocuparão na memória, o upx1 é onde fica o \emph{stub} e o executável original compactado. O \emph{stub} irá descompactar o executável original o inserindo no espaço vazio utilizado pela seção upx0 que ficam na \emph{low memory} e executado-o, dessa forma o \emph{stub} que fica logo acima na parte da memória também é sobrescrito durante o processo.
 
