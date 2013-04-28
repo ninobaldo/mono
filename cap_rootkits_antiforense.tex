@@ -211,9 +211,8 @@ De qualquer forma apesar da resposta óbvia ser em sua grande maioria verdadeira,
 \subsection{Packer}
 
 A antiforense de processos de análise estática, consiste em impedir que os códigos do rootkit sejam analisados, para isso é comum que se use compreensão e criptografia nos arquivos do rootkit.
-Essa compreensão e/ou criptografia utilizada em qualquer código, sendo ele malicioso ou não, mexe com a estrutura do arquivo e o torna irreconhecível, de modo que não pode ser executado normalmente. 
-Técnicas como essa são muito utilizadas por \emph{malwares} para não serem detectados por antivírus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado.
-Para resolver esse problema existe o \emph{stub} que será explicado abaixo.  
+Técnicas de compreensão e/ou criptografia são muito utilizadas por \emph{malwares} para não serem detectados por antivírus, contudo sua aplicação também implica que sem uma estrutura padrão ele não pode ser interpretado pelo ambiente em que será executado e como já foi mostrado o rootkit em algum momento deverá ter uma estrutura padrão para que o mesmo possa ser executado.
+Para resolver esse problema existe o \emph{stub} que será explicado abaixo.
 
 Um \emph{packer} é um programa que comprime um executável dentro de uma estrutura anormal e menor, de forma análoga a um programa de compactação de arquivos para o vulgarmente chamado \emph{zip} só que com executáveis.
 Com \citeonline{PETRI2012} e \citeonline{BH2009} é possível entender como funciona um \emph{packer}, mas especificamente o \emph{Ultimate Packer for eXecutables (UPX)} \footnote{http://upx.sourceforge.net/} que é um \emph{packer} que suporta diversos tipos de executáveis de diversos ambientes como mostra a tabela \ref{tab:upx-comp}. 
