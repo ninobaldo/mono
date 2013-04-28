@@ -11,11 +11,12 @@
 % Na apresentação, o resumo deve ser redigido em parágrafo único, utilizando-se espaço
 % de 1,5 cm, com frases claras e concatenadas e seguido das palavras mais representati-
 % vas do conteúdo do trabalho, isto é, palavras-chave e/ou descritores (ANEXO AQ).
-
+% ---------------------------------------------------------------------------------------------------- %
 
 
 \begin{resumo}
-Esta monografia é um estudo sobre antiforense com utilização de rootkits visando mostrar como funciona um rootkit e como ele pode ser usado na antiforense. Definições de antiforense e rootkits com suas práticas comuns e respectivos históricos junto com algumas técnicas de subversão demonstrarão que o uso combinado de técnicas antiforenses incorporadas a rootkits cria mecanimos de destruíção de provas de forma sistemática e eficiênte. 
+O uso de rootkits junto com algumas técnicas de subversão demonstrarão que o uso combinado de técnicas antiforenses incorporadas podem criar mecanismos de destruição de evidências de forma sistemática e eficiente. Esta monografia é um estudo sobre rootkits e antiforense com a visão de um perito computacional forense.
+Baseado no funcionamento e premissas do rootkit será apresentado um processo para análise \emph{post mortem} e as técnicas antiforenses em cada uma das suas etapas.
 
 \textbf{Palavras-chave:} antiforense, rootkit, forense, provas, evidências.
 \end{resumo}
